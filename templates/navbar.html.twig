@@ -1,0 +1,31 @@
+<div class="header" role="banner">
+    <div class="site-header">
+        <div class="logo">
+            <a href="{{ path('home') }}" title="Home">
+                <img src="{{ asset('img/mvc-logo.png') }}" class="logo" alt="logo">
+            </a>
+        </div>
+        {# <div class="title">
+            <a href="{{ path('home') }}" title="Link to main page">
+                <h1 class="site-title">Home</h1>
+            </a>
+        </div> #}
+        <a class="nav-toggle" id="nav-toggle" title="Toggle Menu" role="button" aria-controls="nav" aria-expanded="false"
+            tabindex="0">
+            <i class="fa fa-bars" aria-hidden="true" id="toggler"></i>
+            <span class="sr-only">Toggle Menu</span>
+        </a>
+    </div>
+    <div class="nav">
+        <div id="nav" role="navigation" tabindex="0">
+            <ul class="nav-ul">
+                <li><a href="{{ path('home') }}">Home</a></li>
+                <li><a href="{{ path('about') }}">About</a></li>
+                <li><a href="{{ path('report') }}">Report</a></li>
+                <li><a href="{{ path('lucky') }}">Lucky</a></li>
+                <li><a href="{{ path('api') }}">API</a></li>
+
+            </ul>
+        </div>
+    </div>
+</div>

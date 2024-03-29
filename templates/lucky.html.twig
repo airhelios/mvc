@@ -1,0 +1,16 @@
+{% extends "base_lucky.html.twig" %}
+
+{% block title %}Lucky{% endblock %}
+
+{% block body %}
+<div class="index center" style="background-image: url({{ asset('img/pexels-achira-751374.jpg') }})">
+
+    <h1 class="text-center">Lucky</h1>
+    <p class="text-center">Welcome to my awesome lucky .</p>
+    <p class="text-center">This is the current lucky number: {{ number }} </p>
+    <p class="text-center">This is the bonus number: </p>
+    
+    <img src="{{ asset('img/' ~ imgNumber  ~ '.png') }}" alt="dice" class="me fade-in">
+</div>
+
+{% endblock %}  
