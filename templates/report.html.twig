@@ -5,309 +5,44 @@
 {% block body %}
 <div class="index center">
 <h1 id="kmom01">Kmom01</h1></a>
+<p class="report">Jag känner till objektorientering från självstudier innan jag började på webbprogrammeringsutbildningen. Här under utbildningen så har jag och min kursare stött på objektorientering
+    litet under JavaScript-kursen och mer under OOP-kursen. Vi gick inte in i djupet på vad det är. Det finns en del koncept som (mig veterligen) inte fungerar så bra i Python och som ändå finns i 
+    språk som är baserade på OOP. Private/public/protected finns inte på samma sätt i Python. Arv är också mindre utförligt i Python än vad det är i exempelvis C#.
+</p>
+<p class="report">Mig veterligen så är PHP:s modell för klasser och objekt väldigt likt andra språkers modeller. Jag har inte djupdykt i de andra språken och inte heller i PHP under detta kmom. Men de typiska mönstrena finns här med:
+    <ul class="ul-report">
+        <li>Arv.</li>
+        <li>Konstruktor/destruktor.</li>
+        <li>Attribut.</li>
+        <li>Objekt.</li>
+        <li>Statiska variabler/konstanter.</li>
+        <li>Protected/private/public metoder och attribut. Normalfallet är att dessa ska vara private.</li>
+    </ul>
+</p>
 
+<p class="report">Min uppfattning om kodbasen/koden är att vi använder oss av MVC-designmönstret, med fokus på view och controller. Hittills finns det en del okända delar som jag inte är helt bekant med och
+    det sker saker på ett magiskt sett. Det här med att samla routes i olika controllers är jag inte van med. Vi har även flera mappar som heter controllers (i assets och i src). Jag förstår inte heller
+    hur encore fungerar än och jag är förvirrad över var bilderna ska placeras. Alla dessa saker skulle jag kunna ta mig tiden till att efterforska redan nu men min erfarenhet med tidigare kurser är 
+    att man fattar det till slut ändå. Det är bra att ha frågorna i bakhuvudet i alla fall, då kommer man undermedvetet söka efter svaren. I övrigt så har vi arbetat med MVC-mönstret innan i flera kurser
+     men kanske inte så djupt och medvetet som vi kommer arbeta med det nu.
+</p>
 
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
+<p class="report">De områden från <a href="https://phptherightway.com/">PHP The Right Way</a> jag först och främst hade velat lära mig mer om är Servers and Deployment samt Virtualization. Dessa områden är viktiga när man kan grunderna och vill
+    skapa en webbapplikation. Jag hade gärna också velat lära mig mer om felhantering (Errors and Exceptions), det känns som att det alltid är bra att kunna detta när man skapar kod för andras skull. 
+    Testing är ett område som vi kommer kolla på senare, det är också användbart. Design Patterns är ett intressant område, jag gillar när man pratar om koncept på ett generaliserat plan som går 
+att använda på andra områden.</p>
 
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
+<p class="report">Mina TIL för detta KMOM är:
+    <ul class="ul-report">
+        <li>Symfony är ett ramverk som Django/Flask/Express för att skapa webbapplikationer i PHP.</li>
+        <li>Det går att lägga routes i flera olika filer. Symfony känner igen dessa.</li>
+        <li>Även PHP kan skrivas objektorienterat.</li>
+        <li>MVC-mönstret verkar vara det bästa mönstret för att samordna koden i en webbapplikation.</li>
+        <li>Det är inte helt lätt att få Boostrap att fungera i Symfony 7.</li>
+        <li>Har lärt mig mer om MD-filer och hur man skriver en README-fil till sin <a href="https://github.com/airhelios/mvc">Github-repo</a>.</li>
+    </ul>
 
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-<h1 id="kmom02">Kmom02</h1></a>
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
-<p>Symmetri och balans är något som människor finner tilltalande och icke-balans bör ha ett syfte. 
-    Därför är det enklare att inte bryta mot symmetridesignprincipen, såvida det inte görs på ett kreativt sätt.</p>
-
-<p>Repetition är tidseffektivt för utvecklaren och har effekten att besökaren känner igen sig på sidan. 
-Det bidrar även till varumärket och sidans identitet. Det här är en naturlig designprincip att införliva på sin sida.</p>
-
-<p>Färg är en designprincip som kräver, av naturliga skäl, att ett beslut tas tidigt i utvecklandet av sidan. 
-Det är lätt att välja ut ett "good enough" färgschema som är baserat på olika nyanser av grått, svart, vitt, och 1-3 andra färger. 
-Att uppnå harmoni med färgerna och överträffa den gemene sidan är däremot svårt. Speciellt när färgerna kan ha olika symbolisk betydelse och när en speciell image eftersträvas. 
-Därför krävs det en iterationsprocess där olika färger testas mot varandra tills tillräckligt bra resultat uppnås. Att tillgänglighetsanpassa färgerna ökar svårighetsgraden med ett par nivåer, 
-vilket kan leda till att en sida kanske inte uppnår 100% i tillgänglighet.</p>
-
-<p>Typografin är enklare att bara följa "default"-läge på i och med att standardinställningarna är bra nog. Ett typsnitt med bra utseende, rätt radhöjd och teckenavstånd kan göra stor skillnad och 
-hjälpa till med att förstärka sidans image. Designen är inte bättre än sin svagaste länk och för att helhetsbilden inte ska brista så krävs det att typografin matchas mot övriga sidan.</p>
-
-<p>Hierarki och skala kommer också naturligt, det är givet att den mest relevanta informationen presenteras först och störst. För att göra sidan mindre enformig så kan designern sträva efter att 
-uppnå hierarkierna och skalan genom olika sätt. Ett hypotetiskt sätt för detta vore, att i en rad med fyra block, skapa ett block med framträdande drag som inte beror på skala eller ordning 
-(kanske ändrar man på bakgrundsfärgen). Då dras blicken naturligt dit först och blocket hamnar även högst upp i hierarkin bland sina grannar.</p>
-
-<p>Sidan är tillräckligt bra i relation till dess syfte och de begränsningar som funnits i utvecklingen. Ingen kund vill betala hur mycket som helst och sidan är 
-gjord i en grundkurs i design och användarvänlighet. Läggs ytterligare tid kommer de så viktiga detaljerna komma än mer till sin rätt och det är möjligt att 
-säkerställa att sidan fungerar perfekt vid alla upplösningar. Exempel på sådant som skulle kunna höja sidan ytterligare i en vidareutveckling: framtagning av 
-unika bilder där själva eventen syns och ytterligare utforskning av hur designprincipen negativt utrymme påverkar känslan i olika upplösningar (t.ex. runt vissa bilder). 
-Just hur viktigt bilder är för sidans uppfattning är något vi konstaterade i Uppdrag 5.</p>
-
-<p>Överlag så kan resultatet sammanfattas med att de mest påfallande designelementen är färg och principerna kring elementens storlek, 
-placering, hierarki med mera. Det som är viktigt att påpeka är att för att skapa en tilltalande sida så är detaljerna väldigt viktiga. 
-Det finns åtskilliga bra verktyg som hjälper vid design och skapande av sidor och som redan från början har en uttänkt plan på hur 
-designprinciperna ska utnyttjas. Detta bidrar dock till att det finns många sidor med liknande struktur och därför mindre minnesvärda. 
-Här blir detaljerna extra viktiga, de kan få en sida att bli mer tilltalande och stå ut från mängden.</p>
+</p>
 </div>
-
 
 {% endblock %}
