@@ -35,7 +35,7 @@ Documentation
 ----------------------------
 This project will be built in 7 steps. The aim is to fulfill all requirements from the course [Objektorienterade webbteknologier](https://www.bth.se/utbildning/program-och-kurser/kurser/20241/BEGJ7/). The requirements can be found [here](https://dbwebb.se/kurser/mvc-v2).
 
-The special setup for Symfony that is used in this project is based on [these documents](https://github.com/dbwebb-se/mvc/blob/main/example/symfony/README.md)
+The special setup for Symfony that is used in this project is based on [these documents](https://github.com/dbwebb-se/mvc/blob/main/example/symfony/README.md).
 
 Useful Commands
 ----------------------------
@@ -63,6 +63,6 @@ npm run build
 ```
 
 ```
-# Automatically update SCSS when changed.
+# Automatically update SCSS when changed
 npm run watch
 ```
