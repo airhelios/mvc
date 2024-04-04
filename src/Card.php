@@ -1,7 +1,8 @@
 <?php
-namespace App\Dice;
 
-class Dice
+namespace App\Card;
+
+class Card
 {
     protected $value;
 

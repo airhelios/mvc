@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Dice;
+namespace App\Card;
 
-use App\Dice\Dice;
+use App\Card\Card;
 
-class DiceHand
+class DeckOfCards
 {
     private $hand = [];
 
-    public function add(Dice $die): void
+    public function add(Card $die): void
     {
         $this->hand[] = $die;
     }
@@ -20,7 +20,7 @@ class DiceHand
         }
     }
 
-    public function getNumberDices(): int
+    public function getNumberCards(): int
     {
         return count($this->hand);
     }

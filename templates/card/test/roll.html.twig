@@ -1,0 +1,19 @@
+{% block main %}
+<h1>Roll a card</h1>
+
+<p>Here is the value of the card.</p>
+
+<ul>
+    <ul>
+            {% for card in card_string_array %}
+            <li>{{ card }}</li>
+        {% endfor %}
+</ul>
+
+<p>Try to roll 
+    <a href="{{ path('test_roll_num_cards', {num: 5}) }}">5</a>
+    or 
+    <a href="{{ path('test_roll_num_cards', {num: 10}) }}">10</a>
+    cards.
+</p>
+{% endblock %}
