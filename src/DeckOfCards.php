@@ -6,30 +6,70 @@ use App\Card\Card;
 
 class DeckOfCards
 {
-    private $hand = [];
 
-    public function add(Card $die): void
+    private  $deck = [];
+    private $values;
+
+    public function __construct()
     {
-        $this->hand[] = $die;
+        $values = range(1, 52);
+        shuffle($values);
+
+        for ($i = 0; $i < $values; $i++) {
+            $card = new Card();
+            $card->setValue($values[$i]);
+            $deck[] = $card;
+        }
     }
 
-    public function roll(): void
+    public function giveHand($num): array
     {
-        foreach ($this->hand as $die) {
-            $die->roll();
+        $hand = [];
+
+        for ($i = 0; $i < $num; $i++) {
+            if (sizeof($this->deck) > 0) {
+            $hand[] = array_pop($this->deck);
+            }
         }
+        return $hand;
+    }
+
+    
+    public function giveHandValues($num): array
+    {
+        $hand = [];
+
+        for ($i = 0; $i < $num; $i++) {
+            if (sizeof($this->deck) > 0) {
+            $hand[] = array_pop($this->deck);
+            }
+        }
+        return $hand;
+    }
+
+    
+    public function giveHandString($num): array
+    {
+        $hand = [];
+
+        for ($i = 0; $i < $num; $i++) {
+            if (sizeof($this->deck) > 0) {
+            $hand[] = array_pop($this->deck);
+            }
+        }
+        return $hand;
     }
 
     public function getNumberCards(): int
     {
-        return count($this->hand);
+        return count($this->deck);
     }
 
     public function getValues(): array
     {
         $values = [];
-        foreach ($this->hand as $die) {
-            $values[] = $die->getValue();
+        foreach ($this->deck as $card) {
+            $values[] = $card->getValue();
         }
         return $values;
     }
@@ -37,8 +77,8 @@ class DeckOfCards
     public function getString(): array
     {
         $values = [];
-        foreach ($this->hand as $die) {
-            $values[] = $die->getAsString();
+        foreach ($this->deck as $card) {
+            $values[] = $card->getAsString();
         }
         return $values;
     }

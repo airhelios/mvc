@@ -1,0 +1,6 @@
+{% extends "base.html.twig" %}
+{% block body %}
+{{ include('flash.html.twig') }}
+{{ dump(session) }}
+{{ dump(SESSION_GLOBAL) }}
+{% endblock %}

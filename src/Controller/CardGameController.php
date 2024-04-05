@@ -21,16 +21,18 @@ class CardGameController extends AbstractController
     #[Route("/game/card/test/roll", name: "test_roll_card")]
     public function testRollCard(): Response
     {
-        $die = new CardGraphic();
+        $card = new CardGraphic();
         $num = 1;  
 
         $card_array = array();
         $card_string_array = array();
     
         for ($i = 0; $i < $num; $i++) {
-            array_push($card_array, $die->roll());
-            array_push($card_string_array, $die->getAsString());
+            array_push($card_array, $card->roll());
+            array_push($card_string_array, $card->getAsString());
         }
+
+        var_dump($card_string_array);
 
         $data = [
             "card" => $card_array,
