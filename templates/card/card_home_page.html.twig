@@ -1,12 +1,11 @@
 {% extends "base.html.twig" %}
 {% block body %}
 
-card_start                 ANY      ANY      ANY    /game/card
-test_roll_card             ANY      ANY      ANY    /game/card/test/roll
-test_roll_num_cards        ANY      ANY      ANY    /game/card/test/roll/{num}
-test_cardhand              ANY      ANY      ANY    /game/card/test/cardhand/{num}
-card_init_get              GET      ANY      ANY    /game/card/init
-card_init_post             POST     ANY      ANY    /game/card/init
-card_play                  GET      ANY      ANY    /game/card/play
-card_roll                  POST     ANY      ANY    /game/card/roll
-card_save                  POST     ANY      ANY    /game/card/save
+            <ul class="nav-ul">
+                <li><a href="{{ path('card_start') }}">Start card</a></li>
+                <li><a href="{{ path('test_roll_card') }}">Test roll card</a></li>
+                <li><a href="{{ path('test_roll_num_cards') }}">Test roll card num</a></li>
+                <li><a href="{{ path('test_cardhand') }}">Test card hand</a></li>
+                <li><a href="{{ path('card_init_get') }}">Card init get</a></li>
+                <li><a href="{{ path('card_play') }}">Card play</a></li>
+            </ul>
