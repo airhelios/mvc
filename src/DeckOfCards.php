@@ -12,7 +12,7 @@ class DeckOfCards
 
     public function __construct()
     {
-        $values = range(1, 52);
+        $values = range(0, 51);
         shuffle($values);
 
         foreach($values as $val) {
@@ -82,7 +82,6 @@ class DeckOfCards
         }
         return $values;
     }
-
 
     public function getColor(): array
     {
