@@ -2,7 +2,8 @@
 {% block title %}Card Game Deck {{ page }}{% endblock %}
 {% block body %}
 <div class="index center">
-<h1>Deck {{ page }}</h1>
+<h1 >Deck {{ page }}</h1>
+<h2 class="card-num">There are {{ size }} cards in the deck.</h2>
 
 <p>
     {% for value in cards %}

@@ -4,10 +4,10 @@ namespace App\Card;
 
 use App\Card\Card;
 use App\Card\CardGraphic;
+
 class DeckOfCards
 {
-
-    private  $deck = [];
+    private $deck = [];
     private $values;
 
     public function __construct()
@@ -28,33 +28,33 @@ class DeckOfCards
 
         for ($i = 0; $i < $num; $i++) {
             if (sizeof($this->deck) > 0) {
-            $hand[] = array_pop($this->deck);
+                $hand[] = array_pop($this->deck);
             }
         }
         return $hand;
     }
 
-    
+
     public function giveHandValues($num): array
     {
         $hand = [];
         for ($i = 0; $i < $num; $i++) {
             if (sizeof($this->deck) > 0) {
-            $value = array_shift($this->deck);
-            $hand[] = $value->getValue();
+                $value = array_shift($this->deck);
+                $hand[] = $value->getValue();
             }
         }
         return $hand;
     }
 
-    
+
     public function giveHandString($num): array
     {
         $hand = [];
 
         for ($i = 0; $i < $num; $i++) {
             if (sizeof($this->deck) > 0) {
-            $hand[] = array_shift($this->deck);
+                $hand[] = array_shift($this->deck);
             }
         }
         return $hand;
@@ -83,7 +83,7 @@ class DeckOfCards
         return $values;
     }
 
-    
+
     public function getColor(): array
     {
         $values = [];
