@@ -1,9 +1,12 @@
 .api {
     transition-duration: 0.4s;
     text-decoration: underline;
+    cursor: pointer;
   }
   
   .api:hover {
     background-color: #04AA6D; /* Green */
     color: white;
+    font-weight: bolder;
+    cursor: pointer;
   }
