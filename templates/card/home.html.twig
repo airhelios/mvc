@@ -1,16 +1,18 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Pig Game{% endblock %}
+{% block title %}Card Game{% endblock %}
 
 {% block body %}
+<div class="index center">
 <h1>Links</h1>
-<ul class="nav-ul">
-    <li><a href="{{ path('card_start') }}">Start card</a></li>
-    <li><a href="{{ path('test_roll_card') }}">Test roll card</a></li>
-    <li><a href="{{ path('test_roll_num_cards', {num: '5'}) }}">Test roll card num</a></li>
-    <li><a href="{{ path('test_cardhand', {num: '5'}) }}">Test card hand</a></li>
-    <li><a href="{{ path('card_init_get') }}">Card init get</a></li>
-    <li><a href="{{ path('card_play') }}">Card play</a></li>
+<ul >
+    <li><a href="{{ path('card_start') }}">This page</a></li>
+    <li><a href="{{ path('deck_show') }}">Show sorted deck</a></li>
+    <li><a href="{{ path('deck_show_shuffle') }}">Shuffle deck</a></li>
+    <li><a href="{{ path('deck_show_unsorted') }}">Show unsorted deck</a></li>
+    <li><a href="{{ path('deck_draw') }}">Deck draw one</a></li>
+    <li><a href="{{ path('deck_draw_num', {num:'5'}) }}">Deck draw 5</a></li>
+    <li><a href="{{ path('deck_draw_num', {num: '10'}) }}">Deck draw 10</a></li>
 </ul>
-
+</div>
 {% endblock %}

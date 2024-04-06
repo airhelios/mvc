@@ -30,12 +30,19 @@ class Card
     {
         return $this->value;
     }
+    
 
     public function getAsString(): string
     {
-        $card_color = floor($this->value/13);
+        $card_color = floor(($this->value -1)/13);
         $card = $this->value % 13;
         // {self::COLORS[$card_number]}
         return self::CARDS[$card] . " of " . self::COLORS[$card_color];
+    }
+
+    public function getAsColor(): string
+    {
+        $card_color = floor(($this->value -1)/13);
+        return self::COLORS[$card_color];
     }
 }

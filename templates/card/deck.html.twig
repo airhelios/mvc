@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block title %}Card Game Deck {{ page }}{% endblock %}
+{% block body %}
+<div class="index center">
+<h1>Deck {{ page }}</h1>
+
+<p>
+    {% for value in cards %}
+        <div class="card {{cardColors[loop.index-1]}}">{{ value }}</div>
+    {% endfor %}
+</p>
+</div>
+{% endblock %}

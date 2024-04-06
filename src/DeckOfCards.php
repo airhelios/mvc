@@ -3,7 +3,7 @@
 namespace App\Card;
 
 use App\Card\Card;
-
+use App\Card\CardGraphic;
 class DeckOfCards
 {
 
@@ -15,10 +15,10 @@ class DeckOfCards
         $values = range(1, 52);
         shuffle($values);
 
-        for ($i = 0; $i < $values; $i++) {
-            $card = new Card();
-            $card->setValue($values[$i]);
-            $deck[] = $card;
+        foreach($values as $val) {
+            $card = new CardGraphic();
+            $card->setValue($val);
+            $this->deck[] = $card;
         }
     }
 
@@ -38,10 +38,10 @@ class DeckOfCards
     public function giveHandValues($num): array
     {
         $hand = [];
-
         for ($i = 0; $i < $num; $i++) {
             if (sizeof($this->deck) > 0) {
-            $hand[] = array_pop($this->deck);
+            $value = array_shift($this->deck);
+            $hand[] = $value->getValue();
             }
         }
         return $hand;
@@ -54,7 +54,7 @@ class DeckOfCards
 
         for ($i = 0; $i < $num; $i++) {
             if (sizeof($this->deck) > 0) {
-            $hand[] = array_pop($this->deck);
+            $hand[] = array_shift($this->deck);
             }
         }
         return $hand;
@@ -79,6 +79,16 @@ class DeckOfCards
         $values = [];
         foreach ($this->deck as $card) {
             $values[] = $card->getAsString();
+        }
+        return $values;
+    }
+
+    
+    public function getColor(): array
+    {
+        $values = [];
+        foreach ($this->deck as $card) {
+            $values[] = $card->getAsColor();
         }
         return $values;
     }

@@ -8,15 +8,15 @@ class CardHand
 {
     private $hand = [];
 
-    public function add(Card $die): void
+    public function add(Card $card): void
     {
-        $this->hand[] = $die;
+        $this->hand[] = $card;
     }
 
     public function roll(): void
     {
-        foreach ($this->hand as $die) {
-            $die->roll();
+        foreach ($this->hand as $card) {
+            $card->roll();
         }
     }
 
@@ -28,8 +28,8 @@ class CardHand
     public function getValues(): array
     {
         $values = [];
-        foreach ($this->hand as $die) {
-            $values[] = $die->getValue();
+        foreach ($this->hand as $card) {
+            $values[] = $card->getValue();
         }
         return $values;
     }
@@ -37,8 +37,16 @@ class CardHand
     public function getString(): array
     {
         $values = [];
-        foreach ($this->hand as $die) {
-            $values[] = $die->getAsString();
+        foreach ($this->hand as $card) {
+            $values[] = $card->getAsString();
+        }
+        return $values;
+    }
+    public function getAsColor(): array
+    {
+        $values = [];
+        foreach ($this->hand as $card) {
+            $values[] = $card->getAsColor();
         }
         return $values;
     }

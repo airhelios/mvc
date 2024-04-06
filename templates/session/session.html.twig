@@ -1,6 +1,9 @@
 {% extends "base.html.twig" %}
 {% block body %}
+<p>Session from Symfony</p>
+
 {{ include('flash.html.twig') }}
 {{ dump(session) }}
+<p>Session from $_SESSION</p>
 {{ dump(SESSION_GLOBAL) }}
 {% endblock %}

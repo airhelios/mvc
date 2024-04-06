@@ -1,5 +1,6 @@
 {% extends "base.html.twig" %}
 {% block body %}
+<div class="index center">
 <h1>Card game [PLAYING]</h1>
 
 <p>Roll the cards or save the points you have.</p>
@@ -11,7 +12,8 @@
 
 <p>
     {% for value in cardValues %}
-        <span class="card">{{ value }}</span>
+        <span class="card {{cardColors[loop.index-1]}}">{{ value }}</span>
+
     {% endfor %}
     </p>
     {{ include('flash.html.twig') }}
@@ -25,5 +27,5 @@
         onClick="this.form.action='{{ path('card_init_get') }}';this.form.method='get';">
     </p>
 </form>
-
+</div>
 {% endblock %}
