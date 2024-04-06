@@ -5,12 +5,23 @@
 {% block body %}
 <div class="index center text-center">
     <h1>Current API Routes</h1>
-    <p class="text-center">
+    <div class="text-center">
 
-        <p><a href="{{ path('api') }}">API</p>
-        <p><a href="{{ path('api_quote') }}">Quote</a></p>
-        </p>
+        <p><a href="{{ path('api') }}">API - this page</p>
+        <p><a href="{{ path('api_quote') }}">Quote - shows inspiring quotes or something</a></p>
+        <p><a href="{{ path('api_deck') }}">Show current deck sorted</a></p>
+        <form action="{{ path('api_show_shuffle') }}" method="post">
+            <button class ="api" type="submit">Shuffle current deck</button></form>
 
+        <form action="{{ path('api_show_unsorted') }}" method="post">
+            <button class ="api" type="submit">Show current deck unsorted</button></form>
+    
+        <form action="{{ path('api_draw') }}" method="post">
+            <button class ="api" type="submit">Draw one card</button></form>
+   
+        <form action="{{ path('api_draw_num', {num:'5'}) }}" method="post">
+            <button class ="api" type="submit">Draw 5 cards or more depending on slug-value</button></form>
+            </div>
 </div>
 
 {% endblock %}

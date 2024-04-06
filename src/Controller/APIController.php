@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +15,6 @@ class APIController extends AbstractController
     {
         return $this->render('api.html.twig');
     }
-
 
     #[Route('/api/quote', name:"api_quote")]
     public function api_quote(): Response

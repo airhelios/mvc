@@ -19,7 +19,146 @@ class CardGameController extends AbstractController
     {
         return $this->render('card/home.html.twig');
     }
-    // #region Tests
+
+    #[Route("/card/deck", name: "deck_show")]
+    public function card_show_deck(
+        SessionInterface $session
+    ): Response {
+
+        $deck = $session->get("deck") ?? new DeckOfCards();
+        $session->set("deck", $deck);
+        $cards = [];
+        $colors = [];
+        $values = $deck->getValues();
+        sort($values);
+
+        $card = new CardGraphic();
+
+        foreach($values as $index) {
+            $card->setValue($index);
+            $cards[] = $card->getAsString();
+            $colors[] = $card->getAsColor();
+
+        }
+        $count = $deck->getNumberCards();
+
+        $data = ["cards" => $cards,
+        "cardColors" => $colors,
+        "size" => $count,
+        "page" => "Sorted"];
+
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+    #[Route("/card/deck/shuffle", name: "deck_show_shuffle")]
+    public function card_show_shuffle(
+        SessionInterface $session
+    ): Response {
+        $deck = new DeckOfCards();
+        $session->set("deck", $deck);
+        $cards = [];
+        $colors = [];
+        $values = $deck->getValues();
+        $card = new CardGraphic();
+        $count = $deck->getNumberCards();
+
+        foreach($values as $index) {
+            $card->setValue($index);
+            $cards[] = $card->getAsString();
+            $colors[] = $card->getAsColor();
+        }
+
+        $data = ["cards" => $cards,
+                "cardColors" => $colors,
+                "size" => $count,
+               "page" => "Shuffle"]    ;
+
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+
+    #[Route("/card/deck/unsorted", name: "deck_show_unsorted")]
+    public function card_show_unsorted(
+        SessionInterface $session
+    ): Response {
+        $deck = $session->get("deck") ?? new DeckOfCards();
+        $session->set("deck", $deck);
+        $cards = [];
+        $colors = [];
+        $values = $deck->getValues();
+        $card = new CardGraphic();
+
+        foreach($values as $index) {
+            $card->setValue($index);
+            $cards[] = $card->getAsString();
+            $colors[] = $card->getAsColor();
+        }
+
+        $count = $deck->getNumberCards();
+
+        $data = ["cards" => $cards,
+                "cardColors" => $colors,
+                "size" => $count,
+               "page" => "Unsorted"];
+
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+    #[Route("/card/deck/draw", name: "deck_draw")]
+    public function card_draw(
+        SessionInterface $session
+    ): Response {
+        $deck = $session->get("deck") ?? new DeckOfCards();
+        $values = $deck->giveHandValues(1);
+        $session->set("deck", $deck);
+        $cards = [];
+        $colors = [];
+        $card = new CardGraphic();
+
+        foreach($values as $index) {
+            $card->setValue($index);
+            $cards[] = $card->getAsString();
+            $colors[] = $card->getAsColor();
+        }
+
+        $count = $deck->getNumberCards();
+
+        $data = ["cards" => $cards,
+                "cardColors" => $colors,
+                "size" => $count,
+               "page" => "Draw One"]    ;
+
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+    #[Route("/card/deck/draw/{num<\d+>}", name: "deck_draw_num")]
+    public function card_draw_num(
+        string $num,
+        SessionInterface $session
+    ): Response {
+        $deck = $session->get("deck") ?? new DeckOfCards();
+        $num = intval($num);
+        $values = $deck->giveHandValues($num);
+        $session->set("deck", $deck);
+        $cards = [];
+        $colors = [];
+        $card = new CardGraphic();
+
+        foreach($values as $index) {
+            $card->setValue($index);
+            $cards[] = $card->getAsString();
+            $colors[] = $card->getAsColor();
+        }
+        $count = $deck->getNumberCards();
+        $data = ["cards" => $cards,
+                "cardColors" => $colors,
+                "size" => $count,
+               "page" => "Draw One"]    ;
+
+        return $this->render('card/deck.html.twig', $data);
+    }
+
+        // #region Tests
     // #[Route("/card/test/roll", name: "test_roll_card")]
     // public function testRollCard(): Response
     // {
@@ -172,178 +311,40 @@ class CardGameController extends AbstractController
     //     return $this->redirectToRoute('card_play');
     // }
 
-    #region Card save
-    #[Route("/card/save", name: "card_save", methods: ['POST'])]
-    public function save(
-        SessionInterface $session
-    ): Response {
-        $roundTotal = $session->get("card_round");
-        $gameTotal = $session->get("card_total");
+    // #region Card save
+    // #[Route("/card/save", name: "card_save", methods: ['POST'])]
+    // public function save(
+    //     SessionInterface $session
+    // ): Response {
+    //     $roundTotal = $session->get("card_round");
+    //     $gameTotal = $session->get("card_total");
 
-        $session->set("card_round", 0);
-        $session->set("card_total", $roundTotal + $gameTotal);
-        $this->addFlash(
-            'notice',
-            'Your round was saved to the total!'
-        );
+    //     $session->set("card_round", 0);
+    //     $session->set("card_total", $roundTotal + $gameTotal);
+    //     $this->addFlash(
+    //         'notice',
+    //         'Your round was saved to the total!'
+    //     );
 
-        return $this->redirectToRoute('card_play');
-    }
+    //     return $this->redirectToRoute('card_play');
+    // }
 
-    #[Route("/card/save", name: "card_save")]
-    public function card_save_get(
-        SessionInterface $session
-    ): Response {
-        $roundTotal = $session->get("card_round");
-        $gameTotal = $session->get("card_total");
+    // #[Route("/card/save", name: "card_save")]
+    // public function card_save_get(
+    //     SessionInterface $session
+    // ): Response {
+    //     $roundTotal = $session->get("card_round");
+    //     $gameTotal = $session->get("card_total");
 
-        $session->set("card_round", 0);
-        $session->set("card_total", $roundTotal + $gameTotal);
-        $this->addFlash(
-            'notice',
-            'Your round was saved to the total!'
-        );
+    //     $session->set("card_round", 0);
+    //     $session->set("card_total", $roundTotal + $gameTotal);
+    //     $this->addFlash(
+    //         'notice',
+    //         'Your round was saved to the total!'
+    //     );
 
-        return $this->redirectToRoute('card_play');
-    }
-    #endregion
+    //     return $this->redirectToRoute('card_play');
+    // }
+    // #endregion
 
-
-    #[Route("/card/deck", name: "deck_show")]
-    public function card_show_deck(
-        SessionInterface $session
-    ): Response {
-
-        $deck = $session->get("deck") ?? new DeckOfCards();
-        $session->set("deck", $deck);
-        $cards = [];
-        $colors = [];
-        $values = $deck->getValues();
-        sort($values);
-
-        $card = new CardGraphic();
-
-        foreach($values as $index) {
-            $card->setValue($index);
-            $cards[] = $card->getAsString();
-            $colors[] = $card->getAsColor();
-
-        }
-        $count = $deck->getNumberCards();
-
-        $data = ["cards" => $cards,
-        "cardColors" => $colors,
-        "size" => $count,
-        "page" => "Sorted"];
-
-        return $this->render('card/deck.html.twig', $data);
-    }
-
-    #[Route("/card/deck/shuffle", name: "deck_show_shuffle")]
-    public function card_show_shuffle(
-        SessionInterface $session
-    ): Response {
-        $deck = new DeckOfCards();
-        $session->set("deck", $deck);
-        $cards = [];
-        $colors = [];
-        $values = $deck->getValues();
-        $card = new CardGraphic();
-        $count = $deck->getNumberCards();
-
-        foreach($values as $index) {
-            $card->setValue($index);
-            $cards[] = $card->getAsString();
-            $colors[] = $card->getAsColor();
-        }
-
-        $data = ["cards" => $cards,
-                "cardColors" => $colors,
-                "size" => $count,
-               "page" => "Shuffle"]    ;
-
-        return $this->render('card/deck.html.twig', $data);
-    }
-
-
-    #[Route("/card/deck/unsorted", name: "deck_show_unsorted")]
-    public function card_show_unsorted(
-        SessionInterface $session
-    ): Response {
-        $deck = $session->get("deck") ?? new DeckOfCards();
-        $session->set("deck", $deck);
-        $cards = [];
-        $colors = [];
-        $values = $deck->getValues();
-        $card = new CardGraphic();
-
-        foreach($values as $index) {
-            $card->setValue($index);
-            $cards[] = $card->getAsString();
-            $colors[] = $card->getAsColor();
-        }
-
-        $count = $deck->getNumberCards();
-
-        $data = ["cards" => $cards,
-                "cardColors" => $colors,
-                "size" => $count,
-               "page" => "Unsorted"];
-
-        return $this->render('card/deck.html.twig', $data);
-    }
-
-    #[Route("/card/deck/draw", name: "deck_draw")]
-    public function card_draw(
-        SessionInterface $session
-    ): Response {
-        $deck = $session->get("deck") ?? new DeckOfCards();
-        $values = $deck->giveHandValues(1);
-        $session->set("deck", $deck);
-        $cards = [];
-        $colors = [];
-        $card = new CardGraphic();
-
-        foreach($values as $index) {
-            $card->setValue($index);
-            $cards[] = $card->getAsString();
-            $colors[] = $card->getAsColor();
-        }
-
-        $count = $deck->getNumberCards();
-
-        $data = ["cards" => $cards,
-                "cardColors" => $colors,
-                "size" => $count,
-               "page" => "Draw One"]    ;
-
-        return $this->render('card/deck.html.twig', $data);
-    }
-
-    #[Route("/card/deck/draw/{num<\d+>}", name: "deck_draw_num")]
-    public function card_draw_num(
-        string $num,
-        SessionInterface $session
-    ): Response {
-        $deck = $session->get("deck") ?? new DeckOfCards();
-        $num = intval($num);
-        $values = $deck->giveHandValues($num);
-        $session->set("deck", $deck);
-        $cards = [];
-        $colors = [];
-        $card = new CardGraphic();
-
-        foreach($values as $index) {
-            $card->setValue($index);
-            $cards[] = $card->getAsString();
-            $colors[] = $card->getAsColor();
-        }
-        $count = $deck->getNumberCards();
-        $data = ["cards" => $cards,
-                "cardColors" => $colors,
-                "size" => $count,
-               "page" => "Draw One"]    ;
-
-        return $this->render('card/deck.html.twig', $data);
-    }
 }
