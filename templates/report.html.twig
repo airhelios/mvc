@@ -43,6 +43,40 @@ att använda på andra områden.</p>
     </ul>
 
 </p>
+
+<h1 id="kmom02">Kmom02</h1></a>
+
+<p class="report">Arv är ett sätt för en klass att ärva attribut och metoder från en annan klass: 
+    klasserna får en liknande struktur. Dock kan den ärvande klassen ha fler metoder/attribut än de ärvda.<br>
+Komposition är en typ av ägande där en klass äger den andra. När den ägande klassen slutar existera så slutar även den ägda klassen göra det. Den ägda klassen får bara ha en ägare.
+<br>Interface är en typ av kontrakt, klassen som implementerar ett interface förbinder sig att ha metoderna i interfacet. Det hindrar dock inte
+klassen från att ha fler metoder.<br>
+Vissa språk har inte multipelt arv (man kan inte ärva från flera klasser). PHP (och vissa andra språk) kompenserar för detta genom att ha trait istället. 
+Trait är en typ av boiler plate-kod med metoder som kan lyftas in i en klass. En klass kan ha flera 
+<a href="https://dbwebb.se/guide/kom-igang-med-objektorienterad-programmering-i-php/vad-ar-trait">olika traits</a>. 
+<a href="https://www.php.net/manual/en/language.oop5.traits.php">Trait är ingen klass och går inte att instansiera.</a><br>
+PHP har i sina tidigare versioner inte kunnat skrivas objekt-orienterat, det var ett procedurellt språk. Objektorientering är inte ett måste för att kunna programmera PHP.
+</p>
+
+<p class="report">Jag började den här uppgiften med att göra övningen. Den var för ett tärningsspel och hade sina egna funktioner. 
+    Övningen hade också en del funktioner som inte behövdes till det här kursmomentet. Jag skrev om variabelnamn, klassnamn, attribut och metoder för att de skulle passa kursmomentet.
+    Jag började som jag oftast gör, med att implementera den klassen som kommer ägas/ärvas (Card). Därefter fokuserade jag på den grafiska representationen (CardGraphic). Jag skapade en CardHand, som egentligen bara är en kopia av
+    DiceHand från övningen. Den används inte i det här kursmomentet. Till slut byggde jag DeckOfCards.
+    Jag ser en hel del förbättringspotential i form av interface, onödiga klasser/variabler, statiska variabler etc. Jag vet om att jag har en del artefakter kvar i form av variabler och kod som inte används. De kommer från att jag kopierade övningarna och även 
+    att jag trodde att jag skulle behöva dem. Jag är dock nöjd med uppgiften. Jag vill inte överarbeta om vi blir tvungna att ändra riktning sen.
+</p>
+
+<p class="report">Symfony har sina egenheter, man hjälps en del på traven med funktionerna men man blir också låst. Jag tänker exempelvis på att skriva PHP-logik i Twig. 
+    Man får använda inbyggda funktioner istället för att direkt skriva PHP. Jag ser ändå stora fördelar med ramverket. Att skriva det här kursmomentet utan Symfony hade nog gått, det hade dock tagit så mycket längre tid.
+    Sessionshanteringen hade varit jobbigare, att göra sidorna hade varit jobbiga, jag hade haft stora problem med att göra routes också. Symfony är inte lika behändigt som Flask dock,
+det känns mindre strukturerat. Jag vet inte varför det finns controllers i både assets och i src exempelvis. Var bilderna ska läggas är också lite tvetydigt.</p>   
+</p>
+
+<p class="report">Jag har lärt mig mer om OOP i PHP i den här uppgiften (att det är fullt möjligt att skriva OOP i PHP, 
+    även om det har några få begränsningar). Jag har lärt mig mer om ordet "dependency injection" (objekt som behövs i klassen injiceras utifrån). 
+    Traits var helt nytt för mig. Interface har jag sett innan men jag har nog glömt vad tanken var med det. Jag lärde mig om hur man använder session med Symfony.
+    I och med att jag skrev av övningarna istället för att rakt av kopiera dem från exempel-mappen så lärde jag mig mer om hur Symfony fungerar och hur projektet ska byggas upp. 
+</p>
 </div>
 
 {% endblock %}
