@@ -14,5 +14,16 @@
     <li><a href="{{ path('deck_draw_num', {num:'5'}) }}">Deck draw 5</a></li>
     <li><a href="{{ path('deck_draw_num', {num: '10'}) }}">Deck draw 10</a></li>
 </ul>
+<h1>Klasser</h1>
+<p>Jag har fyra klasser:</p
+    <ul>
+        <li>Card som representerar kortet</li>
+        <li>CardGraphic som ärver från Card och översätter kortet till en grafisk representation via UNICODE</li>
+        <li>CardHand som inte används än. Den ska representera en spelares hand. Den har en aggregations-relation med Card</li>
+        <li>DeckOfCards - ett kortlek som innehåller CardGraphic (aggregationsrelation.</li>
+        </ul
+<p>Nedan hittar man ett UML-diagram för dessa:
+<img src="{{ asset('img/UML.png') }}" alt="hej" class="UML">
+</p>
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Card\CardGraphic;
 use App\Card\Card;
 use App\Card\CardHand;
@@ -13,12 +14,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class APICardController extends AbstractController
 {
-
     #[Route('/api/deck', name:"api_deck")]
     public function api_deck(
         SessionInterface $session
-    ): Response
-    {
+    ): Response {
 
         $deck = $session->get("deck") ?? new DeckOfCards();
         $session->set("deck", $deck);

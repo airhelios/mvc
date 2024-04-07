@@ -5,14 +5,13 @@ namespace App\Card;
 class Card
 {
     protected $value;
-    private $value_as_string;
 
     protected const COLORS = ['Spades', 'Heart', 'Diamonds', 'Clubs'];
     protected const CARDS = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
 
     public function __construct()
     {
-        $this->value = null;
+        $this->value = random_int(0, 51);
     }
 
     public function roll(): int
@@ -42,7 +41,7 @@ class Card
 
     public function getAsColor(): string
     {
-        $card_color = floor($this->value/13);
+        $card_color = floor($this->value / 13);
         return self::COLORS[$card_color];
     }
 }
