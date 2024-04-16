@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Card;
+namespace App\Game;
 
-use App\Card\CardGraphic;
+use App\Game\CardGraphicG;
 
-class DeckOfCards
+class DeckOfCardsG
 {
     private $deck = [];
     private $values;
