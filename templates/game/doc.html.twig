@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Game docs{% endblock %}
+
+{% block body %}
+<div class="index center">
+    <div class="column">
+<h1>Kortspelet tjuguett</h1>
+<h2>Klasser som kommer skapas här</h2>
+<ul>
+    <li>Deck &mdash; Innehåller alla kort i en godtycklig ordning.</li>
+    <li>DeckGraphic &mdash; Ärver från Deck, skapar grafiska representationer av kortleken.</li>
+    <li>DeckInterface &mdash; Interfejs till deck så att kopplingen mellan CardHand och Deck blir mer generell.</li>
+    <li>CardHand &mdash; Ska representera en hand med olika kort</li>
+    <li>HandInterface &mdash; Interfejs till CardHand så att kopplingen mellan CardHand och HandManager blir mer generell.</li>
+    <li>HandManager &mdash; Innehåller CardHand-objekt för spelaren, botten samt ett kortspel(Deck). Håller koll på poängen för varje spelare</li>
+</ul>
+<figure class="game-doc-figure">
+    <a href="{{ asset('img/pseudocode.jpeg') }}"><img src="{{ asset('img/pseudocode.jpeg') }}" alt="Pseudo code" class="game-doc-image"></a>
+    <figcaption>Speedo-code &mdash; klicka för större bild..</figcaption>
+  </figure>
+  <figure class="game-doc-figure">
+    <a href="{{ asset('img/flow chart.svg') }}"><img src="{{ asset('img/flow chart.svg') }}" alt="Flow chart" class="game-doc-image"></a>
+    <figcaption>Flow shard &mdash; klicka för större bild</figcaption>
+  </figure>
+
+</div>
+</div>
+
+
+{% endblock %}  
