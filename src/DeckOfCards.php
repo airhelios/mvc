@@ -34,7 +34,6 @@ class DeckOfCards
         return $hand;
     }
 
-
     public function giveHandValues($num): array
     {
         $hand = [];
@@ -46,7 +45,6 @@ class DeckOfCards
         }
         return $hand;
     }
-
 
     public function giveHandString($num): array
     {

@@ -1,0 +1,67 @@
+// Initialize deck, card hand for player and card hand for machine.
+// Starts with a blank slate – deck is full and cardhands are empty
+Deck deck = new Deck();
+CardHand player = new CardHand ();
+CardHand machine = new CardHand ();
+// Inject deck, player and machine into HandManager
+// HandManager keeps track of deck, player score/hand, machine score/hand
+HandManager handManager = new HandManager(deck, player, machine);
+//Start Game
+continue = true;
+while(continue == true)
+{
+    handManager.Player.drawCard(); //Player score is also automatically incremented by this method
+    print("Player received card " + handManager.player.latestCard);
+    if (handManager.player.score) == 21
+    {
+        continue = false
+    }
+    else if (handManager.player.score) > 21
+    {
+        handManager.gameOver = true
+        handManager.machine.winner = true //also sets handManager.machine.winner = false
+        continue=false
+    }
+    else
+    {
+        continue = Input("Continue [true/false]?")
+    }
+}
+
+// The machine playes the game
+while (continue == true and not handManager.gameOver)
+{
+    handManager.machine.drawCard()
+    if (machineScore > 21)
+    {
+        handManager.player.winner = true;
+        continue = false;
+        handManager.gameOver = true
+
+    } 
+    else if (machineScore > 17) //Stops if it has a score of 17 or above
+    {
+        handManager.gameOver = true
+        continue = false
+    }
+}
+
+//Display the winner
+if (handManager.player.winner)
+{
+    Display("Player won the game with a score of " + handManager.player.score + " against machine score of " + handManager.machine.score)
+} else if (handManager.machine.winner)
+{
+    Display("Machine won the game with a score of " + handManager.machine.score + " against player score of " + handManager.player.score)
+} else if (handManager.player.score > handManager.machine.score)
+{
+    Display("Player won the game with a score of " + handManager.player.score + " against machine score of " + handManager.machine.score)
+}
+else
+{
+    Display("Machine won the game with a score of " + handManager.machine.score + " against player score of " + handManager.player.score)
+}
+
+
+
+
