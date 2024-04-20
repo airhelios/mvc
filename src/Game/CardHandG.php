@@ -2,13 +2,13 @@
 
 namespace App\Game;
 
-use App\Card\Card;
+use App\Game\CardG;
 
-class CardHand
+class CardHandG
 {
     private $hand = [];
 
-    public function add(Card $card): void
+    public function add(CardG $card): void
     {
         $this->hand[] = $card;
     }

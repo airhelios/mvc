@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Game
+namespace App\Game;
 
-class CardGraphic extends Card
+class CardGraphicG extends CardG
 {
     // private $representation = [
     //     '🂡','🂢','🂣','🂤','🂥','🂦','🂧','🂨','🂩','🂪','🂫','🂬','🂭','🂮',

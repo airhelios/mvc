@@ -15,7 +15,7 @@ class DeckOfCardsG
         shuffle($values);
 
         foreach($values as $val) {
-            $card = new CardGraphic();
+            $card = new CardGraphicG();
             $card->setValue($val);
             $this->deck[] = $card;
         }

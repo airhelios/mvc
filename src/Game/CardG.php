@@ -3,7 +3,7 @@
 namespace App\Game;
 
 
-class Card
+class CardG implements CardInterfaceG
 {
     protected $value;
 
