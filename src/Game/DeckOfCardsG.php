@@ -21,42 +21,48 @@ class DeckOfCardsG
         }
     }
 
-    public function giveHand($num): array
+    public function draw(): CardG
     {
-        $hand = [];
-
-        for ($i = 0; $i < $num; $i++) {
-            if (sizeof($this->deck) > 0) {
-                $hand[] = array_pop($this->deck);
-            }
-        }
-        return $hand;
+       return array_shift($this->deck);
     }
 
-    public function giveHandValues($num): array
-    {
-        $hand = [];
-        for ($i = 0; $i < $num; $i++) {
-            if (sizeof($this->deck) > 0) {
-                $value = array_shift($this->deck);
-                $hand[] = $value->getValue();
-            }
-        }
-        return $hand;
-    }
+    //#region hand functions
+    // public function giveHand($num): array
+    // {
+    //     $hand = [];
 
-    public function giveHandString($num): array
-    {
-        $hand = [];
+    //     for ($i = 0; $i < $num; $i++) {
+    //         if (sizeof($this->deck) > 0) {
+    //             $hand[] = array_pop($this->deck);
+    //         }
+    //     }
+    //     return $hand;
+    // }
+ 
+    // public function giveHandValues($num): array
+    // {
+    //     $hand = [];
+    //     for ($i = 0; $i < $num; $i++) {
+    //         if (sizeof($this->deck) > 0) {
+    //             $value = array_shift($this->deck);
+    //             $hand[] = $value->getValue();
+    //         }
+    //     }
+    //     return $hand;
+    // }
 
-        for ($i = 0; $i < $num; $i++) {
-            if (sizeof($this->deck) > 0) {
-                $hand[] = array_shift($this->deck);
-            }
-        }
-        return $hand;
-    }
+    // public function giveHandString($num): array
+    // {
+    //     $hand = [];
 
+    //     for ($i = 0; $i < $num; $i++) {
+    //         if (sizeof($this->deck) > 0) {
+    //             $hand[] = array_shift($this->deck);
+    //         }
+    //     }
+    //     return $hand;
+    // }
+    //#enregion
     public function getNumberCards(): int
     {
         return count($this->deck);

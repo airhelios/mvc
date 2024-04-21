@@ -31,5 +31,6 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-### från kursern
+### från kursen
 tools/
+/src/Game_bu
