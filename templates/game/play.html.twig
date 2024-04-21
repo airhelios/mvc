@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}Game 21 Play{% endblock %}
+{% block body %}
+<div class="index center">
+<h1 >Play 21 Game</h1>
+<p>
+    <h2 class="card-num">The player has these cards:</h2>
+    <p>
+        {% for value in cards %}
+            <div class="card {{cardColors[loop.index-1]}}">{{ value }}</div>
+        {% endfor %}
+    </p>
+    
+    {% for value in sum %}
+        <div class="card">{{ value }}</div>
+    {% endfor %}
+    <a href="{{ path('game_hit') }}"><button class="button button-green">Hit me</button></a>
+    <button class="button button-red">Stay!</button>
+</p>
+</div>
+{% endblock %}

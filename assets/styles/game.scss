@@ -15,3 +15,52 @@
     margin: 0.5rem;
     line-height:1.4rem;
 }
+
+//https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_hover
+.button {
+    background-color: $comp1; /* Green */
+    border: none;
+    color: $white;
+    padding: 1rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+  
+.button-purple {
+    background-color: $white;   
+    color: $icon-color; 
+    border: 2px solid $comp1;
+}
+
+.button-purple:hover {
+    background-color: $comp1;
+    color: $white;
+}
+
+.button-green {
+    background-color: $white; 
+    color: $icon-color; 
+    border: 2px solid $green-button;
+  }
+  
+  .button-green:hover {
+    background-color: $green-button;
+    color: $white;
+  }
+  
+  .button-red {
+    background-color: $white; 
+    color: $icon-color; 
+    border: 2px solid $red-button;
+  }
+  
+  .button-red:hover {
+    background-color: $red-button;
+    color: $white;
+  }
+

@@ -12,6 +12,10 @@ class CardHandG
     {
         $this->hand[] = $card;
     }
+    public function getCards(): array
+    {
+        return $this->hand;
+    }
 
     public function getNumberCards(): int
     {

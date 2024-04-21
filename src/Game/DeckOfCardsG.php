@@ -16,7 +16,10 @@ class DeckOfCardsG
 
         foreach($values as $val) {
             $card = new CardGraphicG();
-            $card->setValue($val);
+
+            $card_color = floor($val / 13);
+            $card->setColor($card_color);
+            $card->setValue($val % 13 + 1);
             $this->deck[] = $card;
         }
     }

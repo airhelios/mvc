@@ -25,12 +25,16 @@ class CardG implements CardInterfaceG
 
     public function setValue($value): void
     {
-        $this->value = $value;
+        if ($value > 0 && $value <= 13) {
+            $this->value = $value;
+        }
     }
 
     public function setColor($color): void
     {
-        $this->color = $color;
+        if ($color >= 0 && $color <= 3) {
+            $this->color = $color;
+        }
     }
 
     public function getValue(): int
