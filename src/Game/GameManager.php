@@ -20,6 +20,7 @@ class GameManager
         $this->playerHand->add($this->deck->draw());
         $this->winner = "";
         $this->currentPlayer = "player";
+        $this->status = "player_turn";
     }
 
     public static function gameManagerNew(): GameManager
@@ -43,13 +44,18 @@ class GameManager
             $this->status = "player_bust";
         } elseif ($machineScore > 21) {
             $this->status = "house_bust";
-        } elseif ($machineScore >= $playerScore) {
+        } elseif ($machineScore >= $playerScore && $this->currentPlayer == "machine") {
             $this->status = "house_win";
 
-        } else {
+        } elseif ($machineScore < $playerScore && $this->currentPlayer == "machine") {
             $this->status = "player_win";
         }
         return $this->status;
+    }
+
+    public function setPlayerMachine(): void
+    {
+        $this->currentPlayer = "machine";
     }
 
 
@@ -82,6 +88,18 @@ class GameManager
     }
 
     /**
+    * @return array<mixed>
+    */
+    public function getPlayerCardStringsParent(): array
+    {
+        $cards = [];
+        foreach($this->playerHand->getCards() as $card) {
+            $cards[] = $card->getAsStringParent();
+        }
+        return $cards;
+    }
+
+    /**
      * @return array<mixed>
      */
     public function getPlayerCardColors(): array
@@ -101,6 +119,18 @@ class GameManager
         $cards = [];
         foreach($this->machineHand->getCards() as $card) {
             $cards[] = $card->getAsString();
+        }
+        return $cards;
+    }
+
+    /**
+    * @return array<mixed>
+    */
+    public function getMachineCardStringsParent(): array
+    {
+        $cards = [];
+        foreach($this->machineHand->getCards() as $card) {
+            $cards[] = $card->getAsStringParent();
         }
         return $cards;
     }
@@ -131,6 +161,16 @@ class GameManager
             $winnerPhrase = "The House wins with a score of " . $machineScore . " against " . $playerScore;
         }
         return $winnerPhrase;
+    }
+
+    public function getBestPlayerScore(): int
+    {
+        return $this->playerHand->bestScore();
+    }
+
+    public function getBestMachineScore(): int
+    {
+        return $this->machineHand->bestScore();
     }
 
     /**

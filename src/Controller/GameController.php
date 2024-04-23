@@ -108,8 +108,8 @@ class GameController extends AbstractController
         if ($session->has('game')) {
             $gameManager = $session->get("game");
         }
+        $gameManager->setPlayerMachine();
         $session->set("game", $gameManager);
-
 
         $gameManager->populateMachine();
 

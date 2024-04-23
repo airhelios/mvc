@@ -25,4 +25,9 @@ class CardGraphicG extends CardG
         return  $this->representation[$this->value - 1 + $this->color * 13];
     }
 
+    public function getAsStringParent(): string
+    {
+        return parent::getAsString();
+    }
+
 }
