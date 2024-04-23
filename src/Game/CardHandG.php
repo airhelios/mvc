@@ -25,11 +25,30 @@ class CardHandG
     public function getValues(): array
     {
         $values = [];
+        //Ace has value 1 in this array.
         foreach ($this->hand as $card) {
             $values[] = $card->getValue();
         }
         return $values;
     }
+
+    public function bestScore(): int
+    {
+        $all_values = $this->sumValue();
+        $relevant_values = array_filter( 
+            $all_values, 
+        function ($value)
+            {
+                return $value <= 21;
+            }
+        );
+        if (empty($relevant_values))
+        {
+            return min($all_values);
+        }
+        return max($relevant_values);
+    }
+
 
     public function sumValue(): array
     {

@@ -20,12 +20,31 @@ class GameManager
         $this->winner = "";
         $this->currentPlayer = "player";
     }
-    public function getGameStatus()
+
+    public static function gameManagerNew() {
+        $deck = new DeckOfCardsG();
+        $playerHand = new CardHandG();
+        $machineHand = new CardHandG();
+        $gameManager = new GameManager($playerHand, $machineHand, $deck);   
+        return $gameManager;
+    }
+
+    public function getGameStatus(): string
     {
-        if ($this->status != "over" || $this->winner != "") {
-            return "ongoing";
+        $playerScore = $this->playerHand->bestScore();
+        $machineScore = $this->machineHand->bestScore();
+        if ($playerScore > 21){
+            $this->status = "player_bust";
+        } else if ($machineScore > 21){
+            $this->status = "house_bust";        
+        } else if ($machineScore >= $playerScore)
+        {
+            $this->status = "house_win";
+
+        } else {
+            $this->status = "player_win";
         }
-        return "over";
+        return $this->status;
     }
 
     public function getPlayerHand()
@@ -33,15 +52,50 @@ class GameManager
         return $this->playerHand->getCards();
     }
 
-    public function setWinner($winner)
+    public function getMachineHand()
     {
-        $this->winner = $winner;
+        return $this->machineHand->getCards();
     }
 
-    public function getWinner()
+    public function getPlayerCardStrings()
     {
-        return $this->winner;
+        $cards = [];
+        foreach($this->playerHand->getCards() as $card) {
+            $cards[] = $card->getAsString();
+        }
+        return $cards;
     }
+
+    public function getPlayerCardColors()
+    {
+        $colors = [];
+        foreach($this->playerHand->getCards() as $card) {
+            $colors[] = $card->getAsColor();
+        }
+        return $colors;
+    }
+
+
+    public function getWinnerPhrase()
+    {
+        $winner_phrase = "";
+        $playerScore = $this->playerHand->bestScore();
+        $machineScore = $this->machineHand->bestScore();
+        if ($playerScore > 21){
+            $winner_phrase = "House wins because the Player went bust!";
+        } else if ($machineScore > 21){
+            $winner_phrase = "Player wins because the House went bust!";        
+        } else if ($machineScore >= $playerScore)
+        {
+
+            $winner_phrase = "The House wins with a score of " . $machineScore . " against " . $playerScore;
+
+        } else {
+            $winner_phrase = "The Player wins with a score of " . $playerScore . " against " . $machineScore;
+        }
+        return $winner_phrase;
+    }
+
 
     public function getScore($hand)
     {
@@ -56,28 +110,35 @@ class GameManager
         $this->playerHand->add($this->deck->draw());
     }
 
-    public function next()
+    public function populateMachine(): void
     {
-        if ($this->status == "over")
+        // The Dealer's first ace counts as 11 unless it busts the hand. Subsequent aces count as one.
+        $value = 0;
+        while ($value < 17)
         {
-            return "Game Over";
-        } else if ($this->winner != "")
-        {
-            return "Game Over";
-        } else if ($this->currentPlayer == "player")
-        {
-            if (min($this->playerHand->sumValue()) > 21)
-            {
-                $this->winner = "machine";
-                return "Game Over";
-            } else if (min($this->machineHand->sumValue()) > 21) {
-                $this->winner ="player";
-                return "Game Over";
+            $card = $this->deck->draw();
+            $card_value = $card->getValue();
+            if ($card_value == 1 && $value > 10) {
+                $value += 1;
+            } else if ($card_value == 1) {
+                $value += 11;
+            } else {
+                $value += min($card_value, 10); //Queen and king have value 11/12 otherwise
             }
+            $this->machineHand->add($card);
         }
+    }
 
-
-
+    public function checkPlayerHand(): string
+    {
+        if ($this->playerHand->bestScore() > 21)
+        {
+            return "bust";
+        } else if ($this->playerHand->bestScore() == 21)
+        {
+            return "player_21";
+        }
+            return "playing";
     }
 
 }

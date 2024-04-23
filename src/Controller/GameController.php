@@ -15,18 +15,33 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GameController extends AbstractController
 {
+    #region game start
     #[Route("/game", name: "game")]
     public function home(): Response
     {
         return $this->render('game/home.html.twig');
     }
+    #endregion
 
+    #region game docs
     #[Route("/game/doc", name: "game_docs")]
     public function game_docs(): Response
     {
         return $this->render('game/doc.html.twig');
     }
 
+    #[Route("/game/restart", name: "game_restart")]
+    public function game_restart(
+        SessionInterface $session): Response
+    {
+        $session->remove("status");
+        $session->remove("game");
+
+        return $this->redirect('/game/play');
+    }
+    #endregion
+
+    #region hit me
     #[Route("/game/hit_me", name: "game_hit")]
     public function game_hit(
         SessionInterface $session
@@ -36,17 +51,32 @@ class GameController extends AbstractController
         {
             $gameManager = $session->get("game");
         } else {
-            $deck = new DeckOfCardsG();
-            $playerHand = new CardHandG();
-            $machineHand = new CardHandG();
-            $gameManager = new GameManager($playerHand, $machineHand, $deck);
+            $gameManager = GameManager::gameManagerNew();
         }
-        $gameManager->drawPlayer();
+
+        $status = $session->get("status") ?? "player_turn";
+        if ($status == "player_turn")
+        {
+            $gameManager->drawPlayer();
+        }
+
+        if ($gameManager->checkPlayerHand() == "bust")
+        {
+            $session->set("status", "player_bust");
+        } else if ($gameManager->checkPlayerHand() == "player_21")
+        {
+            $session->set("status", "player_21");
+        }
+
+        
+   
         $session->set("game", $gameManager);
 
         return $this->redirect('/game/play');
     }
+    #endregion
 
+    #region play
     #[Route("/game/play", name: "game_play")]
     public function game_play(
         SessionInterface $session
@@ -56,30 +86,63 @@ class GameController extends AbstractController
         {
             $gameManager = $session->get("game");
         } else {
-            $deck = new DeckOfCardsG();
-            var_dump($deck->getValues());
+            $gameManager = GameManager::gameManagerNew();
+            $session->set("game", $gameManager);
+        }
+        $status = $session->get("status") ?? "player_turn";
+        $session->set("status", $status);
 
-            $playerHand = new CardHandG();
-            $machineHand = new CardHandG();
-            $gameManager = new GameManager($playerHand, $machineHand, $deck);
+        $colors = $gameManager->getPlayerCardColors();
+        $cards = $gameManager->getPlayerCardStrings();
+
+        $data = ["cards" => $cards,
+                "cardColors" => $colors,
+                "status" => $status];
+        return $this->render('game/play.html.twig', $data);
+    }
+    #endregion
+
+    #region stay
+    #[Route("/game/stay", name: "game_stay")]
+    public function game_stay(
+        SessionInterface $session
+    ): Response {
+
+        if ($session->has('game'))
+        {
+            $gameManager = $session->get("game");
+        } else {
+            $gameManager = GameManager::gameManagerNew();
             $session->set("game", $gameManager);
         }
 
-        $playerCards = $gameManager->getPlayerHand();
+        $gameManager->populateMachine();
 
-        $colors = [];
-        $cards = [];
+        $status = $gameManager->getGameStatus();
+        $session->set("status", $status);
+    
+        $colors = $gameManager->getPlayerCardColors();
+        $cards = $gameManager->getPlayerCardStrings();
 
-        foreach($playerCards as $card) {
-            $cards[] = $card->getAsString();
-            $colors[] = $card->getAsColor();
+
+
+        $machineCards = [];
+        $machineColors = [];
+        
+        foreach($gameManager->getMachineHand() as $card) {
+            $machineCards[] = $card->getAsString();
+            $machineColors[] = $card->getAsColor();
         }
-        // $count = $deck->getNumberCards();
-        $sum = $gameManager->getScore("player");
-        var_dump($sum);
+
+        $winner_phrase = $gameManager->getWinnerPhrase();
         $data = ["cards" => $cards,
                 "cardColors" => $colors,
-            "sum" => $sum];
+                "machine_cards" => $machineCards,
+                "machineColors" => $machineColors,
+                "status" => $status,
+                "winner_phrase" => $winner_phrase];
         return $this->render('game/play.html.twig', $data);
     }
+    #endregion
+    
 }

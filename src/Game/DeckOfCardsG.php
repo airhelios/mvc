@@ -65,7 +65,7 @@ class DeckOfCardsG
     //     }
     //     return $hand;
     // }
-    //#enregion
+    //#enrdegion
     public function getNumberCards(): int
     {
         return count($this->deck);
