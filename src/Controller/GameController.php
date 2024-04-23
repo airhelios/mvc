@@ -40,7 +40,8 @@ class GameController extends AbstractController
         $session->remove("status");
         $session->remove("game");
 
-        return $this->redirect('/game/play');
+        return $this->redirectToRoute('game_play');
+
     }
     #endregion
 
@@ -66,8 +67,7 @@ class GameController extends AbstractController
         }
 
         $session->set("game", $gameManager);
-
-        return $this->redirect('/game/play');
+        return $this->redirectToRoute('game_play');
     }
     #endregion
 
