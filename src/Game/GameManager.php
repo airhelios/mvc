@@ -75,6 +75,23 @@ class GameManager
         return $colors;
     }
 
+    public function getMachineCardStrings()
+    {
+        $cards = [];
+        foreach($this->machineHand->getCards() as $card) {
+            $cards[] = $card->getAsString();
+        }
+        return $cards;
+    }
+
+    public function getMachineCardColors()
+    {
+        $colors = [];
+        foreach($this->machineHand->getCards() as $card) {
+            $colors[] = $card->getAsColor();
+        }
+        return $colors;
+    }
 
     public function getWinnerPhrase()
     {
@@ -95,7 +112,6 @@ class GameManager
         }
         return $winner_phrase;
     }
-
 
     public function getScore($hand)
     {
@@ -123,7 +139,7 @@ class GameManager
             } else if ($card_value == 1) {
                 $value += 11;
             } else {
-                $value += min($card_value, 10); //Queen and king have value 11/12 otherwise
+                $value += min($card_value, 10); //Queen and king have value 10
             }
             $this->machineHand->add($card);
         }

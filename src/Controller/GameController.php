@@ -68,8 +68,6 @@ class GameController extends AbstractController
             $session->set("status", "player_21");
         }
 
-        
-   
         $session->set("game", $gameManager);
 
         return $this->redirect('/game/play');
@@ -96,8 +94,11 @@ class GameController extends AbstractController
         $cards = $gameManager->getPlayerCardStrings();
 
         $data = ["cards" => $cards,
-                "cardColors" => $colors,
-                "status" => $status];
+        "cardColors" => $colors,
+        "machine_cards" => [],
+        "machineColors" => [],
+        "status" => $status,
+        "winner_phrase" => ""];
         return $this->render('game/play.html.twig', $data);
     }
     #endregion
@@ -124,16 +125,9 @@ class GameController extends AbstractController
         $colors = $gameManager->getPlayerCardColors();
         $cards = $gameManager->getPlayerCardStrings();
 
-
-
-        $machineCards = [];
-        $machineColors = [];
+        $machineCards = $gameManager->getMachineCardStrings();
+        $machineColors = $gameManager->getMachineCardColors();
         
-        foreach($gameManager->getMachineHand() as $card) {
-            $machineCards[] = $card->getAsString();
-            $machineColors[] = $card->getAsColor();
-        }
-
         $winner_phrase = $gameManager->getWinnerPhrase();
         $data = ["cards" => $cards,
                 "cardColors" => $colors,

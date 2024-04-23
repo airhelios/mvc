@@ -17,25 +17,23 @@
     {% elseif status == "player_21" %}
         <p>Player has 21! Press 'Stay' to see what the house gets.</p>
         <a href="{{ path('game_stay') }}"><button class="button button-red">Stay!</button></a>
-    {% elseif status == "machine" %}
+    {% elseif status == "player_bust" %}
+        <p class="end-text">Player busts! House wins!</p>
+    {% else %}
         <h2 class="card-num">The machine has these cards:</h2>
         <p>
             {% for value in machine_cards %}
                 <div class="card {{machineColors[loop.index-1]}}">{{ value }}</div>
             {% endfor %}
         </p>
-    {% elseif status == "player_bust" %}
-        <p class="end-text">Player busts! House wins!</p>
-    {% elseif status == "house_bust" %}
+    {% endif %}
+
+    {% if status == "house_bust" %}
         <p class="end-text">House busts! Player wins!</p>
-    {% else %}
-    <p>
-        {% for value in machine_cards %}
-            <div class="card {{machineColors[loop.index-1]}}">{{ value }}</div>
-        {% endfor %}
-    </p>
+    {% elseif (status != "player_turn") and (status != "player_21") %}
         <p class="end-text">{{ winner_phrase }}</p>
     {% endif %}
+
     <a href="{{ path('game_restart') }}"><button class="button button-blue">Restart</button></a>
 
 
