@@ -10,16 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class APIController extends AbstractController
 {
     #[Route('/api', name: "api")]
-    public function me(): Response
+    public function meStart(): Response
     {
         return $this->render('api.html.twig');
     }
 
     #[Route('/api/quote', name:"api_quote")]
-    public function api_quote(): Response
+    public function apiQuote(): Response
     {
         $number = random_int(0, 2);
-        $QUOTES =  ["Flowers never bend with the rainfall.",
+        $quotes =  ["Flowers never bend with the rainfall.",
                     "All your base are belong to us.",
                     "It's not time to make a change. " .
                     "Just relax, take it easy. " .
@@ -28,7 +28,7 @@ class APIController extends AbstractController
         ];
 
         $data = [
-            'quote' => $QUOTES[$number],
+            'quote' => $quotes[$number],
             'timeStamp' => date("Y-m-d H:i:s"),
         ];
 

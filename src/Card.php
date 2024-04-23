@@ -2,10 +2,9 @@
 
 namespace App\Card;
 
-
 class Card
 {
-    protected $value;
+    protected int $value;
 
     public const COLORS = ['Spades', 'Heart', 'Diamonds', 'Clubs'];
     public const CARDS = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
@@ -21,7 +20,7 @@ class Card
         return $this->value;
     }
 
-    public function setValue($value): void
+    public function setValue(int $value): void
     {
         $this->value = $value;
     }
@@ -34,15 +33,15 @@ class Card
 
     public function getAsString(): string
     {
-        $card_color = floor(($this->value) / 13);
+        $cardColor = floor(($this->value) / 13);
         $card = $this->value % 13;
         // {self::COLORS[$card_number]}
-        return self::CARDS[$card] . " of " . self::COLORS[$card_color];
+        return self::CARDS[$card] . " of " . self::COLORS[$cardColor];
     }
 
     public function getAsColor(): string
     {
-        $card_color = floor($this->value / 13);
-        return self::COLORS[$card_color];
+        $cardColor = floor($this->value / 13);
+        return self::COLORS[$cardColor];
     }
 }

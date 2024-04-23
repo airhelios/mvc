@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+* @SuppressWarnings(PHPMD.Superglobals)
+*/
 class BaseController extends AbstractController
 {
     public function __construct()
@@ -15,7 +18,7 @@ class BaseController extends AbstractController
         session_start();
     }
     #[Route('/', name: "home")]
-    public function me(): Response
+    public function meStart(): Response
     {
         return $this->render('me.html.twig');
     }
@@ -45,7 +48,7 @@ class BaseController extends AbstractController
     }
 
     #[Route('/session/delete', name: "session_delete")]
-    public function session_delete(SessionInterface $session): Response
+    public function sessionDelete(SessionInterface $session): Response
     {
         $this->addFlash(
             'warning',

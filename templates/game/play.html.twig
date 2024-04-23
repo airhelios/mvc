@@ -30,8 +30,8 @@
 
     {% if status == "house_bust" %}
         <p class="end-text">House busts! Player wins!</p>
-    {% elseif (status != "player_turn") and (status != "player_21") %}
-        <p class="end-text">{{ winner_phrase }}</p>
+    {% elseif (status != "player_turn") and (status != "player_21") and (status != "player_bust")%}
+        <p class="end-text">{{ winnerPhrase }}</p>
     {% endif %}
 
     <a href="{{ path('game_restart') }}"><button class="button button-blue">Restart</button></a>

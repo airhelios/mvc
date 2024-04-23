@@ -2,11 +2,10 @@
 
 namespace App\Game;
 
-
 class CardG implements CardInterfaceG
 {
-    protected $value;
-    protected $color;
+    protected int $value;
+    protected int $color;
 
     public const COLORS = ['Spades', 'Heart', 'Diamonds', 'Clubs'];
     public const CARDS = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
@@ -14,23 +13,23 @@ class CardG implements CardInterfaceG
     public function __construct()
     {
         $this->value = random_int(1, 13);
-        $this->color = random_int(0, 3); 
+        $this->color = random_int(0, 3);
     }
 
     public function roll(): void
     {
         $this->value = random_int(1, 12);
-        $this->color = random_int(0, 3); 
+        $this->color = random_int(0, 3);
     }
 
-    public function setValue($value): void
+    public function setValue(int $value): void
     {
         if ($value > 0 && $value <= 13) {
             $this->value = $value;
         }
     }
 
-    public function setColor($color): void
+    public function setColor(int $color): void
     {
         if ($color >= 0 && $color <= 3) {
             $this->color = $color;

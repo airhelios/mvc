@@ -6,8 +6,10 @@ use App\Card\CardGraphic;
 
 class DeckOfCards
 {
-    private $deck = [];
-    private $values;
+    /**
+     * @var Card[]
+     */
+    private array $deck = [];
 
     public function __construct()
     {
@@ -21,6 +23,10 @@ class DeckOfCards
         }
     }
 
+    /**
+     * @param int $num
+     * @return array<mixed>
+     */
     public function giveHand($num): array
     {
         $hand = [];
@@ -33,6 +39,10 @@ class DeckOfCards
         return $hand;
     }
 
+    /**
+     * @param int $num
+     * @return array<mixed>
+     */
     public function giveHandValues($num): array
     {
         $hand = [];
@@ -45,7 +55,11 @@ class DeckOfCards
         return $hand;
     }
 
-    public function giveHandString($num): array
+    /**
+     * @param int $num
+     * @return array<mixed>
+     */
+    public function giveHandString(int $num): array
     {
         $hand = [];
 
@@ -62,6 +76,9 @@ class DeckOfCards
         return count($this->deck);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getValues(): array
     {
         $values = [];
@@ -71,6 +88,9 @@ class DeckOfCards
         return $values;
     }
 
+        /**
+     * @return array<mixed>
+     */
     public function getString(): array
     {
         $values = [];
@@ -80,6 +100,11 @@ class DeckOfCards
         return $values;
     }
 
+
+    
+    /**
+     * @return array<mixed>
+     */
     public function getColor(): array
     {
         $values = [];

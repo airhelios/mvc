@@ -6,8 +6,10 @@ use App\Game\CardGraphicG;
 
 class DeckOfCardsG
 {
-    private $deck = [];
-    private $values;
+    /**
+     * @var CardG[]
+     */
+    private array $deck = [];
 
     public function __construct()
     {
@@ -17,60 +19,26 @@ class DeckOfCardsG
         foreach($values as $val) {
             $card = new CardGraphicG();
 
-            $card_color = floor($val / 13);
-            $card->setColor($card_color);
+            $cardColor = (int)floor($val / 13);
+            $card->setColor($cardColor);
             $card->setValue($val % 13 + 1);
             $this->deck[] = $card;
         }
     }
 
-    public function draw(): CardG
+    public function draw(): ?CardG
     {
-       return array_shift($this->deck);
+        return array_shift($this->deck);
     }
 
-    //#region hand functions
-    // public function giveHand($num): array
-    // {
-    //     $hand = [];
-
-    //     for ($i = 0; $i < $num; $i++) {
-    //         if (sizeof($this->deck) > 0) {
-    //             $hand[] = array_pop($this->deck);
-    //         }
-    //     }
-    //     return $hand;
-    // }
- 
-    // public function giveHandValues($num): array
-    // {
-    //     $hand = [];
-    //     for ($i = 0; $i < $num; $i++) {
-    //         if (sizeof($this->deck) > 0) {
-    //             $value = array_shift($this->deck);
-    //             $hand[] = $value->getValue();
-    //         }
-    //     }
-    //     return $hand;
-    // }
-
-    // public function giveHandString($num): array
-    // {
-    //     $hand = [];
-
-    //     for ($i = 0; $i < $num; $i++) {
-    //         if (sizeof($this->deck) > 0) {
-    //             $hand[] = array_shift($this->deck);
-    //         }
-    //     }
-    //     return $hand;
-    // }
-    //#enrdegion
     public function getNumberCards(): int
     {
         return count($this->deck);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getValues(): array
     {
         $values = [];
@@ -80,6 +48,9 @@ class DeckOfCardsG
         return $values;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getString(): array
     {
         $values = [];
@@ -89,6 +60,9 @@ class DeckOfCardsG
         return $values;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getColor(): array
     {
         $values = [];

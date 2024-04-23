@@ -4,8 +4,11 @@ namespace App\Game;
 
 class CardGraphicG extends CardG
 {
-
-    private $representation = [
+    
+    /**
+     * @var string[]
+     */
+    private array $representation = [
         '🂡','🂢','🂣','🂤','🂥','🂦','🂧','🂨','🂩','🂪','🂫','🂭','🂮',
         '🂱','🂲','🂳','🂴','🂵','🂶','🂷','🂸','🂹','🂺','🂻','🂽','🂾',
         '🃁','🃂','🃃','🃄','🃅','🃆','🃇','🃈','🃉','🃊','🃋','🃍','🃎',
@@ -19,7 +22,7 @@ class CardGraphicG extends CardG
 
     public function getAsString(): string
     {
-        return  $this->representation[$this->value - 1 + $this->color*13];
+        return  $this->representation[$this->value - 1 + $this->color * 13];
     }
 
 }
