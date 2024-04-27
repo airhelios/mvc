@@ -77,6 +77,36 @@ det känns mindre strukturerat. Jag vet inte varför det finns controllers i bå
     Traits var helt nytt för mig. Interface har jag sett innan men jag har nog glömt vad tanken var med det. Jag lärde mig om hur man använder session med Symfony.
     I och med att jag skrev av övningarna istället för att rakt av kopiera dem från exempel-mappen så lärde jag mig mer om hur Symfony fungerar och hur projektet ska byggas upp. 
 </p>
+
+
+<h1 id="kmom03">Kmom03</h1></a>
+
+<p class="report">Jag tyckte att pseudokods-biten inte gav mig något speciellt. Jag ser faktiskt inte nyttan med pseudokod, än. 
+    Flödesschemat fungerade bra för att ge mig en grundläggande struktur innan jag började med koden. 
+    Dock så slutade jag tänka på den ganska snabbt. Jag gjorde "lokala" flödesscheman när jag behövde. 
+    Jag kan nog tänka mig att använda just flödesscheman i framtiden vid behov. Men det blir inga strukturerade utan mest som skisser i mitt anteckningsblock.
+</p>
+
+<p class="report">Jag skapade en huvudklass "GameManager" som användes för att hålla koll på kortlek, spelarens hand, dealerns hand och spellogiken. 
+    Jag kopierade klasserna från kmom02 (deck) för att jag ville testa nya koncept (dependency injection och interface-klasser). Jag insåg sen att man skulle begränsa koden i sin controller, vilket innebar att jag tog bort dependency injection-aspekten.
+    Jag skapade dock en statisk metod som injicerade kortlek, spelarens hand och dealerns hand i konstruktorn för GameManager. Den svåraste biten var nog spellogiken och hur man skulle tänka kring essen.<br><br>
+    Jag ser en del förbättringspotential, jag tror exempelvis att spellogiken inte är helt korrekt, jag ser också att min applikation hänger sig då och då men jag vet inte varför. 
+    Jag hade också kunnat ta bort en del av logiken från mina twig-mallar samt lägga om en del metoder på Deck/Card/Hand istället för att ha dem i GameManager. Gränssnittet är också en faktor som jag hade velat ändra på.
+    <br>Angående lintingen så satte jag phpstan på level 6, jag tyckte det var good enough.
+</p>
+
+<p class="report">Jag är ganska nöjd med Symfony, men lämnas småförvirrad ibland. En sak som oroar mig är att det kan dyka upp fel som är svåra att felsöka om det visar sig att dokumentationen för Symfony inte är så omfattande. 
+    Jag vill egentligen att det ska finnas många användare av ett ramverk för enklare felsökning. Jag börjar hitta bättre i Symfony nu än tidigare och jag känner mig relativt bekväm med att arbeta i min applikation. Jag hade dock förmodligen blivit tvungen att använda mos dokumentation 
+    ifall jag skulle starta ett projekt från scratch.
+
+</p>   
+
+
+<p class="report">Jag har lärt mig mer om linting samt om statiska analysverktyg. Man kan välja att linta/kontrollera sin kod i olika nivåer. Vi har gått igenom hur man kan strukturera upp sin kod i förväg med exempelvis ramverk(SOLID), pseudokod och flödescheman. 
+    Jag har testat att använda dependency inversion principle och interfaces. Jag har lärt mig om hur man kallar en funktion från föräldern i den ärvande klassen samt om hur man skapar statiska metoder. Vi gick igenom lite design patterns också, något som jag tänker att det hade varit kul
+    att fördjupa sig i.
+</p>
+
 </div>
 
 {% endblock %}

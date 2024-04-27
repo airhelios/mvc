@@ -34,3 +34,6 @@ yarn-error.log
 ### från kursen
 tools/
 /src/Game_bu
+.phpdoc/
+/docs
+
