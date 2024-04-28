@@ -8,7 +8,7 @@ interface CardInterfaceG
     public const CARDS = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
 
 
-    public function roll(): void;
+    // public function roll(): void;
     public function setValue(int $value): void;
     public function setColor(int $color): void;
     public function getValue(): int;

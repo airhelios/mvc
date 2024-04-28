@@ -16,11 +16,11 @@ class CardG implements CardInterfaceG
         $this->color = random_int(0, 3);
     }
 
-    public function roll(): void
-    {
-        $this->value = random_int(1, 13);
-        $this->color = random_int(0, 3);
-    }
+    // public function roll(): void
+    // {
+    //     $this->value = random_int(1, 13);
+    //     $this->color = random_int(0, 3);
+    // }
 
     public function setValue(int $value): void
     {
