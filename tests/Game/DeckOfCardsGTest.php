@@ -56,7 +56,20 @@ class DeckOfCardsGTest extends TestCase
         $representation[] = $i % 13 + 1;
       }
       $returnValues = $deck->getValues();
-      // $this->assertEquals($representation, $returnValues);
+      //https://stackoverflow.com/a/13046200
+      $this->assertEmpty(array_merge(array_diff($returnValues, $representation), 
+      array_diff($representation, $returnValues)));
+    }
+
+    public function testGetColor()
+    {
+      $deck = new DeckOfCardsG();
+      $colors = ['Spades', 'Heart', 'Diamonds', 'Clubs'];
+      $representation = [];
+      for ($i = 0; $i < 52; $i++) {
+        $representation[] = $colors[$i % 4];
+      }
+      $returnValues = $deck->getColor();
       //https://stackoverflow.com/a/13046200
       $this->assertEmpty(array_merge(array_diff($returnValues, $representation), 
       array_diff($representation, $returnValues)));
