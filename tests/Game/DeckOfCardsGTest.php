@@ -28,11 +28,37 @@ class DeckOfCardsGTest extends TestCase
 
     public function testDraw()
     {
-      $hand = new CardHandG();
-      $stub = $this->createMock(CardG::class);
-      $hand->add($stub);
+      $deck = new DeckOfCardsG();
+      $card = $deck->draw();
+      $this->assertInstanceOf("\App\Game\CardG", $card);
+    }
+  
+    public function testGetString()
+    {
+      $deck = new DeckOfCardsG();
+      $representation = [
+        '🂡','🂢','🂣','🂤','🂥','🂦','🂧','🂨','🂩','🂪','🂫','🂭','🂮',
+        '🂱','🂲','🂳','🂴','🂵','🂶','🂷','🂸','🂹','🂺','🂻','🂽','🂾',
+        '🃁','🃂','🃃','🃄','🃅','🃆','🃇','🃈','🃉','🃊','🃋','🃍','🃎',
+        '🃑','🃒','🃓','🃔','🃕','🃖','🃗','🃘','🃙','🃚','🃛','🃝','🃞'
+      ];
+      $returnString = $deck->getString();
+      //https://stackoverflow.com/a/13046200
+      $this->assertEmpty(array_merge(array_diff($returnString, $representation), 
+      array_diff($representation, $returnString)));
+    }
 
-      $this->assertEquals(1, $hand->getNumberCards());
-      $this->assertEquals($stub, $hand->getCards()[0]);
+    public function testGetValues()
+    {
+      $deck = new DeckOfCardsG();
+      $representation = [];
+      for ($i = 0; $i < 53; $i++) {
+        $representation[] = $i % 13 + 1;
+      }
+      $returnValues = $deck->getValues();
+      // $this->assertEquals($representation, $returnValues);
+      //https://stackoverflow.com/a/13046200
+      $this->assertEmpty(array_merge(array_diff($returnValues, $representation), 
+      array_diff($representation, $returnValues)));
     }
 }
