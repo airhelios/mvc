@@ -18,7 +18,7 @@ class CardG implements CardInterfaceG
 
     public function roll(): void
     {
-        $this->value = random_int(1, 12);
+        $this->value = random_int(1, 13);
         $this->color = random_int(0, 3);
     }
 
