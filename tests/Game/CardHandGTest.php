@@ -13,49 +13,103 @@ class CardHandGTest extends TestCase
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
      */
-    public function testCreateCard()
+    public function testCreateHand()
     {
-        $card = new CardG();
-        $this->assertInstanceOf("\App\Game\CardG", $card);
+        $hand = new CardHandG();
+        $this->assertInstanceOf("\App\Game\CardHandG", $hand);
 
-        $res = $card->getAsString();
-        $this->assertNotEmpty($res);
+        $res = $hand->getNumberCards();
+        $this->assertEquals(0, $res);
     }
 
-    public function testSetGetValue()
+    public function testAddCardToHand()
     {
-        $card = new CardG();
-        $card->setValue(5);
-        $this->assertEquals(5, $card->getValue());
+        $hand = new CardHandG();
+        $stub = $this->createMock(CardG::class);
+        $hand->add($stub);
+
+        $this->assertEquals(1, $hand->getNumberCards());
+        $this->assertEquals($stub, $hand->getCards()[0]);
     }
 
-    public function testSetGetColor()
+    public function testGetValues()
     {
-        $card = new CardG();
-        $card->setColor(3);
-        $this->assertEquals(3, $card->getColor());
-        // Check that color is not more than 3
-        $card->setColor(4);
-        $this->assertNotEquals(4, $card->getColor());
+        $hand = new CardHandG();
+        $testArray = [1,2,3,4];
+        foreach ($testArray as $x) {
+            $stub = $this->createMock(CardG::class);
+            $stub->method('getValue')
+            ->willReturn($x);
+            $hand->add($stub);
+          }
+        $this->assertEquals($testArray, $hand->getValues());
+    }
+
+    public function testSumValues()
+    {
+        $hand = new CardHandG();
+        $testArray = [1,2,3,4, 11];
+        foreach ($testArray as $x) {
+            $stub = $this->createMock(CardG::class);
+            $stub->method('getValue')
+            ->willReturn($x);
+            $hand->add($stub);
+          }
+        $returnArray = [20, 30];
+        $this->assertEquals($returnArray, $hand->sumValue());
+    }
+
+    public function testBestScore()
+    {
+        $hand = new CardHandG();
+        $testArray = [1,2,3,4,11];
+        foreach ($testArray as $x) {
+            $stub = $this->createMock(CardG::class);
+            $stub->method('getValue')
+            ->willReturn($x);
+            $hand->add($stub);
+          }
+        $bestScore = 20;
+        $this->assertEquals($bestScore, $hand->bestScore());
+    }
+
+    public function testBestScoreEmpty()
+    {
+        $hand = new CardHandG();
+        $testArray = [1, 11, 11, 11]; //SumValues = [31, 41]
+        foreach ($testArray as $x) {
+            $stub = $this->createMock(CardG::class);
+            $stub->method('getValue')
+            ->willReturn($x);
+            $hand->add($stub);
+          }
+        $bestScore = 31;
+        $this->assertEquals($bestScore, $hand->bestScore());
+    }
+
+    public function testGetString()
+    {
+        $hand = new CardHandG();
+        $testArray = ["Ace of Spades", "2 of Heart"]; //SumValues = [31, 41]
+        foreach ($testArray as $x) {
+            $stub = $this->createMock(CardG::class);
+            $stub->method('getAsString')
+            ->willReturn($x);
+            $hand->add($stub);
+          }
+        $this->assertEquals($testArray, $hand->getString());
     }
 
     public function testGetAsColor()
     {
-        $card = new CardG();
-        $this->assertContains($card->getAsColor(), ['Spades', 'Heart', 'Diamonds', 'Clubs']);
+        $hand = new CardHandG();
+        $testArray = ["Spades", "Heart", "Diamonds"]; //SumValues = [31, 41]
+        foreach ($testArray as $x) {
+            $stub = $this->createMock(CardG::class);
+            $stub->method('getAsColor')
+            ->willReturn($x);
+            $hand->add($stub);
+          }
+        $this->assertEquals($testArray, $hand->getAsColor());
     }
-
-    // public function testMock()
-    // {
-    //     $stub = $this->createMock(CardG::class);
-
-    //     // Configure the stub.
-    //     $stub->method('getValue')
-    //          ->willReturn(5);
-    
-    //     $stub->setValue(5);
-    //     $res = $stub->getValue();
-    //     $exp = 5;
-    //     $this->assertEquals($exp, $res);
-    // }
 }
