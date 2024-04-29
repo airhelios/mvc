@@ -88,10 +88,13 @@ class GameController extends AbstractController
         $colors = $gameManager->getPlayerCardColors();
         $cards = $gameManager->getPlayerCardStrings();
 
+        $machineCards = $gameManager->getMachineCardStrings();
+        $machineColors = $gameManager->getMachineCardColors();
+
         $data = ["cards" => $cards,
         "cardColors" => $colors,
-        "machine_cards" => [],
-        "machineColors" => [],
+        "machine_cards" => $machineCards,
+        "machineColors" => $machineColors,
         "status" => $status,
         "winnerPhrase" => ""];
         return $this->render('game/play.html.twig', $data);
