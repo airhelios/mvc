@@ -58,6 +58,11 @@ class GameManager
         $this->currentPlayer = "machine";
     }
 
+    public function getCurrentPlayer(): string
+    {
+        return $this->currentPlayer;
+    }
+
 
     /**
      * @return array<mixed>
@@ -185,12 +190,14 @@ class GameManager
         return $this->playerHand->sumValue();
     }
 
-    public function drawPlayer(): void
+    public function drawPlayer(): CardG
     {
-        $this->playerHand->add($this->deck->draw());
+        $card = $this->deck->draw();
+        $this->playerHand->add($card);
+        return $card;
     }
 
-    public function populateMachine(): void
+    public function populateMachine(): int
     {
         // The Dealer's first ace counts as 11 unless it busts the hand. Subsequent aces count as one.
         $value = 0;
@@ -206,6 +213,7 @@ class GameManager
             $value += $addVal;
             $this->machineHand->add($card);
         }
+        return $value;
     }
 
     public function checkPlayerHand(): string
