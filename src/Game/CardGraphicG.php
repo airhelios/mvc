@@ -4,7 +4,6 @@ namespace App\Game;
 
 class CardGraphicG extends CardG
 {
-    
     /**
      * @var string[]
      */

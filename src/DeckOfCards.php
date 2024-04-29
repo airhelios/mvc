@@ -88,7 +88,7 @@ class DeckOfCards
         return $values;
     }
 
-        /**
+    /**
      * @return array<mixed>
      */
     public function getString(): array
@@ -101,7 +101,7 @@ class DeckOfCards
     }
 
 
-    
+
     /**
      * @return array<mixed>
      */

@@ -59,11 +59,9 @@ class CardHandG
 
 
     /**
+    * @return array<mixed>
     * @SuppressWarnings(PHPMD.ElseExpression)
     * @SuppressWarnings(PHPMD.CountInLoopExpression)
-    */
-    /**
-     * @return array<mixed>
     */
     public function sumValue(): array
     {

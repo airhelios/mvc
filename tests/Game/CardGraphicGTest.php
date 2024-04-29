@@ -13,7 +13,7 @@ class CardGraphicGTest extends TestCase
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
      */
-    public function testCreateCard()
+    public function testCreateCard(): void
     {
         $card = new CardGraphicG();
         $this->assertInstanceOf("\App\Game\CardGraphicG", $card);
@@ -22,7 +22,7 @@ class CardGraphicGTest extends TestCase
         $this->assertNotEmpty($res);
     }
 
-    public function testStringParent()
+    public function testStringParent(): void
     {
         $card = new CardGraphicG();
         $this->assertInstanceOf("\App\Game\CardGraphicG", $card);

@@ -13,7 +13,7 @@ class CardGTest extends TestCase
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
      */
-    public function testCreateCard()
+    public function testCreateCard(): void
     {
         $card = new CardG();
         $this->assertInstanceOf("\App\Game\CardG", $card);
@@ -22,14 +22,14 @@ class CardGTest extends TestCase
         $this->assertNotEmpty($res);
     }
 
-    public function testSetGetValue()
+    public function testSetGetValue(): void
     {
         $card = new CardG();
         $card->setValue(5);
         $this->assertEquals(5, $card->getValue());
     }
 
-    public function testSetGetColor()
+    public function testSetGetColor(): void
     {
         $card = new CardG();
         $card->setColor(3);
@@ -39,7 +39,7 @@ class CardGTest extends TestCase
         $this->assertNotEquals(4, $card->getColor());
     }
 
-    public function testGetAsColor()
+    public function testGetAsColor(): void
     {
         $card = new CardG();
         $this->assertContains($card->getAsColor(), ['Spades', 'Heart', 'Diamonds', 'Clubs']);
@@ -52,7 +52,7 @@ class CardGTest extends TestCase
     //     // Configure the stub.
     //     $stub->method('getValue')
     //          ->willReturn(5);
-    
+
     //     $stub->setValue(5);
     //     $res = $stub->getValue();
     //     $exp = 5;

@@ -13,7 +13,7 @@ class CardHandGTest extends TestCase
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
      */
-    public function testCreateHand()
+    public function testCreateHand(): void
     {
         $hand = new CardHandG();
         $this->assertInstanceOf("\App\Game\CardHandG", $hand);
@@ -22,7 +22,7 @@ class CardHandGTest extends TestCase
         $this->assertEquals(0, $res);
     }
 
-    public function testAddCardToHand()
+    public function testAddCardToHand(): void
     {
         $hand = new CardHandG();
         $stub = $this->createMock(CardG::class);
@@ -32,7 +32,7 @@ class CardHandGTest extends TestCase
         $this->assertEquals($stub, $hand->getCards()[0]);
     }
 
-    public function testGetValues()
+    public function testGetValues(): void
     {
         $hand = new CardHandG();
         $testArray = [1,2,3,4];
@@ -41,11 +41,11 @@ class CardHandGTest extends TestCase
             $stub->method('getValue')
             ->willReturn($x);
             $hand->add($stub);
-          }
+        }
         $this->assertEquals($testArray, $hand->getValues());
     }
 
-    public function testSumValues()
+    public function testSumValues(): void
     {
         $hand = new CardHandG();
         $testArray = [1,2,3,4, 11];
@@ -54,12 +54,12 @@ class CardHandGTest extends TestCase
             $stub->method('getValue')
             ->willReturn($x);
             $hand->add($stub);
-          }
+        }
         $returnArray = [20, 30];
         $this->assertEquals($returnArray, $hand->sumValue());
     }
 
-    public function testBestScore()
+    public function testBestScore(): void
     {
         $hand = new CardHandG();
         $testArray = [1,2,3,4,11];
@@ -68,12 +68,12 @@ class CardHandGTest extends TestCase
             $stub->method('getValue')
             ->willReturn($x);
             $hand->add($stub);
-          }
+        }
         $bestScore = 20;
         $this->assertEquals($bestScore, $hand->bestScore());
     }
 
-    public function testBestScoreEmpty()
+    public function testBestScoreEmpty(): void
     {
         $hand = new CardHandG();
         $testArray = [1, 11, 11, 11]; //SumValues = [31, 41]
@@ -82,12 +82,12 @@ class CardHandGTest extends TestCase
             $stub->method('getValue')
             ->willReturn($x);
             $hand->add($stub);
-          }
+        }
         $bestScore = 31;
         $this->assertEquals($bestScore, $hand->bestScore());
     }
 
-    public function testGetString()
+    public function testGetString(): void
     {
         $hand = new CardHandG();
         $testArray = ["Ace of Spades", "2 of Heart"]; //SumValues = [31, 41]
@@ -96,11 +96,11 @@ class CardHandGTest extends TestCase
             $stub->method('getAsString')
             ->willReturn($x);
             $hand->add($stub);
-          }
+        }
         $this->assertEquals($testArray, $hand->getString());
     }
 
-    public function testGetAsColor()
+    public function testGetAsColor(): void
     {
         $hand = new CardHandG();
         $testArray = ["Spades", "Heart", "Diamonds"]; //SumValues = [31, 41]
@@ -109,7 +109,7 @@ class CardHandGTest extends TestCase
             $stub->method('getAsColor')
             ->willReturn($x);
             $hand->add($stub);
-          }
+        }
         $this->assertEquals($testArray, $hand->getAsColor());
     }
 }
