@@ -107,6 +107,41 @@ det känns mindre strukturerat. Jag vet inte varför det finns controllers i bå
     att fördjupa sig i.
 </p>
 
+<h1 id="kmom04">Kmom04</h1></a>
+
+<p class="report">Det finns både nackdelar och fördelar med PHPUnit jmf med exempelvis Pythons enhetstestmodul. Jag upplever att mockningen är mycket enklare i PHPUnit medan det är svårare att testa funktioner som är baserade på
+    "random"-modulen. Jag tyckte att PHPUnit var väldigt intuitivt och jag tror det är på grund av att vi skapade en del tester i OOP-kursen.</p>
+
+    <p class="report">Jag lyckades få 100% kodtäckning på min <code>Game-klass</code>. Det var inte särskilt svårt men det tog ganska lång tid. Jag gick bara igenom metod för metod och la till mockning när det behövdes. Jag är dock inte helt säker på
+    att jag testar rätt saker och att jag gör det tillräckligt utförligt.</p>
+    
+    <p class="report">Det fanns en del metoder som inte returnerade något, vilket gjorde det svårare att testa dem. Speciellt eftersom de modifierade "protected/private" attribut. Dessa blev lite svårare att testa, min lösning var att
+        ändra om metoderna så att attributen returnerades när metoderna kallades.
+         Jag hade även ett par situationer med if-satser som hade flera olika elseif-förgreningar. Det kändes till en början omständligt att testa dem men jag la till en del mock objects som gjorde att jag lyckades ändå. 
+    </p>
+
+    <p class="report">Vissa av mina metoder returnerade inget (de räknade bara ut värder på ett protected/privat attribut), vilket gjorde det svårt att testa dem med assertEqual. Därför såg jag till att de returnerade attributet,
+        jag räknade manuellt sen ut vad det attributet borde vara och använde det för att testa metoderna.<br>
+        Jag använde mig en del av dependency injection när jag designade mina klasser, jag utnyttjade mockobjekt för att göra det enklare att testa dem. Det fanns dock vissa tillfällen då jag 
+        undrade om mitt test verkligen testade metoden eller om det bara testade att mockobjektet var rätt inställt.
+    </p>
+
+    <p class="report">"Testbar" kod i sig lämnar nog en del kod att greppa tag i som skulle kunna vara "överflödig", jag tänker exempelvis på mina metoder som nämndes ovan som endast ändrade om attribut men nu var tvungna att även
+        returnera attributen för att kunna vara testbara. 
+        Jag tror däremot också att det tvingar en att vara ännu mer strukturerad och ha kod som är enklare att granska. Detta innebär alltså passande variabelnamn, 
+        färre genvägar som gör koden svår att läsa, välplacerade kommentarer samt att man inte har onödiga conditional statements som är svåra att täcka in under testerna. 
+        Detta, tillsammans med testerna, gör det lättare att sätta sig in i koden.
+    </p>
+
+    <p class="report">Mina TIL för detta KMOM är följande</p>
+    <ul class="ul-report">
+        <li>Det finns verktyg som hjälper en att skapa överskådlig dokumentation utifrån sina DocBlocks.</li>
+        <li>Det finns verktyg som förenklar testandet av koden samt hjälper en att se till så att man testar alla delar av sin kod.</li>
+        <li>Man bör kolla på mer än bara kodtäckningen när man designar ett test, det är lätt att lura sig att ett test gör något som det inte gör.</li>
+        <li>Jag lärde mig att man kan använda sig av "reflection" för att få reda på mer om en klass (exempelvis protected/privata fält).</li>
+        <li>Jag lärde mig att man behöver inte alltid testa sina getter/setter-metoder.</li>
+    </ul>
+
 </div>
 
 {% endblock %}
