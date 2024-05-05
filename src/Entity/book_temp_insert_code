@@ -1,0 +1,5 @@
+INSERT INTO book (title, isbn, author, img)
+VALUES 
+("The Meditations of the Emperor Marcus Aurelius Antoninus", "0-9904-4687-5", "Marcus Aurelius", "img/library/aurelius.jpg"),
+("the Art of War", "0-8950-8808-8", "Sun Tzu", "img/library/suntzu.jpg"),
+("The Iliad", "0-9737-9200-0", "Homer", "img/library/homeros.jpg");

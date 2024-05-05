@@ -1,0 +1,62 @@
+.form-isbn, .form-author, .form-title, .form-img {
+    font-size: $body-font-size;
+    line-height: $line-height;
+    font-family: $font-body;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    padding: 0.6rem;
+    box-sizing: border-box;
+    width: $button-width;
+    margin-bottom: 1.4rem;
+}
+
+%valid {
+    border: 1px solid green;
+}
+
+%invalid {
+    border: 1px solid red;
+}
+
+.input:valid {
+    @extend %valid;
+}
+
+.input:invalid {
+    @extend %invalid;
+}
+
+.input-label {
+    font-weight: bold;
+    margin: 2rem 0 0;
+    display: block;
+}
+
+%first-of-type {
+    margin: 1rem 0 0;
+}
+
+.input-label:first-of-type {
+    @extend %first-of-type;
+}
+
+%after {
+    content: ":";
+}
+
+.input-label::after {
+    @extend %after;
+}
+
+.delivery-form {
+    margin: 0.5rem;
+    display: inline-block;
+}
+
+.form-login {
+    input {
+        margin: 0 auto;
+        margin-bottom: 1.4rem;
+    }
+}

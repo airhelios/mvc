@@ -17,12 +17,12 @@ class Book
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $ISBN = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $author = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ISBN = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
 
     public function getId(): ?int
@@ -42,18 +42,6 @@ class Book
         return $this;
     }
 
-    public function getISBN(): ?string
-    {
-        return $this->ISBN;
-    }
-
-    public function setISBN(string $ISBN): static
-    {
-        $this->ISBN = $ISBN;
-
-        return $this;
-    }
-
     public function getAuthor(): ?string
     {
         return $this->author;
@@ -66,12 +54,24 @@ class Book
         return $this;
     }
 
+    public function getISBN(): ?string
+    {
+        return $this->ISBN;
+    }
+
+    public function setISBN(?string $ISBN): static
+    {
+        $this->ISBN = $ISBN;
+
+        return $this;
+    }
+
     public function getImg(): ?string
     {
         return $this->img;
     }
 
-    public function setImg(string $img): static
+    public function setImg(?string $img): static
     {
         $this->img = $img;
 
