@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Look at book{% endblock %}
+
+{% block body %}
+
+
+<div class="index center">
+    <h1>{{ book.title }} by {{ book.author }}</h1>
+    <h2>{{ book.isbn }}</h2>
+    {% if (book.img) %}
+    <img src="{{ asset('img/library/' ~ book.img) }}" alt="hej" class="me">
+    {% endif %}
+
+</div>
+{% endblock %}
