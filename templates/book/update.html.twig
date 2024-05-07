@@ -5,11 +5,12 @@
 {% block body %}
 
 
-<div class="index center">
-    <h1>{{ book.title }} by {{ book.author }}</h1>
-    <h2>{{ book.isbn }}</h2>
+<div class="index form-center center">
+    <h1 class="text-center">Update book</h1>
+    <h2>{{ book.title }} by {{ book.author }}</h2>
+    <h3>{{ book.isbn }}</h3>
     {% if (book.img) %}
-    <img src="{{ asset('img/library/' ~ book.img) }}" alt="hej" class="me">
+    <img src="{{ asset('img/library/' ~ book.img) }}" alt="{{ book.title }}" class="me">
     {% endif %}
     {{ form(book_form) }}
 

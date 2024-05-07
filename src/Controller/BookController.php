@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\FileUploader;
-
+use Symfony\Component\Filesystem\Filesystem;
 
 use App\Entity\Book;
 use App\Repository\BookRepository;
@@ -28,8 +28,14 @@ class BookController extends AbstractController
     public function create(
         Request $request,
         ManagerRegistry $doctrine,
-        FileUploader $fileUploader)
+        FileUploader $fileUploader,
+        BookRepository $bookRepository)
     {
+        $books = $bookRepository
+        ->findAll();
+        if (sizeof($books) >= 10) {
+            return new Response('10 books or more in the library, delete one to add one');
+        }   
         $book = new Book();
 
         $form = $this->createForm(BookFormType::class, $book);
@@ -42,16 +48,14 @@ class BookController extends AbstractController
             // this condition is needed because the 'img-upload' field is not required
             // so the img file must be processed only when a file is uploaded
             if ($imgFile) {
-                $img = $form->get('img-upload')->getData();
-                if ($img) {
-                    $imgFileName = $fileUploader->upload($img);
+
+                    $imgFileName = $fileUploader->upload($imgFile);
                     $book->setImg($imgFileName);
                 }
-            }
 
             $entityManager->persist($book);
             $entityManager->flush();
-            return new Response("Book with title " . $book->getTitle() . " and id" . $book->getId() . " has been created!");
+            return $this->redirectToRoute('book_by_id', ["id" => $book->getId()]);
         }
         return $this->render('book/create.html.twig', [
             'book_form' => $form->createView()
@@ -88,16 +92,18 @@ class BookController extends AbstractController
             // this condition is needed because the 'img-upload' field is not required
             // so the img file must be processed only when a file is uploaded
             if ($imgFile) {
-                $img = $form->get('img-upload')->getData();
-                if ($img) {
-                    $imgFileName = $fileUploader->upload($img);
-                    $book->setImg($imgFileName);
+                $prevImage = $book->getImg();
+                $imgFileName = $fileUploader->upload($imgFile);
+                $book->setImg($imgFileName);
+                if ($prevImage) {
+                    $filesystem = new Filesystem();
+                    $path=$this->getParameter("img_directory").'/'.$prevImage;
+                    $filesystem->remove($path);
+                    }
                 }
             }
+        $entityManager->flush();
 
-            // $entityManager->persist($book);
-            $entityManager->flush();
-        }
         return $this->render('book/update.html.twig', [
             'book' => $book,
             'book_form' => $form->createView()
@@ -123,6 +129,34 @@ class BookController extends AbstractController
         $books = $bookRepository
             ->findAll();
 
-        return $this->json($books);
+        return $this->render('book/show_all.html.twig', [
+            'books' => $books]);
+    }
+
+    #[Route('/library/delete/{id}', name: 'book_delete_by_id', methods: ['POST'])]
+    public function deleteBookById(
+        ManagerRegistry $doctrine,
+        int $id
+    ): Response {
+        $entityManager = $doctrine->getManager();
+        $book = $entityManager->getRepository(Book::class)->find($id);
+
+        if (!$book) {
+            throw $this->createNotFoundException(
+                'No book found for id '.$id
+            );
+        }
+
+        $filesystem = new Filesystem();
+        $image = $book->getImg();
+        if ($image) {
+            $path=$this->getParameter("img_directory").'/'.$image;
+            $filesystem->remove($path);
+        }
+
+        $entityManager->remove($book);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('book_show_all');
     }
 }

@@ -29,6 +29,10 @@
     padding: 0.4rem;
 }
 
+.button-center {
+    margin: 0 auto;
+  }
+
 .button:hover {
     background-color: #b3b3b3;
     background-image: none;
@@ -101,6 +105,13 @@
     width: $table-width;
     margin-bottom: 2rem;
     margin-top: 0;
+}
+
+.update-button {
+    a {
+    color: $white;
+    text-decoration: none;
+    }
 }
 
 input[type=submit] {

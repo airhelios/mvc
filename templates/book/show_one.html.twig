@@ -6,11 +6,18 @@
 
 
 <div class="index center">
-    <h1>{{ book.title }} by {{ book.author }}</h1>
-    <h2>{{ book.isbn }}</h2>
-    {% if (book.img) %}
-    <img src="{{ asset('img/library/' ~ book.img) }}" alt="hej" class="me">
-    {% endif %}
+        <div class="book-parent">
+            <div class="book-title"> <h1 class="text-center">{{ book.title }}</h1></div>
+            <div class="book-author"> <h3 class="text-center">{{ book.author }}</h3></div>
+            <div class="book-isbn"> <h3 class="text-center">{{ book.isbn }}</div>
+         {% if (book.img) %}
+         <div class="book-img"> <img src="{{ asset('img/library/' ~ book.img) }}" alt="{{ book.title }}"" class="book-pic"></div>
+         {% endif %}
+         <div class="update-button"><button class="button full-width button-center green-button"><a href="{{ path('update_book', {id: book.id }) }}">Update book</a></button></div>
 
+         <form action="{{ path('book_delete_by_id', {id: book.id }) }}" method="post">
+             <button class ="button full-width button-center red-button" type="submit">Delete</button></form>
+     
+        </div>
 </div>
 {% endblock %}
