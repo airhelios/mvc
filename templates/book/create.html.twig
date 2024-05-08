@@ -5,8 +5,11 @@
 {% block body %}
 
 
-<div class="index form-center center">
+<div class="index center">
+    {% include './book/navbar_library.html.twig' %}
+    <div class="form-center">
     <h1 class="text-center">Create book!</h1>
     {{ form(book_form) }}
+</div>
 </div>
 {% endblock %}
