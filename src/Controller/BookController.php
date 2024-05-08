@@ -19,6 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BookController extends AbstractController
 {
+    #region index
     #[Route('/library', name: 'app_book')]
     public function index(): Response
     {
@@ -26,7 +27,9 @@ class BookController extends AbstractController
             'controller_name' => 'BookController',
         ]);
     }
+    #endregion
 
+    #region create
     #[Route('/library/create', name: 'create_book')]
     public function create(
         Request $request,
@@ -64,7 +67,9 @@ class BookController extends AbstractController
             'book_form' => $form->createView()
         ]);
     }
+    #endregion
 
+    #region update
     #[Route('/library/update/{id}', name: 'update_book')]
     public function updateBook(
         Request $request,
@@ -111,7 +116,9 @@ class BookController extends AbstractController
             'book_form' => $form->createView()
         ]);
     }
+    #endregion update
 
+    #region show one
     #[Route('/library/show/{id}', name: 'book_by_id')]
     public function showBookById(
         BookRepository $bookRepository,
@@ -123,7 +130,9 @@ class BookController extends AbstractController
         return $this->render('book/show_one.html.twig', [
                 'book' => $book]);
     }
+    #endregion
 
+    #region show all
     #[Route('/library/show', name: 'book_show_all')]
     public function showAllBook(
         BookRepository $bookRepository
@@ -134,7 +143,9 @@ class BookController extends AbstractController
         return $this->render('book/show_all.html.twig', [
             'books' => $books]);
     }
+    #endregion
 
+    #region delete one
     #[Route('/library/delete/{id}', name: 'book_delete_by_id', methods: ['POST'])]
     public function deleteBookById(
         ManagerRegistry $doctrine,
@@ -158,6 +169,43 @@ class BookController extends AbstractController
 
         $entityManager->remove($book);
         $entityManager->flush();
+
+        return $this->redirectToRoute('book_show_all');
+    }
+    #endregion
+
+    #region reset
+    #[Route('/library/reset', name: 'library_reset')]
+    public function reset(
+        BookRepository $bookRepository,
+        ManagerRegistry $doctrine
+    ): Response {
+        $em = $doctrine->getManager();
+        $connection = $em->getConnection();
+        $sqlDrop = "DROP TABLE IF EXISTS book;";
+        $stmt = $connection->prepare($sqlDrop);
+        $stmt->execute();
+    
+        $sqlTable = "
+        CREATE TABLE book (
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            title VARCHAR(255) NOT NULL,
+            isbn VARCHAR(255) DEFAULT NULL,
+            author VARCHAR(255) NOT NULL,
+            img VARCHAR(255) DEFAULT NULL
+        );";
+        $stmt = $connection->prepare($sqlTable);
+        $stmt->execute();
+
+        $sqlInsert = "        
+        INSERT INTO book (id, title, isbn, author, img) VALUES 
+        (1, 'Meditations', '0-3998-4298-5', 'Marcus Aurelius', 'aurelius-1.jpg'),
+        (2, 'The Iliad', '0-1316-7204-5', 'Homer', 'homeros-1.jpg'),
+        (3, 'Three Muskeeters', '0-7669-6438-8', 'Alexandre Dumas', 'musketeers-1.jpg'),
+        (4, 'The Art of War', '0-2384-6943-3', 'Sun Tzu', 'suntzu-1.jpg');
+        ;";
+        $stmt = $connection->prepare($sqlInsert);
+        $stmt->execute();
 
         return $this->redirectToRoute('book_show_all');
     }
