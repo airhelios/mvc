@@ -142,6 +142,38 @@ det känns mindre strukturerat. Jag vet inte varför det finns controllers i bå
         <li>Jag lärde mig att man behöver inte alltid testa sina getter/setter-metoder.</li>
     </ul>
 
+<h1 id="kmom04">Kmom05</h1></a>
+
+<p class="report">Övningen med Symfony och Doctrine gick bra. Jag copy/pasteade bara i princip. Det jobbiga för mig var framförallt att förstå migrations-delen och att 
+    förstå processen bakom när man skulle använda *Repository och ManagerRegistry. Jag har nog inte fattat det helt än men jag tror att det lossnar när man arbetar mer med det. Jag har stött på lite
+    ORM innan så jag är inte helt ovan. Men ibland tänker jag att det är enklare att arbeta via PHP PDO eller liknande direkt.
+</p>
+
+<p class="report">
+    Jag insåg ganska snabbt att uppgiften inte var så utmanande ifall man bara följde kraven. Vi har ju gjort liknande CRUD-uppgifter 2-3 gånger innan.
+    Därför ville jag göra det lite mer avancerat. Jag bestämde mig för att använda Symfonys inbyggda formulärshanterare samt filuppladdning.
+    Jag följde några tutorials för att få dem att fungera. Men just formulär+filuppladdnings-delen tog säkert 50% av tiden med det här kursmomentet.<br>
+    Jag stal en del av gränssnittet från Webapp-kursen. Jag hade ingen plan angående utseendet till en början men insåg att det passade bra att göra den smal och mobilvänlig.
+</p>
+<p class="report">Det gick ganska bra att arbeta med ORM, jag såg inga egentliga problem med den biten.
+    Man kan antingen skapa queries där man arbetar med objekten enligt repository data pattern eller så kan man använda sig av
+    rå SQL (vilket jag gjorde i library/reset). Även om det var relativt rättframt hur man arbetar med ORM så är jag inte helt säker på vad som är best practice.
+</p>
+
+<p class="report">Min uppfattning om ORM är att jag kan se varför det behövs men jag tror att det hittills bara har förenklat vårt kodande marginellt. Det blir säkert väldigt användbart
+    ju mer man arbetar mot databaserna och ju mer komplicerad ens applikation blir. En fördel är att man behöver knappt kunna någon SQL för att använda dem och 
+    syntaxen/koduppbyggnaden följer resten av applikationen.<br>Tidigare har vi jobbat med PHP PDO som är överskådligt och intuitivt. Nackdelen är att man själv får koppla svaren från databasen till sina objekt och klasser.
+    Man får också nästan utföra en ritual för att koppla upp sig mot databasen.
+</p>
+
+<p class="report">Jag har ett par TIL:</p>
+<ul class="ul-report">
+    <li>Det finns inbyggd formulärshantering i Symfony.</li>
+    <li>Man kan förenkla sitt arbete mot en databas med en ORM, Doctrine fungerar bra med Symfony.</li>
+    <li>Om man vill kunna ladda upp en fil på dbwebb via browsern så bör man döpa tillhörande mapp till storage, db, var, cache, web/assets.</li>
+    <li>Man kan spara filer i databasen via blob-filtypen.</li>
+    <li>Symfony med Doctrine använder sig av Repository Design Pattern. Det finns många design patterns för att koppla en databas mot en applikation.</li>
+</ul>
 </div>
 
 {% endblock %}
