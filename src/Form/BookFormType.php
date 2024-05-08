@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints\File;
 
 class BookFormType extends AbstractType
 {
+    /**
+     * @SuppressWarnings(UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

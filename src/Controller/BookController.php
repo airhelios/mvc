@@ -14,6 +14,9 @@ use App\Entity\Book;
 use App\Repository\BookRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @SuppressWarnings(Shortvariable)
+ */
 class BookController extends AbstractController
 {
     #[Route('/library', name: 'app_book')]
@@ -29,7 +32,7 @@ class BookController extends AbstractController
         Request $request,
         ManagerRegistry $doctrine,
         FileUploader $fileUploader,
-        BookRepository $bookRepository)
+        BookRepository $bookRepository): Response
     {
         $books = $bookRepository
         ->findAll();
@@ -67,8 +70,7 @@ class BookController extends AbstractController
         Request $request,
         ManagerRegistry $doctrine,
         FileUploader $fileUploader,
-        BookRepository $bookRepository,
-        int $id)
+        int $id): Response
     {
         $entityManager = $doctrine->getManager();
         $book = $entityManager->getRepository(Book::class)->find($id);

@@ -38,10 +38,10 @@ class APILibraryController extends AbstractController
     #[Route('/api/library/isbn/{ISBN}', name:"api_library_isbn")]
     public function apiLibraryISBN(
         BookRepository $bookRepository,
-        string $ISBN
+        string $isbn
     ): Response {
         $books = $bookRepository
-            ->findByISBN($ISBN);
+            ->findByISBN($isbn);
 
         $response = new Response();
         // $response->setContent(json_encode($books));
