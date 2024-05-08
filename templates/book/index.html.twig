@@ -4,11 +4,8 @@
 
 {% block body %}
 <div class="index center">
-    
-<ul>
-    <li><a href="{{ path('create_book') }}">Create book</a></li>
-    <li><a href="{{ path('book_by_id', {id:'1'}) }}">Show book</a></li>
-    <li><a href="{{ path('book_show_all') }}">Show all books</a></li>
-</ul>
+    <h1 class="text-center">Click the Library links below!</h1>
+    {% include './book/navbar_library.html.twig' %}
+
 </div>
 {% endblock %}

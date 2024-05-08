@@ -31,11 +31,11 @@ class APILibraryController extends AbstractController
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
-    
+
         return $response;
     }
 
-    #[Route('/api/library/isbn/{ISBN}', name:"api_library_isbn")]
+    #[Route('/api/library/isbn/{isbn}', name:"api_library_isbn")]
     public function apiLibraryISBN(
         BookRepository $bookRepository,
         string $isbn
@@ -49,7 +49,7 @@ class APILibraryController extends AbstractController
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
-    
+
         return $response;
     }
 }

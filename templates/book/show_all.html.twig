@@ -14,7 +14,7 @@
        <div class="book-author"> <h3 class="text-center">{{ book.author }}</h3></div>
        <div class="book-isbn"> <h3 class="text-center">{{ book.isbn }}</div>
     {% if (book.img) %}
-    <div class="book-img"> <img src="{{ asset('img/library/' ~ book.img) }}" alt="{{ book.title }}"" class="book-pic"></div>
+    <div class="book-img"> <img src="{{ asset('img/storage/' ~ book.img) }}" alt="{{ book.title }}"" class="book-pic"></div>
     {% endif %}
     <div class="book-id"><button class="button full-width button-center red-button"><a href="{{ path('book_by_id', {id: book.id }) }}">Show book</a></button></div>
 

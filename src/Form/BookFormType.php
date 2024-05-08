@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 
-
 class BookFormType extends AbstractType
 {
     /**
@@ -19,7 +18,7 @@ class BookFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title',null, ['attr' => ['class' => 'form-title'],
+            ->add('title', null, ['attr' => ['class' => 'form-title'],
             'label_attr' => ['class' => 'input-label']])
 
             ->add('ISBN', null, ['attr' => ['class' => 'form-isbn'],
@@ -58,7 +57,7 @@ class BookFormType extends AbstractType
                     ])
                 ],
             ])
-            
+
             ->add('Submit', SubmitType::class, ['attr' => ['class' => 'button red-button']])
         ;
     }

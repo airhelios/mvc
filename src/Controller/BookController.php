@@ -32,13 +32,13 @@ class BookController extends AbstractController
         Request $request,
         ManagerRegistry $doctrine,
         FileUploader $fileUploader,
-        BookRepository $bookRepository): Response
-    {
+        BookRepository $bookRepository
+    ): Response {
         $books = $bookRepository
         ->findAll();
         if (sizeof($books) >= 10) {
             return new Response('10 books or more in the library, delete one to add one');
-        }   
+        }
         $book = new Book();
 
         $form = $this->createForm(BookFormType::class, $book);
@@ -52,9 +52,9 @@ class BookController extends AbstractController
             // so the img file must be processed only when a file is uploaded
             if ($imgFile) {
 
-                    $imgFileName = $fileUploader->upload($imgFile);
-                    $book->setImg($imgFileName);
-                }
+                $imgFileName = $fileUploader->upload($imgFile);
+                $book->setImg($imgFileName);
+            }
 
             $entityManager->persist($book);
             $entityManager->flush();
@@ -70,8 +70,8 @@ class BookController extends AbstractController
         Request $request,
         ManagerRegistry $doctrine,
         FileUploader $fileUploader,
-        int $id): Response
-    {
+        int $id
+    ): Response {
         $entityManager = $doctrine->getManager();
         $book = $entityManager->getRepository(Book::class)->find($id);
 
@@ -87,7 +87,7 @@ class BookController extends AbstractController
             $book->setAuthor($form->get('author')->getData());
             $book->setISBN($form->get('ISBN')->getData());
             // dd($form->get('title')->getData());
-   
+
 
             $imgFile = $form->get('img-upload')->getData();
 
@@ -99,11 +99,11 @@ class BookController extends AbstractController
                 $book->setImg($imgFileName);
                 if ($prevImage) {
                     $filesystem = new Filesystem();
-                    $path=$this->getParameter("img_directory").'/'.$prevImage;
+                    $path = $this->getParameter("img_directory").'/'.$prevImage;
                     $filesystem->remove($path);
-                    }
                 }
             }
+        }
         $entityManager->flush();
 
         return $this->render('book/update.html.twig', [
@@ -152,7 +152,7 @@ class BookController extends AbstractController
         $filesystem = new Filesystem();
         $image = $book->getImg();
         if ($image) {
-            $path=$this->getParameter("img_directory").'/'.$image;
+            $path = $this->getParameter("img_directory").'/'.$image;
             $filesystem->remove($path);
         }
 
