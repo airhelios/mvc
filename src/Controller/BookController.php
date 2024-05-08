@@ -83,10 +83,8 @@ class BookController extends AbstractController
         $form = $this->createForm(BookFormType::class, $book);
         $form->handleRequest($request);
 
-
-
         $entityManager = $doctrine->getManager();
-        // dd("HEEEEEJ");
+
         if ($form->isSubmitted() && $form->isValid()) {
             $book->setTitle($form->get('title')->getData());
             $book->setAuthor($form->get('author')->getData());
@@ -175,17 +173,37 @@ class BookController extends AbstractController
     #endregion
 
     #region reset
+    /**
+     * @SuppressWarnings(CountInLoopExpression)
+     */
     #[Route('/library/reset', name: 'library_reset')]
     public function reset(
         BookRepository $bookRepository,
         ManagerRegistry $doctrine
     ): Response {
+
+        $filesystem = new Filesystem();
+        //Delete images
+        $books = $bookRepository
+        ->findAll();
+        $copyImage = ["aurelius-1.jpg", "homeros-1.jpg", "musketeers-1.jpg", "suntzu-1.jpg"];
+        for ($ind = 0; $ind < count($books); $ind++) {
+            $path = $this->getParameter("img_directory").'/'.$books[$ind]->getImg();
+            $filesystem->remove($path);
+        }
+        //Move default images
+        for ($ind = 0; $ind < count($copyImage); $ind++) {
+            $pathTo = $this->getParameter("img_directory").'/'.$copyImage[$ind];
+            $pathFrom = $this->getParameter("img_directory").'/storage/'.$copyImage[$ind];
+            $filesystem->copy($pathFrom, $pathTo);
+        }
+
         $em = $doctrine->getManager();
-        $connection = $em->getConnection();
+        $connection = $em->getConnection();/* @phpstan-ignore-line */
         $sqlDrop = "DROP TABLE IF EXISTS book;";
         $stmt = $connection->prepare($sqlDrop);
         $stmt->execute();
-    
+
         $sqlTable = "
         CREATE TABLE book (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -206,6 +224,8 @@ class BookController extends AbstractController
         ;";
         $stmt = $connection->prepare($sqlInsert);
         $stmt->execute();
+
+
 
         return $this->redirectToRoute('book_show_all');
     }
