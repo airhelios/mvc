@@ -23,6 +23,12 @@ class BaseController extends AbstractController
         return $this->render('me.html.twig');
     }
 
+    #[Route('/metrics', name: "metrics")]
+    public function metrics(): Response
+    {
+        return $this->render('metrics.html.twig');
+    }
+
     #[Route('/about', name: "about")]
     public function about(): Response
     {
