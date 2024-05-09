@@ -37,5 +37,5 @@ tools/
 /src/Game_bu
 .phpdoc/
 /docs
-.env
+# .env
 
