@@ -51,8 +51,22 @@
             <a href="https://en.wikipedia.org/wiki/Halstead_complexity_measures">Halstead complexity measures</a> är en serie mätvärden som kan tas fram genom att utgå från antalet operatorer och operander i koden. Genom dessa kan vi få ytterligare mått på 
             kodkomplexiteten. Ett mätvärde som kan beräknas är uppskattade antalet buggar, vilket syns i bilden nedan.
             <img src="{{ asset('img/metrics/Halstead.png') }}" alt="Halstead complexity measures for the 5 classes with most bugs" class="img-metrics">
-            <figcaption>
+            <figcaption>Beräknade mätvärden från Phpmetrics. Sorterade efter antal Halstead buggar. Klassen med flest buggar (0.61) är BookController.
             </figcaption>
+            Det uppskattade värdet för antalet buggar behöver inte innebära att koden har någon bugg, det är endast en indikation på att koden är komplex vilket i sin tur innebär att det finns en större risk för buggar.
+            Värdena på 0.61 och 0.48 för <code>BookController</code> samt <code>GameManager</code> låter förhållandevis lågt (mindre än en bugg per respektive klass).
+            Min bedömning här är att koden är relativt buggfri även om Phpmetrics taggar klasserna som "probably bugged". Jag hittar inget
+            i dokumentationen om tröskeln för "probably bugged" men genom att googla så bedömer jag att gränsen går vid >0.3.</p>
+            <h3>LLOC/CLOC</h3>
+            <p class="center">
+                Två mått på storleken på en klass kan vara <a href="https://github.com/phpmetrics/PhpMetrics/blob/master/doc/metrics.md#length">LLOC - logical lines of code samt CLOC - lines count without
+                    multiline comments</a>. Det är givet att ju större en klass är desto svårare är den att underhålla.
+                <img src="{{ asset('img/metrics/LLOC_CLOC.png') }}" alt="LLOC/CLOC för de klasser med högst LLOC/CLOC" class="img-metrics">
+                <figcaption>Beräknade LLOC/CLOC för koden. GameManager samt BookController är åter i topp här. 
+                </figcaption>
+
+
+            </p>
         </p>
 
         <h1>Källor</h1>
