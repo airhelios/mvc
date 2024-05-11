@@ -250,7 +250,7 @@ class GameManager
      * Makes the player hand draw another card.
      * @return CardG - Returns the card that the player drew.
      */
-    public function drawPlayer(): CardG
+    public function drawPlayer(): ?CardG
     {
         $card = $this->deck->draw();
         $this->playerHand->add($card);

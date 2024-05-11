@@ -187,12 +187,14 @@ class BookController extends AbstractController
         $books = $bookRepository
         ->findAll();
         $copyImage = ["aurelius-1.jpg", "homeros-1.jpg", "musketeers-1.jpg", "suntzu-1.jpg"];
-        for ($ind = 0; $ind < count($books); $ind++) {
+        $numBooks = count($books);
+        for ($ind = 0; $ind < $numBooks; $ind++) {
             $path = $this->getParameter("img_directory").'/'.$books[$ind]->getImg();
             $filesystem->remove($path);
         }
         //Move default images
-        for ($ind = 0; $ind < count($copyImage); $ind++) {
+        $numImages = count($copyImage);
+        for ($ind = 0; $ind < $numImages; $ind++) {
             $pathTo = $this->getParameter("img_directory").'/'.$copyImage[$ind];
             $pathFrom = $this->getParameter("img_directory").'/storage/'.$copyImage[$ind];
             $filesystem->copy($pathFrom, $pathTo);

@@ -76,7 +76,8 @@ class CardHandG
                 $total = array_map(function ($abcd) { return $abcd + 10; }, $total); //Add 10
             } else { //Others
                 $val = $card->getValue();
-                for ($i = 0; $i < count($total); $i++) {
+                $numTotal = count($total);
+                for ($i = 0; $i < $numTotal; $i++) {
                     $total[$i] = $total[$i] + $val;
                 }
             }
