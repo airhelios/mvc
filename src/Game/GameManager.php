@@ -69,6 +69,10 @@ class GameManager
         } elseif ($machineScore < $playerScore && $this->currentPlayer == "machine") {
             $this->status = "player_win";
         }
+
+        if (is_null($this->status)) {
+            $this->status = "player_turn";
+        }
         return $this->status;
     }
 
