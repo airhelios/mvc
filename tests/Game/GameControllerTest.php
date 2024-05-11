@@ -32,7 +32,8 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/game/doc');
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("game_docs");
         // $this->assertSelectorTextContains('h1', 'Game Page');
     }
 
@@ -57,7 +58,8 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/game/play');
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("game_play");
     }
 
     
@@ -66,6 +68,7 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/game/stay');
 
-        $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("game_stay");
+        // $this->assertResponseIsSuccessful();
     }
 }

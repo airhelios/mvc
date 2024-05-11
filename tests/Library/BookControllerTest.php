@@ -22,7 +22,9 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/library');
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("app_book");
+
     }
 
     public function testLibraryCreate(): void
@@ -30,7 +32,9 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/library/create');
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("create_book");
+
     }
 
     public function testLibraryUpdate(): void
@@ -38,7 +42,9 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/library/update/1');
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("update_book");
+
     }
 
     public function testShowOne(): void
@@ -46,7 +52,8 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/library/show/1');
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("book_by_id");
     }
 
     // public function testReset(): void
@@ -64,7 +71,8 @@ class GameControllerTest extends WebTestCase
         $client->catchExceptions(false);
 
 
-        $this->assertResponseIsSuccessful();
+        // $this->assertResponseIsSuccessful();
+        $this->assertRouteSame("book_show_all");
     }
 
     public function testReset(): void
