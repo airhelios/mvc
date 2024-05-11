@@ -25,7 +25,7 @@ class APILibraryController extends AbstractController
         $books = $bookRepository
             ->findAll();
 
-        $response = new Response();
+        // $response = new Response();
         // $response->setContent(json_encode($books));
         $response = $this->json($books);
         $response->setEncodingOptions(
@@ -43,7 +43,7 @@ class APILibraryController extends AbstractController
         $books = $bookRepository
             ->findByISBN($isbn);
 
-        $response = new Response();
+        // $response = new Response();
         // $response->setContent(json_encode($books));
         $response = $this->json($books);
         $response->setEncodingOptions(

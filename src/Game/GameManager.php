@@ -198,7 +198,6 @@ class GameManager
      */
     public function getWinnerPhrase(): string
     {
-        $winnerPhrase = "";
         $playerScore = $this->playerHand->bestScore();
         $machineScore = $this->machineHand->bestScore();
         $winnerPhrase = "The Player wins with a score of " . $playerScore . " against " . $machineScore;
