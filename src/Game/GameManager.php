@@ -55,7 +55,7 @@ class GameManager
      * Returns the current status of the game.
      * @return string - $this->status property
      */
-    public function getGameStatus(): string
+    public function getGameStatus(): ?string
     {
         $playerScore = $this->playerHand->bestScore();
         $machineScore = $this->machineHand->bestScore();
