@@ -84,7 +84,6 @@ class GameManager
                 return $this->status = "player_win";
             }
         }
-
         return $this->status;
     }
 
