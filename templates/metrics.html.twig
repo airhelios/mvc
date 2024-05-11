@@ -184,8 +184,9 @@
                         som att det har ett verkligt värde för resterande kod. Även om jag inser att de andra C i 6C är relevanta så känns de mer abstrakta. Mitt mål är att komma över 40% i kodtäckning (gult enligt Scrutinizer).
                         Jag börjar med <code>GameController</code> för att den är kopplad till 21-spelet (som det redan har gjorts många tester på). Jag fortsätter med andra klasser/filer tills jag når 40% i täckning.
                     </li>
-                    <li>Jag kommer även minska komplexiteten i <code>GameManager-klassen</code>. Enligt Scrutinizer så har den en komplexitet på 42. Jag ser det som en rimlig utmaning att minska ner denna,
-                    jag har själv tyckt att koden är bökig sen innan. Det kommer även innebära att CRAP-scoren minskar.</li>
+                    <li>Jag kommer även minska komplexiteten i <code>BookController-klassen</code>. Enligt Scrutinizer så har den en komplexitet på 19. Jag ser det som en rimlig utmaning att minska ner denna, min 
+                        plan var från början att ordna komplexiteten i <code>GameManager</code> men i och med att jag redan har skrivit tester för den klassen så vill jag inte röra den.
+                        <br>Att jag minskar komplexiteten kommer även innebära att CRAP-scoren minskar..</li>
                     <li>Jag ska ta bort alla "Best Practice"-issues i Scrutinizer. Det är totalt 5 stycken fel i 3 olika klasser. Det är en justering av klasser som redan uppfyller sitt syfte. Det kommer förmodligen
                         inte göra så stor skillnad när det gäller kodkvaliteten, men det kan innebära högre prestanda! Jag plockar även alla "Unused Code" för att de är enkla att fixa.
                     </li>

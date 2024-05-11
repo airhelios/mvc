@@ -48,24 +48,46 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         $entityManager = $doctrine->getManager();
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imgFile = $form->get('img-upload')->getData();
 
-            // this condition is needed because the 'img-upload' field is not required
-            // so the img file must be processed only when a file is uploaded
-            if ($imgFile) {
-
-                $imgFileName = $fileUploader->upload($imgFile);
-                $book->setImg($imgFileName);
-            }
-
-            $entityManager->persist($book);
-            $entityManager->flush();
-            return $this->redirectToRoute('book_by_id', ["id" => $book->getId()]);
-        }
+        // Early return if the form is not submitted or is invalid
+        if (!$form->isSubmitted() || !$form->isValid()) {
         return $this->render('book/create.html.twig', [
-            'book_form' => $form->createView()
-        ]);
+            'book_form' => $form->createView()]);
+        }
+
+        $imgFile = $form->get('img-upload')->getData();
+
+        // Process the image file if it exists
+        if ($imgFile) {
+            $imgFileName = $fileUploader->upload($imgFile);
+            $book->setImg($imgFileName);
+        }
+
+        // Persist and flush the entity
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        // Redirect to the book by id
+        return $this->redirectToRoute('book_by_id', ["id" => $book->getId()]);
+        
+        
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $imgFile = $form->get('img-upload')->getData();
+
+        //     // this condition is needed because the 'img-upload' field is not required
+        //     // so the img file must be processed only when a file is uploaded
+        //     if ($imgFile) {
+        //         $imgFileName = $fileUploader->upload($imgFile);
+        //         $book->setImg($imgFileName);
+        //     }
+
+        //     $entityManager->persist($book);
+        //     $entityManager->flush();
+        //     return $this->redirectToRoute('book_by_id', ["id" => $book->getId()]);
+        // }
+        // return $this->render('book/create.html.twig', [
+        //     'book_form' => $form->createView()
+        // ]);
     }
     #endregion
 
@@ -85,27 +107,27 @@ class BookController extends AbstractController
 
         $entityManager = $doctrine->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $book->setTitle($form->get('title')->getData());
-            $book->setAuthor($form->get('author')->getData());
-            $book->setISBN($form->get('ISBN')->getData());
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->render('book/update.html.twig', [
+                'book' => $book,
+                'book_form' => $form->createView()
+            ]);
+        }
+        $book->setTitle($form->get('title')->getData());
+        $book->setAuthor($form->get('author')->getData());
+        $book->setISBN($form->get('ISBN')->getData());
             // dd($form->get('title')->getData());
 
 
-            $imgFile = $form->get('img-upload')->getData();
+        $imgFile = $form->get('img-upload')->getData();
 
             // this condition is needed because the 'img-upload' field is not required
             // so the img file must be processed only when a file is uploaded
-            if ($imgFile) {
-                $prevImage = $book->getImg();
-                $imgFileName = $fileUploader->upload($imgFile);
-                $book->setImg($imgFileName);
-                if ($prevImage) {
-                    $filesystem = new Filesystem();
-                    $path = $this->getParameter("img_directory").'/'.$prevImage;
-                    $filesystem->remove($path);
-                }
-            }
+        if ($imgFile) {
+            $prevImage = $book->getImg();
+            $imgFileName = $fileUploader->upload($imgFile);
+            $book->setImg($imgFileName);
+            $this->deleteImg($prevImage);   
         }
         $entityManager->flush();
 
@@ -114,6 +136,33 @@ class BookController extends AbstractController
             'book_form' => $form->createView()
         ]);
     }
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $book->setTitle($form->get('title')->getData());
+    //         $book->setAuthor($form->get('author')->getData());
+    //         $book->setISBN($form->get('ISBN')->getData());
+    //         // dd($form->get('title')->getData());
+
+
+    //         $imgFile = $form->get('img-upload')->getData();
+
+    //         // this condition is needed because the 'img-upload' field is not required
+    //         // so the img file must be processed only when a file is uploaded
+    //         if ($imgFile) {
+    //             $prevImage = $book->getImg();
+    //             $imgFileName = $fileUploader->upload($imgFile);
+    //             $book->setImg($imgFileName);
+    //             $this->deleteImg($prevImage);   
+    //         }
+    //     }
+    //     $entityManager->flush();
+
+    //     return $this->render('book/update.html.twig', [
+    //         'book' => $book,
+    //         'book_form' => $form->createView()
+    //     ]);
+    // }
+    
     #endregion update
 
     #region show one
@@ -158,12 +207,15 @@ class BookController extends AbstractController
             );
         }
 
-        $filesystem = new Filesystem();
         $image = $book->getImg();
-        if ($image) {
-            $path = $this->getParameter("img_directory").'/'.$image;
-            $filesystem->remove($path);
-        }
+        $this->deleteImg($image);
+
+        // $filesystem = new Filesystem();
+
+        // if ($image) {
+        //     $path = $this->getParameter("img_directory").'/'.$image;
+        //     $filesystem->remove($path);
+        // }
 
         $entityManager->remove($book);
         $entityManager->flush();
@@ -189,8 +241,9 @@ class BookController extends AbstractController
         $copyImage = ["aurelius-1.jpg", "homeros-1.jpg", "musketeers-1.jpg", "suntzu-1.jpg"];
         $numBooks = count($books);
         for ($ind = 0; $ind < $numBooks; $ind++) {
-            $path = $this->getParameter("img_directory").'/'.$books[$ind]->getImg();
-            $filesystem->remove($path);
+            // $path = $this->getParameter("img_directory").'/'.$books[$ind]->getImg();
+            // $filesystem->remove($path);
+            $this->deleteImg($books[$ind]->getImg());
         }
         //Move default images
         $numImages = count($copyImage);
@@ -227,8 +280,14 @@ class BookController extends AbstractController
         $stmt = $connection->prepare($sqlInsert);
         $stmt->execute();
 
-
-
         return $this->redirectToRoute('book_show_all');
+    }
+
+    protected function deleteImg(string $bookImage): void {
+        if ($bookImage) {
+            $filesystem = new Filesystem();
+            $path = $this->getParameter("img_directory").'/'.$bookImage;
+            $filesystem->remove($path);
+        }
     }
 }
