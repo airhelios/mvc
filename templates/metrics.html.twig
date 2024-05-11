@@ -1,25 +1,62 @@
 {% extends "base.html.twig" %}
 
-{% block title %}About{% endblock %}
+{% block title %}Metrics{% endblock %}
 
 {% block body %}
 <div class="index center">
-    <div class="row">
-    <div class="column">
-        <h1>Objektorienterade webbteknologier, 7,5 hp</h1>
-        <p class="center">Kursens fokus är objektorienterade programmeringstekniker i programmeringsspråket PHP. 
-            Klassiska objektorienterade konstruktioner hanteras tillsammans med objektorienterad programmering i webbaserat ramverk tillsammans med databaser samt enhetstestning.
-        <br><a href="https://github.com/dbwebb-se/mvc">Länk till kursens Git-repo</a>
-        <br><a href="https://github.com/airhelios/mvc">Länk till min Git-repo</a>
-        <br><a href="https://www.bth.se/utbildning/program-och-kurser/kurser/20241/BEGJ7/">Länk till kursplan</a></p>
-    </div>
-    <div class="column">
-    <h1>Bild på något coolt</h1>
-    <p class="center">Här är en bild som representerar kursen:
-    <img src="{{ asset('img/pexels-mikhail-nilov-7988086.jpg') }}" alt="Kodare" class="about-bild">
-    </p>
+        <h1>Introduktion</h1>
+        <p class="center">På denna undersida analyseras kodkvaliteten av de klasser och appar som huvudsidan är byggd på. Verktygen för analysen är
+            <code>Phpmetrics</code> och <code>Scrutinizer</code>. Kodkvaliteten kommer även beskrivas utifrån de 6C:</p>
+            <ul class="ul-report">
+                <li><b>Codestyle</b> &mdash; Detta refererar till kodstandarden. I denna kurs kontrolleras strukturen på vår kod med <a href="https://phpmd.org/">PHPMD</a> och <a href="https://phpstan.org/">PHPStan</a>. I normala fall brukar linters
+                och liknande kontrollera att koden som skrivs följer en viss stilguide (exempelvis att rätt indentering används, variabelnamn har alla samma utseende,
+                type hinting utförs, onödiga else-satser undviks etc.). PHPMD och PHPStan utför linting men också 
+                "mess detection" samt hittar buggar på statisk kod.</li>
+                <li><b>Coverage</b> &mdash; Coverage är ett mått på hur mycket av koden som det utförs tester på. På den här sidan så har alla definierande klasser (ej controllers) till kortspelet 
+                    <a href="{{ path('game') }}">21</a> en täckningsgrad på 100%. Tester är ytterligare ett sätt för att skapa robust kod.</li>
+                <li><b>Complexity</b> &mdash; Genom komplexiteten så får vi ett mätvärde på antalet linjärt oberoende vägar i koden. Detta påverkas av hur många villkorssatser det finns
+                (if/else if/else) i koden. Koden ska vara enkel att följa och därför bör vägarna hållas nere.</li>
+                <li><b>Cohesion</b> &mdash; "Sammanhållning": hur väl passar de olika elementen/funktionerna i en klass ihop. Har klassen för många olika syften så är cohesion låg. Målet är att elementen/metoderna i en 
+                    klass endast ska ha ett gemensamt syfte. Exempelvis, så har klassen App/Game/CardG i kortspelet 21 syftet att endast representera ett kort i en kortlek,
+                    metoderna (setValue, setColor, getAsString, getAsColor) har syftet att modifiera kortets värde eller presentera det.
+                </li>
+                <li><b>Coupling</b> &mdash; Hur sammansvetsade är olika moduler. Överlag så vill man ha mindre sammansvetsade moduler för att det innebär att programmet är mer robust. 
+                Skulle ena modulen modifieras så ska inte detta påverka funktionaliteten hos de andra modulerna. Det finns två typer av coupling:
+            <ul>
+                <li>Efferent coupling - hur många klasser är aktuell klass beroende av.</li>
+                <li>Afferent coupling - hur många klasser är beroende av aktuell klass.</li>
+            </ul>Målet är att ration mellan efferent coupling och afferent coupling ska vara viktad så mycket åt afferent-hållet som möjligt. I koden till denna sida så kan man lätt se ifall en klass har många beroenden genom 
+        importerna.</li>
+                <li><b>CRAP</b> &mdash; Akronym för antingen Change Risk Analyzer and Predictor eller Change Risk Anti Pattern. Detta räknas ut utifrån complexity och coverage. Ett höger CRAP-score tyder på att 
+                fler tester bör skapas och/eller komplexiteten bör minskas. Tröskeln för dålig CRAP-score ligger vanligtvis på 30 eller högre.</li>
+            </ul>
+        <h1>Resultat</h1>
+        <h2>Phpmetrics</h2>
+        <p class="center">
+            <h3>Maintainability/complexity</h3>
+            <p class="center">
+            Se nedan för Maintainability/complexity-grafen från Phpmetrics.
+            <figure>
+            <img src="{{ asset('img/metrics/PhpMetrics_maintainability_complexity.png') }}" alt="php metrics graf" class="img-metrics">
+            <figcaption>Php metrics maintainability/complexity-graf. En cirkel representerar en fil. Storleken på cirkeln är relaterat till komplexiteten. Färgen representerar 
+                "maintainability", som är ett mått på hur svårt det blir att underhålla/förvalta filen. Enligt Phpmetrics så kommer stora röda cirklar vara svårare att förvalta. Grafen är baserad på att
+                koden är kommenterad, utan dessa kommentarer så hade fler cirklar varit röda.
+            </figcaption>
+            Min kod innehåller alltså många svårförvaltade filer. Den svåraste är min <code>GameManager</code>-klass, med en cyklomatisk komplexitet på 23. 
+            Det är klassen som innehåller logiken för 21-spelet. Den som när nästsvårast att förvalta är <code>BookController</code> (controllern för biblioteket i kmom05) med 13 i 
+            komplexitet. <code>GameManager</code> är alltså nästan dubbelt så svårförvaltad som tvåan.</figure>
+            </p>
+            <h3>Average bugs per class(Halstead)</h3>
+            <p class="center">
+            <a href="https://en.wikipedia.org/wiki/Halstead_complexity_measures">Halstead complexity measures</a> är en serie mätvärden som kan tas fram genom att utgå från antalet operatorer och operander i koden. Genom dessa kan vi få ytterligare mått på 
+            kodkomplexiteten. Ett mätvärde som kan beräknas är uppskattade antalet buggar, vilket syns i bilden nedan.
+            <img src="{{ asset('img/metrics/Halstead.png') }}" alt="Halstead complexity measures for the 5 classes with most bugs" class="img-metrics">
+            <figcaption>
+            </figcaption>
+        </p>
+
+        <h1>Källor</h1>
 </div>
-</div>
-</div>
+
 
 {% endblock %}  
