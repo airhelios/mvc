@@ -6,3 +6,58 @@
         margin-left: auto;
         margin-top: 0.5rem;
 }
+
+.img-scrutinizer {
+    display:block;
+}
+
+.ul-metrics {
+    margin-left: 2rem;
+}
+
+.li-red {
+    color: $red;
+    background-color: $background-darker;
+    width: fit-content;
+}
+
+.li-yellow {
+    color: $yellow;
+    background-color: $background-darker;
+    width: fit-content;
+}
+
+
+.li-green {
+    color: $green;
+    background-color: $background-darker;
+    width: fit-content;
+}
+
+.metrics {
+    padding: 5rem;
+    line-height: 1.4rem;
+    h1, h2 {
+        margin-bottom:1rem;
+        padding: 0.5rem;
+    }
+    h1 {
+        background-color: $comp2;
+    }
+    h2 {
+        background-color: $light-grey;
+    }
+    h3 {
+        margin-bottom: 0.2rem;
+        background-color: $background-softer;
+    }
+    p {
+        // margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.metrics-p-center {
+    margin-right: auto;
+    margin-left: auto;
+}

@@ -3,9 +3,9 @@
 {% block title %}Metrics{% endblock %}
 
 {% block body %}
-<div class="index center">
-        <h1>Introduktion</h1>
-        <p class="center">På denna undersida analyseras kodkvaliteten av de klasser och appar som huvudsidan är byggd på. Verktygen för analysen är
+<div class="index center metrics">
+        <h1 class="text-center">Introduktion</h1>
+        <p class="metrics-p-center">På denna undersida analyseras kodkvaliteten av de klasser och appar som huvudsidan är byggd på. Verktygen för analysen är
             <code>Phpmetrics</code> och <code>Scrutinizer</code>. Kodkvaliteten kommer även beskrivas utifrån de 6C:</p>
             <ul class="ul-report">
                 <li><b>Codestyle</b> &mdash; Detta refererar till kodstandarden. I denna kurs kontrolleras strukturen på vår kod med <a href="https://phpmd.org/">PHPMD</a> och <a href="https://phpstan.org/">PHPStan</a>. I normala fall brukar linters
@@ -30,47 +30,166 @@
                 <li><b>CRAP</b> &mdash; Akronym för antingen Change Risk Analyzer and Predictor eller Change Risk Anti Pattern. Detta räknas ut utifrån complexity och coverage. Ett höger CRAP-score tyder på att 
                 fler tester bör skapas och/eller komplexiteten bör minskas. Tröskeln för dålig CRAP-score ligger vanligtvis på 30 eller högre.</li>
             </ul>
-        <h1>Resultat</h1>
-        <h2>Phpmetrics</h2>
-        <p class="center">
-            <h3>Maintainability/complexity</h3>
-            <p class="center">
-            Se nedan för Maintainability/complexity-grafen från Phpmetrics.
+        </p>
+        <h1 class="text-center">Resultat</h1>
+        <h2 class="text-center">Phpmetrics</h2>
+            <h3 class="text-center">Maintainability/complexity</h3>
+            <p class="metrics-p-center">
+            Se nedan för Maintainability/complexity-grafen från Phpmetrics.</p>
             <figure>
             <img src="{{ asset('img/metrics/PhpMetrics_maintainability_complexity.png') }}" alt="php metrics graf" class="img-metrics">
             <figcaption>Php metrics maintainability/complexity-graf. En cirkel representerar en fil. Storleken på cirkeln är relaterat till komplexiteten. Färgen representerar 
                 "maintainability", som är ett mått på hur svårt det blir att underhålla/förvalta filen. Enligt Phpmetrics så kommer stora röda cirklar vara svårare att förvalta. Grafen är baserad på att
                 koden är kommenterad, utan dessa kommentarer så hade fler cirklar varit röda.
             </figcaption>
+            </figure>
             Min kod innehåller alltså många svårförvaltade filer. Den svåraste är min <code>GameManager</code>-klass, med en cyklomatisk komplexitet på 23. 
             Det är klassen som innehåller logiken för 21-spelet. Den som när nästsvårast att förvalta är <code>BookController</code> (controllern för biblioteket i kmom05) med 13 i 
             komplexitet. <code>GameManager</code> är alltså nästan dubbelt så svårförvaltad som tvåan.</figure>
-            </p>
-            <h3>Average bugs per class(Halstead)</h3>
-            <p class="center">
+            
+            <h3 class="text-center">Average bugs per class(Halstead)</h3>
+            <p class="metrics-p-center">
             <a href="https://en.wikipedia.org/wiki/Halstead_complexity_measures">Halstead complexity measures</a> är en serie mätvärden som kan tas fram genom att utgå från antalet operatorer och operander i koden. Genom dessa kan vi få ytterligare mått på 
             kodkomplexiteten. Ett mätvärde som kan beräknas är uppskattade antalet buggar, vilket syns i bilden nedan.
+            </p>
+            <figure>
             <img src="{{ asset('img/metrics/Halstead.png') }}" alt="Halstead complexity measures for the 5 classes with most bugs" class="img-metrics">
             <figcaption>Beräknade mätvärden från Phpmetrics. Sorterade efter antal Halstead buggar. Klassen med flest buggar (0.61) är BookController.
             </figcaption>
+            </figure>
+            <p class="metrics-p-center">
             Det uppskattade värdet för antalet buggar behöver inte innebära att koden har någon bugg, det är endast en indikation på att koden är komplex vilket i sin tur innebär att det finns en större risk för buggar.
             Värdena på 0.61 och 0.48 för <code>BookController</code> samt <code>GameManager</code> låter förhållandevis lågt (mindre än en bugg per respektive klass).
             Min bedömning här är att koden är relativt buggfri även om Phpmetrics taggar klasserna som "probably bugged". Jag hittar inget
-            i dokumentationen om tröskeln för "probably bugged" men genom att googla så bedömer jag att gränsen går vid >0.3.</p>
-            <h3>LLOC/CLOC</h3>
-            <p class="center">
+            i dokumentationen om tröskeln för "probably bugged" men genom att googla så bedömer jag att gränsen går vid >0.3.
+            </p>
+            <h3 class="text-center">LLOC/CLOC</h3>
+            <p class="metrics-p-center">
                 Två mått på storleken på en klass kan vara <a href="https://github.com/phpmetrics/PhpMetrics/blob/master/doc/metrics.md#length">LLOC - logical lines of code samt CLOC - lines count without
                     multiline comments</a>. Det är givet att ju större en klass är desto svårare är den att underhålla.
+            </p>
+            <figure>
                 <img src="{{ asset('img/metrics/LLOC_CLOC.png') }}" alt="LLOC/CLOC för de klasser med högst LLOC/CLOC" class="img-metrics">
                 <figcaption>Beräknade LLOC/CLOC för koden. GameManager samt BookController är åter i topp här. 
                 </figcaption>
+            </figure>
+
+            <h2 class="text-center">Scrutinizer</h2>
+            <p class="metrics-p-center">
+                Se nedan för Scrutinizer badges:
+                <a href="https://scrutinizer-ci.com/g/airhelios/mvc/?branch=main">
+                    <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/quality-score.png?b=main" class="img-scrutinizer"></a>
+
+                <a href="https://scrutinizer-ci.com/g/airhelios/mvc/?branch=main">
+                    <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/coverage.png?b=main" class="img-scrutinizer"></a>
+
+                <a href="https://scrutinizer-ci.com/g/airhelios/mvc/build-status/main">
+                    <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/build.png?b=main" class="img-scrutinizer"></a>
+
+                <a href="https://scrutinizer-ci.com/code-intelligence">
+                    <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/code-intelligence.svg?b=main" class="img-scrutinizer"></a>
+                </p>
+            
+            <h3 class="text-center">Code rating</h3>
+                <p class="metrics-p-center">Koden fick en rating på 9.97:
+                                    </p>
+                    <a href="https://scrutinizer-ci.com/g/airhelios/mvc/?branch=main">
+                        <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/quality-score.png?b=main" class="img-scrutinizer"></a>
+                    Vilket räknas som väldigt bra. Alla klasserna har ett betyg på <b>A</b>. Ratingen visar även att GameManager och BookController ligger i topp gällande komplexiteten.
+                </p>                   
+                        <figure>
+                    <img src="{{ asset('img/metrics/Scrutinizer.png') }}" alt="Scrutinizer data about classes with highest complexity" class="img-metrics">
+                    <figcaption>De 5 klasser med högst komplexitet enligt code rating-avsnittet i Scrutinizer.
+                    </figcaption>
+                </figure>
 
 
-            </p>
-        </p>
+                <h3 class="text-center">Coverage</h3>
+                <p class="metrics-p-center">Kodtäckningen ligger på 26%:
+                    <a href="https://scrutinizer-ci.com/g/airhelios/mvc/?branch=main">
+                        <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/coverage.png?b=main" class="img-scrutinizer"></a>
+                Det har endast skrivits tester för 21-spelets klasser (bara logik, inte controllers). Detta förklarar det låga resultatet, som är undermåligt enligt Scrutinizers tycke.
+                Scrutinizer bedömer kodtäckningen enligt tre kategorier: <ul class="ul-metrics">
+                    <li class="li-red">Röd &#60;40%</li>
+                    <li class="li-yellow">Gul 40-60%</li>
+                    <li class="li-green">Grön &#62;60</li>
+                </ul> 
+                </p>
+                <h3 class="text-center">Coverage</h3>
+                <p class="metrics-p-center">
+                    Koden gick igenom Scrutinizer-testet, vilket syns på brickan:
+                    <a href="https://scrutinizer-ci.com/g/airhelios/mvc/build-status/main">
+                        <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/build.png?b=main" class="img-scrutinizer"></a>
+                        För att få koden att passera testet så sattes php-versionen till 8.3.3 i <code>.scrutinizer.yml</code>. Dessutom var .env-filen med APP_SECRET tvungen att committas till github-repot. 
+                </p>
 
-        <h1>Källor</h1>
+                <h3 class="text-center">Code Intelligence</h3>
+                <p class="metrics-p-center">
+                    Det går att aktivera "Code Intelligence" i Scrutinizer för att exempelvis markera variabler, se "attached data" och för att få snabb tillgång till funktioner i koden i sitt Git-repo.
+                    Det har inte gjorts i detta projekt. Läs mer om Code Intelligence nedan:
+
+                    <a href="https://scrutinizer-ci.com/code-intelligence">
+                        <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/code-intelligence.svg?b=main" class="img-scrutinizer"></a> 
+                </p>
+
+    
+                <h3 class="text-center">Issues</h3>
+                <p class="metrics-p-center">
+                Scrutinizer har identifierat totalt 13 stycken issues som den vill uppmärksamma om:
+                </p>
+                <figure>
+                    <img src="{{ asset('img/metrics/Scrutinizer_issues.png') }}" alt="De issues som Scrutinizer har identifierat" class="img-metrics">
+                    <figcaption>De issues som Scrutinizer har uppmärksammat.<br> <code>.php-cs-fixer.dist.php</code>, <code>src/Kernel.php</code> och <code>src/Service/FileUploader.php</code> är inte filer som är specifikt framtagna
+                        för denna kurs. De andra är dock sådana som har skrivits under kursmomenten. Det finns fyra unika problem: bugs, unused code, (inte) best practice och performance. 
+                </figcaption>
+                <h2 class="text-center">
+                6C
+                </h2>
+                <h2 class="text-center">Codestyle</h2>
+                <p class="metrics-p-center">
+                    Varken Phpmetric eller Scrutinizer anmärker på codestyle. Detta täcks snarare upp av de linters som används i projektet (PHPMD och PHPStan).
+                </p>
+                <h2 class="text-center">Coverage</h2>
+                <p class="metrics-p-center">Scrutinizer klagar på att koden endast har 26%:s täckning. Detta togs upp under resultatet. Den vill alltså att kodtäckningen ska vara över 60% för att 
+                    vara tillräcklig.
+                </p>
+                <h2 class="text-center">Complexity</h2>
+                <p class="metrics-p-center">Både Scrutinizer och Phpmetrics har mätvärden för komplexitet. Koden har en genomsnittligt cyklomatisk komplexitet på 4.88 enligt Phpmetrics. Båda har siffror för komplexitet
+                    för klasserna, dock skiljer dessa värden på sig, exempelvis så har <code>GameManager</code> 42 enligt Scrutinizer och 23 enligt Phpmetrics.
+                     Okänt vad det beror på men min gissning är att antingen så använder de olika mått på komplexitet (kanske inte cyklomatisk komplexitet) eller så räknas vissa villkorssatser inte med.
+                </p>
+                <h2 class="text-center">Cohesion</h2>
+                <p class="metrics-p-center">Jag hittar inget direkt värde för cohesion i något av verktygen. Jag bedömer dock att ju högre LLOC en klass har desto lägre cohesion har den. Vi får också en indikation på att cohesion 
+                    i GameManager är låg på grund av att den har 20 metoder.
+                </p>
+
+                <h2 class="text-center">Coupling</h2>
+                <p class="metrics-p-center">Phpmetrics mäter coupling, se bild på de klasser nedan på de med högst instabilitet (alltså de som är mest beroende av andra klasser):
+                </p>
+                <figure>
+                    <img src="{{ asset('img/metrics/coupling.png') }}" alt="Coupling statistics from Phpmetrics" class="img-metrics">
+                    <figcaption>Coupling-värden på de klasser som har skrivits i denna kurs. Många har "maximal" instabilitet på 1. Dock så är den värsta klassen beroende av 8 andra klasser, vilket fortfarande är ensiffrigt.
+                    </figcaption>
+                </figure>
+                <h2 class="text-center">Crap</h2>
+                <p class="metrics-p-center">CRAP-score för metoderna i klassen går att få via Scrutinizer. I bilden så finns CRAP-score för de 10 metoder med högst värde.
+                </p>
+                <img src="{{ asset('img/metrics/CRAP.png') }}" alt="Change risk anti pattern score for the 10 methods with highest score" class="img-metrics">
+                <figcaption>De 10 metoderna med högst CRAP-värde presenteras här. Omfånget är 6-30. För att minska CRAP-värdet så bör antingen fler tester skrivas eller så bör komplexiteten i metoden minskas.
+                </figcaption>
+                <h1 class="text-center">Förbättringar</h1>
+                De förbättringar som jag avser att göra är 
+                <ol class="ul-metrics">
+                    <li>Skriva fler tester för att öka kodtäckningen. Detta kommer även innebära att CRAP-scoren för vissa metoder minskar. Jag väljer detta som en förbättring för att det känns som något handfast och
+                        som att det har ett verkligt värde för resterande kod. Även om jag inser att de andra C i 6C är relevanta så känns de mer abstrakta. Mitt mål är att komma över 40% i kodtäckning (gult enligt Scrutinizer).
+                        Jag börjar med <code>GameController</code> för att den är kopplad till 21-spelet (som det redan har gjorts många tester på). Jag fortsätter med andra klasser/filer tills jag når 40% i täckning.
+                    </li>
+                    <li>Jag kommer även minska komplexiteten i <code>GameManager-klassen</code>. Enligt Scrutinizer så har den en komplexitet på 42. Jag ser det som en rimlig utmaning att minska ner denna,
+                    jag har själv tyckt att koden är bökig sen innan. Det kommer även innebära att CRAP-scoren minskar.</li>
+                    <li>Jag ska ta bort alla "Best Practice"-issues i Scrutinizer. Det är totalt 5 stycken fel i 3 olika klasser. Det är en justering av klasser som redan uppfyller sitt syfte. Det kommer förmodligen
+                        inte göra så stor skillnad när det gäller kodkvaliteten, men det kan innebära högre prestanda!
+                    </li>
+                </ol> 
+
 </div>
-
-
 {% endblock %}  
