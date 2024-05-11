@@ -59,15 +59,30 @@ class GameManager
     {
         $playerScore = $this->playerHand->bestScore();
         $machineScore = $this->machineHand->bestScore();
-        if ($playerScore > 21) {
-            $this->status = "player_bust";
-        } elseif ($machineScore > 21) {
-            $this->status = "house_bust";
-        } elseif ($machineScore >= $playerScore && $this->currentPlayer == "machine") {
-            $this->status = "house_win";
+        // if ($playerScore > 21) {
+        //     $this->status = "player_bust";
+        // } elseif ($machineScore > 21) {
+        //     $this->status = "house_bust";
+        // } elseif ($machineScore >= $playerScore && $this->currentPlayer == "machine") {
+        //     $this->status = "house_win";
 
-        } elseif ($machineScore < $playerScore && $this->currentPlayer == "machine") {
-            $this->status = "player_win";
+        // } elseif ($machineScore < $playerScore && $this->currentPlayer == "machine") {
+        //     $this->status = "player_win";
+        // }
+
+        if ($playerScore > 21) {
+            return $this->status = "player_bust";
+        }
+        if ($machineScore > 21) {
+            return $this->status = "house_bust";
+        }
+        if ($this->currentPlayer == "machine") {
+            if ($machineScore >= $playerScore) {
+                return $this->status = "house_win";
+            }
+            if ($machineScore < $playerScore) {
+                return $this->status = "player_win";
+            }
         }
 
         return $this->status;
