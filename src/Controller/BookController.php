@@ -257,7 +257,7 @@ class BookController extends AbstractController
         $connection = $em->getConnection();/* @phpstan-ignore-line */
         $sqlDrop = "DROP TABLE IF EXISTS book;";
         $stmt = $connection->prepare($sqlDrop);
-        $stmt->execute();
+        $stmt->executeStatement();
 
         $sqlTable = "
         CREATE TABLE book (
@@ -268,7 +268,7 @@ class BookController extends AbstractController
             img VARCHAR(255) DEFAULT NULL
         );";
         $stmt = $connection->prepare($sqlTable);
-        $stmt->execute();
+        $stmt->executeStatement();
 
         $sqlInsert = "        
         INSERT INTO book (id, title, isbn, author, img) VALUES 
@@ -278,7 +278,7 @@ class BookController extends AbstractController
         (4, 'The Art of War', '0-2384-6943-3', 'Sun Tzu', 'suntzu-1.jpg');
         ;";
         $stmt = $connection->prepare($sqlInsert);
-        $stmt->execute();
+        $stmt->executeStatement();
 
         return $this->redirectToRoute('book_show_all');
     }

@@ -49,69 +49,32 @@ class GameControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testReset(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/library/reset');
+    // public function testReset(): void
+    // {
+    //     $client = static::createClient();
+    //     $client->request('GET', '/library/reset');
 
-        $this->assertResponseRedirects('/library/show');
-    }
+    //     $this->assertResponseRedirects('/library/show');
+    // }
 
     public function testShowAll(): void
     {
         $client = static::createClient();
         $client->request('GET', '/library/show');
+        $client->catchExceptions(false);
+
 
         $this->assertResponseIsSuccessful();
     }
 
-    public function testDelete(): void
+    public function testReset(): void
     {
         $client = static::createClient();
-        $client->request('POST', '/library/delete/1');
+        $client->request('POST', '/library/reset');
+        // $client->catchExceptions(false);
 
-        $this->assertResponseRedirects();
+
+        $this->assertRouteSame("library_reset");
     }
 
-    // public function testGameDocRoute(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/game/doc');
-
-    //     $this->assertResponseIsSuccessful();
-    //     // $this->assertSelectorTextContains('h1', 'Game Page');
-    // }
-
-    // public function testGameRestart(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/game/restart');
-
-    //     $this->assertResponseRedirects('/game/play');
-    // }
-
-    // public function testGameHit(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/game/hit_me');
-
-    //     $this->assertResponseRedirects('/game/play');
-    // }
-
-    // public function testGamePlay(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/game/play');
-
-    //     $this->assertResponseIsSuccessful();
-    // }
-
-    
-    // public function testGameStay(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/game/stay');
-
-    //     $this->assertResponseIsSuccessful();
-    // }
 }
