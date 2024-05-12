@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class APIGameControllerTest extends WebTestCase
 {
-    
     public function testAPILibraryAllRoute(): void
     {
         $client = static::createClient();
