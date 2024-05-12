@@ -105,9 +105,8 @@
 
 
                 <h3 class="text-center">Coverage</h3>
-                <p class="metrics-p-center">Kodtäckningen ligger på 26%:
-                    <a href="https://scrutinizer-ci.com/g/airhelios/mvc/?branch=main">
-                        <img src="https://scrutinizer-ci.com/g/airhelios/mvc/badges/coverage.png?b=main" class="img-scrutinizer"></a>
+                <p class="metrics-p-center">Kodtäckningen ligger(låg på innan förbättringar) på 26%:
+                    <img src="{{ asset('img/metrics/test_coverage_pre.png') }}" alt="Scrutinizer data about test coverage before improvements" class="img-metrics">
                 Det har endast skrivits tester för 21-spelets klasser (bara logik, inte controllers). Detta förklarar det låga resultatet, som är undermåligt enligt Scrutinizers tycke.
                 Scrutinizer bedömer kodtäckningen enligt tre kategorier: <ul class="ul-metrics">
                     <li class="li-red">Röd &#60;40%</li>
@@ -178,7 +177,7 @@
                 <figcaption>De 10 metoderna med högst CRAP-värde presenteras här. Omfånget är 6-30. För att minska CRAP-värdet så bör antingen fler tester skrivas eller så bör komplexiteten i metoden minskas.
                 </figcaption>
                 <h1 class="text-center">Förbättringar</h1>
-                De förbättringar som jag avser att göra är 
+                <p class="metrics-p-center">De förbättringar som jag avser att göra är</p> 
                 <ol class="ul-metrics">
                     <li>Skriva fler tester för att öka kodtäckningen. Detta kommer även innebära att CRAP-scoren för vissa metoder minskar. Jag väljer detta som en förbättring för att det känns som något handfast och
                         som att det har ett verkligt värde för resterande kod. Även om jag inser att de andra C i 6C är relevanta så känns de mer abstrakta. Mitt mål är att komma över 40% i kodtäckning (gult enligt Scrutinizer).
@@ -191,6 +190,48 @@
                         inte göra så stor skillnad när det gäller kodkvaliteten, men det kan innebära högre prestanda! Jag plockar även alla "Unused Code" för att de är enkla att fixa.
                     </li>
                 </ol> 
+
+                <h2 class="text-center">Före/Efter förbättringar</h2>
+                <p class="metrics-p-center">
+                    <ol class="ul-metrics">
+                        <li>Jag fokuserade på kodtäckningen (speciellt på controllers), detta ledde till slut till att min "coverage" gick från 26% till 54%:
+                            <img src="{{ asset('img/metrics/test_coverage_pre.png') }}" alt="Test coverage according to Scrutinizer, 26% before improvements" class="img-metrics">
+                            <img src="{{ asset('img/metrics/test_coverage_after.png') }}" alt="Test coverage according to Scrutinizer, 54% after improvements" class="img-metrics">
+                        </li>
+                        <li>Jag började med att försöka minska komplexiteten för GameManager-klassen men jag insåg att den var för tätt kopplad till tidigare tester och jag ville inte ändra något som förstörde all min kod. 
+                            Jag gick därför över till BookController och testade att minska komplexiteten genom att försöka hitta överflödiga if-satser. Samma med BookController. Även
+                            om koden ser bättre ut enligt mig så ligger komplexiteten före och efter på samma enligt Scrutinizer (bättre på BookController enligt Phpmetrics).
+                            <div class="text-center"><b>Scrutinizer före/efter:</b></div>
+                            <img src="{{ asset('img/metrics/BookController_scrutinizer_före.png') }}" alt="BookController Complexity before improvements (19)" class="img-metrics">
+                            <img src="{{ asset('img/metrics/BookController_scrutinizer_efter.png') }}" alt="BookController Complexity after improvements (still 19)" class="img-metrics">
+                            <div class="text-center"><br><b>Phpmetrics before/after</b></div>
+                            <img src="{{ asset('img/metrics/BookController_phpmetrics_före.png') }}" alt="BookController Complexity before improvements (13)" class="img-metrics">
+                            <img src="{{ asset('img/metrics/BookController_phpmetrics_efter.png') }}" alt="BookController Complexity after improvements (12)" class="img-metrics">
+                            <div class="text-center"><br><b>CRAP-score before/after</b></div>
+                            <img src="{{ asset('img/metrics/CRAP.png') }}" alt="CRAP score of the 10 methods with highest score before improvements" class="img-metrics">
+                            <img src="{{ asset('img/metrics/CRAP_after.png') }}" alt="CRAP score of the 10 methods with lowest score before improvements" class="img-metrics">
+                        
+                        </li>
+                        <li>Jag tog bort de issues som nämndes ovan (unused code och best practice), nedan syns bilder på före/efter:
+                            <img src="{{ asset('img/metrics/Scrutinizer_issues.png') }}" alt="Scrutinizes issues before improvements" class="img-metrics">
+                            <img src="{{ asset('img/metrics/Scrutinizer_issues_after.png') }}" alt="Scrutinizes issues after improvements" class="img-metrics">     
+                        </li>
+                </p>
+                <h1 class="text-center">Diskussion</h1>
+                <p class="metrics-p-center">
+                    Clean code har fördelen att det bygger struktur. Regler sätts, kodningen blir mer förutsägbar och det dyker upp färre buggar. Kunden lär inte råka ut för några negativa överraskningar.
+                    Koden blir mer överskådlig och det blir lättare för andra kodare att sätta sig in i den. Ska man arbeta med clean code så bör man sätta en standard tidigt i kodandet, det är 
+                    mödosamt att ändra om kod i efterhand. Jag ser inga problem att man arbetar på det här sättet, när det gäller större projekt eller sådana som är samhällsviktiga.
+                    Man bör dock ha den erfarenheten att man kan bedöma ifall de olika mätvärdena ska tas i beaktande eller inte. Exempelvis så hade jag aldrig själv använt
+                    Halstead's delivered bugs-mätvärdet för att jag förstår inte det och det låter förlegat (från 1977).
+                    För projekt som är små, kräver snabb anpassning eller kreativitet så ser jag verktygen och arbetssättet här bara som onödigt mödosamma. Regler och struktur hämmar kreativitet och hastighet. 
+                    
+                </p>
+                <p class="metrics-p-center">
+                    Tanken med clean code är att skapa effektiv, överskådlig och buggfri kod. För att åstadkomma detta så behöver man ha en koll på hur ramverken, språken och kopplingarna fungerar i ens kod. 
+                    Man skulle exempelvis tjäna en del på att fundera på programmets logik innan man börjar koda, på det sättet skulle man kunna minska på antalet linjärt oberoende vägar. I kursen så har vi använt oss av
+                    pseudokod och flödesscheman för detta.
+                </p>
 
 </div>
 {% endblock %}  
