@@ -43,7 +43,7 @@ class GameControllerTest extends WebTestCase
         $client->request('GET', '/library/update/1');
 
         // $this->assertResponseIsSuccessful();
-        $this->assertRouteSame("update_book");
+        $this->assertRouteSame("update_book", ["id" => "1"]);
 
     }
 
@@ -53,16 +53,8 @@ class GameControllerTest extends WebTestCase
         $client->request('GET', '/library/show/1');
 
         // $this->assertResponseIsSuccessful();
-        $this->assertRouteSame("book_by_id");
+        $this->assertRouteSame("book_by_id", ["id" => "1"]);
     }
-
-    // public function testReset(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/library/reset');
-
-    //     $this->assertResponseRedirects('/library/show');
-    // }
 
     public function testShowAll(): void
     {
