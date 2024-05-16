@@ -35,7 +35,7 @@ a:hover {
 }
 
 body {
-    background-color: $comp1;
+    background-image: url("../../../assets/images/Medieval-City-DALL-E.webp");
     overflow-y: scroll;    /* Always display scrollbar, avoid hopping pages */
     overflow-x: hidden;
 
@@ -183,6 +183,10 @@ a .site-title {
 
 .text-center {
     text-align: center;
+}
+
+.game-container {
+    text-align:center;
 }
 
 .embed-container {

@@ -11,6 +11,11 @@
     margin-bottom: 1.4rem;
 }
 
+.input-text {
+    border:0;
+    border-bottom: 2px dotted;
+}
+
 %valid {
     border: 1px solid green;
 }
