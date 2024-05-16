@@ -11,11 +11,19 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 class ProjController extends AbstractController
 {
-    #region index
+    #region home
     #[Route('/proj', name: 'proj_home')]
     public function index(): Response
     {
         return $this->render('proj/index.html.twig');
+    }
+    #endregion
+
+    #region about
+    #[Route('/proj/about', name: 'proj_about')]
+    public function home(): Response
+    {
+        return $this->render('proj/about.html.twig');
     }
     #endregion
 }
