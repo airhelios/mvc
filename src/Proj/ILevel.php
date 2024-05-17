@@ -2,10 +2,9 @@
 
 namespace App\Proj;
 
-
 /**
  * @property string $promptText The scene text
- * @property array $consideredAnswers All answers that will merit a custom response 
+ * @property array $consideredAnswers All answers that will merit a custom response
  * @property string $imagePath Path to the image of the level.
  */
 interface ILevel

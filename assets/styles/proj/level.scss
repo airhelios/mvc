@@ -1,0 +1,49 @@
+.game-container {
+    margin: 0 auto;
+    max-width: 1200px;
+
+}
+
+.images-game {
+    // margin: 0 auto;
+    text-align:center;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: #000;
+}
+
+
+.level{ 
+    max-width: 100%;
+    grid-area: 1 / 1 / 4 / 2; }
+.sling { 
+    justify-content: center;
+    margin: 0 auto;
+    grid-area: 1 / 2 / 2 / 3;
+    // border: 10px solid #aa0;
+    background-color: #aa0;
+    img {
+        max-width: 150px;
+    }
+}
+
+.key { 
+    max-width: 150px;
+    grid-area: 2 / 2 / 3 / 3;
+    img {
+        max-width: 150px;
+    }
+}
+
+.gate-key { 
+    max-width: 150px;
+    grid-area: 3 / 2 / 4 / 3;
+    img {
+        max-width: 150px;
+    }
+}
+

@@ -4,14 +4,25 @@
 
 {% block body %}
 <div class="game-container">
-    <img src="{{ asset('img/project/Room_DALL-E.webp') }}" alt="hej" class="me">
-    <div>
-        <form action="">
-          <label for="fname">></label>
-          <input type="text" id="input-text" class="input-text" name="input-text">
-          <input type="submit" hidden />
-        </form>
-      </div>
+  <div class="images-game">
+
+<div class="level">
+  <img src="{{ asset('img/project/Room_DALL-E.webp') }}" alt="hej" id="level-img">
+</div>
+
+<div class="sling" id="sling">
+    <img src="{{ asset('img/project/Sling_DALL-E_2.webp') }}" alt="hej" id="sling-img" >
+</div>
+
+<div class="key" id="key">
+  <img src="{{ asset('img/project/Key2_DALL-E.webp') }}" alt="hej" id="key-img">
+</div>
+
+<div class="gate-key" id="gate-key">
+  <img src="{{ asset('img/project/Heavens-Key2_DALL-E.webp') }}" alt="hej" id="gate-key-img" >
+</div>
+  
+  </div>
 </div>
 
 {% endblock %}  
