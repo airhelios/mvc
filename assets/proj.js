@@ -12,17 +12,50 @@ import { checkClick } from  './js/clickhandler.js';
 
 
 let img = document.getElementById('level-img');
-let targetX = 549/679;
-let targetY = 550/679;
+
+
+
+
+
+
+
 img.addEventListener("click", (e) => {
-        console.log(checkClick(e.offsetX, e.offsetY, targetX, targetY, e.target.offsetWidth, e.target.offsetHeight));
+
+    let form = document.getElementById("coordForm");
+    let xCoord = document.getElementById("xCoord");
+    let yCoord = document.getElementById("yCoord");
+
+    xCoord.value = parseFloat(e.offsetX/e.target.offsetWidth);
+    yCoord.value = parseFloat(e.offsetY/e.target.offsetHeight)
+
+    form.submit();
+
+    // console.log(`${e.offsetX/e.target.offsetWidth} ${e.offsetY/e.target.offsetHeight}`);
+    // console.log(checkClick(e.offsetX, e.offsetY, targetX, targetY, e.target.offsetWidth, e.target.offsetHeight));
+
+
+        // let xCoord = parseFloat(e.offsetX/e.target.offsetWidth);
+        // let yCoord = parseFloat(e.offsetY/e.target.offsetHeight);
+
+        // fetch("/proj/check", {
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //       xCoord: xCoord,
+        //       yCoord: yCoord
+        //     }),
+        //     headers: {
+        //       "Content-type": "application/x-www-form-urlencoded"
+        //     }
+        //   });
+        
+        // fetch("/proj/check", {
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //       xCoord: xCoord,
+        //       yCoord: yCoord
+        //     })
+        //   });
+
+
+
     });
-    // if ( (e.offsetY/e.target.offsetHeight <= targetY*1.05 && e.offsetY/e.target.offsetHeight >= targetY*0.95) &&
-    //      (e.offsetX/e.target.offsetWidth <= targetX*1.05 && e.offsetX/e.target.offsetWidth >= targetX*0.95) ) 
-    // {
-    //     console.log(`X: ${e.offsetX} Width: ${e.target.offsetWidth}`);
-    //     console.log(`Y: ${e.offsetY} Height: ${e.target.offsetHeight}`);
-    // }
-
-// body.style.backgroundImage = 'url(./images/Medieval-City-DALL-E.webp)';
-

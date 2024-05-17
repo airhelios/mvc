@@ -7,22 +7,39 @@
   <div class="images-game">
 
 <div class="level">
-  <img src="{{ asset('img/project/Room_DALL-E.webp') }}" alt="hej" id="level-img">
+
+  <img src="{{ asset('img/project/' ~ image) }}" id="level-img">
 </div>
 
 <div class="sling" id="sling">
-    <img src="{{ asset('img/project/Sling_DALL-E_2.webp') }}" alt="hej" id="sling-img" >
+
+    <img src="{{ asset('img/project/Sling_DALL-E_2.webp') }}" id="sling-img" >
+
 </div>
 
-<div class="key" id="key">
-  <img src="{{ asset('img/project/Key2_DALL-E.webp') }}" alt="hej" id="key-img">
-</div>
+  <div class="key" id="key">
+    <h2>Items in backpack</h2>
+    {% if key == "yes" %}
+    <img src="{{ asset('img/project/Key2_DALL-E.webp') }}"id="key-img">
+    {% endif %}
+  </div>
 
-<div class="gate-key" id="gate-key">
-  <img src="{{ asset('img/project/Heavens-Key2_DALL-E.webp') }}" alt="hej" id="gate-key-img" >
-</div>
-  
+  <div class="gate-key" id="gate-key">
+    {% if heavenlyKey == "yes" %}
+    <img src="{{ asset('img/project/Heavens-Key2_DALL-E.webp') }}" id="gate-key-img" >
+    {% endif %}
+  </div>
+    
+  <div class="prompt-text">
+    {{ prompt }}
+  </div>
+
   </div>
 </div>
+
+<form action="{{ path('proj_check') }}" method="post" id="coordForm">
+  <input type="hidden" id="xCoord" name="xCoord" value="0">
+  <input type="hidden" id="yCoord" name="yCoord" value="0">
+</form> 
 
 {% endblock %}  
