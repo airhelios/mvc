@@ -13,8 +13,12 @@ import { checkClick } from  './js/clickhandler.js';
 
 let img = document.getElementById('level-img');
 
+// let button = document.getElementById("back-button");
 
+// button.addEventListener("click", (e) => {
+//     e.preventDefault();
 
+// });
 
 
 
@@ -30,7 +34,7 @@ img.addEventListener("click", (e) => {
 
     form.submit();
 
-    // console.log(`${e.offsetX/e.target.offsetWidth} ${e.offsetY/e.target.offsetHeight}`);
+    console.log(`${e.offsetX/e.target.offsetWidth} ${e.offsetY/e.target.offsetHeight}`);
     // console.log(checkClick(e.offsetX, e.offsetY, targetX, targetY, e.target.offsetWidth, e.target.offsetHeight));
 
 

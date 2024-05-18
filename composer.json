@@ -99,7 +99,9 @@
 	 "csfix": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=.php-cs-fixer.dist.php fix src tests",
 	 "csfix:dry": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=.php-cs-fixer.dist.php fix src tests --dry-run -v",
      "phpdoc": "tools/phpdoc/phpdoc --config=tools/phpdoc/phpdoc.xml",
-     "phpmetrics": "tools/phpmetrics/vendor/bin/phpmetrics --config=tools/phpmetrics/phpmetrics.json"
+     "phpmetrics": "tools/phpmetrics/vendor/bin/phpmetrics --config=tools/phpmetrics/phpmetrics.json",
+     "server": "php -S localhost:8888 -t public/",
+     "server-kill": " killall -9 php"
     },
     "conflict": {
         "symfony/symfony": "*"

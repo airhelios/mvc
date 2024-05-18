@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Proj\EntryLevel;
+use App\Proj\HatchLevel;
 /**
  * @SuppressWarnings(Shortvariable)
  */
@@ -28,24 +29,17 @@ class ProjController extends AbstractController
         ): Response
     {
 
-        $promptText = "After years of adventuring and searching you have finally found a way out of this forsaken world." .
-        " You are certain that the portal to Elysium is in this house. You just need find it.";
-    
-        $items = ["Key" => [549/679, 550/679, "key"],
-                    "Heavenly_Key" => [763/1024, 586/1024, "heavenly_key"]];
-        $doors = ["Hatch" => [514/1024, 762/1024]];
-        $image = "Room_DALL-E.webp";
-    
-        $entryLevel = new EntryLevel($promptText, $items, $doors, $image);
+        $entryLevel = new EntryLevel();
         $session->set("Level", $entryLevel);
-        $heavenlyKey =$session->get("heavenly_key") ?? null;
-        $key =$session->get("key") ?? null;
+        $heavenlyKey =$session->get("heavenly_key") ?? false;
+        $key =$session->get("key") ?? false;
 
 
         $structures = ["image" => $entryLevel->getImage(),
         "prompt" => $entryLevel->getPrompt(),
         "key" => $key,
-        "heavenlyKey" => $heavenlyKey];
+        "heavenlyKey" => $heavenlyKey,
+        "backButton" => $entryLevel->backButtonExists()];
 
         return $this->render('proj/about.html.twig', $structures);
     }
@@ -60,27 +54,54 @@ class ProjController extends AbstractController
         $xCoord = $request->request->get('xCoord');
         $yCoord = $request->request->get('yCoord');
         $level = $session->get("Level");
-        $heavenlyKey =$session->get("heavenly_key") ?? null;
-        $key =$session->get("key") ?? null;
+        $heavenlyKey =$session->get("heavenly_key") ?? false;
+        $key =$session->get("key") ?? false;
 
         $check = $level->checkCoord($xCoord, $yCoord);
         $promptText = $check;
-        if ($check == "key" && $key != "yes") {
-            $session->set("key", "yes");
+        if ($check == "key" && $key == false) {
+            $session->set("key", true);
             $promptText = "You found a key!";
-            $key = "yes";
-        } else if ($check =="heavenly_key" && $heavenlyKey != "yes")
+            $key = true;
+        } else if ($check =="heavenly_key" && $heavenlyKey == false)
         {
-            $promptText = "You found the Heavenly Key!";
-            $session->set("heavenly_key", "yes");
-            $heavenlyKey = "yes";
-        } else {
+            $promptText = "You found the Heavenly Portal Opener!";
+            $session->set("heavenly_key", true);
+            $heavenlyKey = true;
+        } else if ($check != "Nothing happened")
+        {
+            $level = $level->next($key, $heavenlyKey);
+            $session->set("Level", $level);
+            $promptText = $level->getPrompt();
         }
 
         $structures = ["image" => $level->getImage(),
         "prompt" => $promptText,
         "key" => $key,
-        "heavenlyKey" => $heavenlyKey];
+        "heavenlyKey" => $heavenlyKey,
+        "backButton" => $level->backButtonExists()];
+
+        return $this->render('proj/about.html.twig', $structures);
+    }
+
+    
+    #[Route('/proj/back', name: 'proj_back', methods: ['POST'])]
+    public function back(
+        Request $request,
+        SessionInterface $session): Response
+    {
+        $level = $session->get("Level");
+        $heavenlyKey =$session->get("heavenly_key") ?? null;
+        $key =$session->get("key") ?? null;
+
+        $level = $level->getBack();
+        $session->set("Level", $level);
+
+        $structures = ["image" => $level->getImage(),
+        "prompt" => $level->getPrompt(),
+        "key" => $key,
+        "heavenlyKey" => $heavenlyKey,
+        "backButton" => $level->backButtonExists()];
 
         return $this->render('proj/about.html.twig', $structures);
     }

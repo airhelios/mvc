@@ -19,19 +19,27 @@
 
   <div class="key" id="key">
     <h2>Items in backpack</h2>
-    {% if key == "yes" %}
+    {% if key %}
     <img src="{{ asset('img/project/Key2_DALL-E.webp') }}"id="key-img">
     {% endif %}
   </div>
 
   <div class="gate-key" id="gate-key">
-    {% if heavenlyKey == "yes" %}
+    {% if heavenlyKey %}
     <img src="{{ asset('img/project/Heavens-Key2_DALL-E.webp') }}" id="gate-key-img" >
     {% endif %}
   </div>
     
   <div class="prompt-text">
     {{ prompt }}
+  </div>
+
+  <div class="back">
+  {% if backButton %}
+    <form action="{{ path('proj_back') }}" method="post" id="coordForm">
+    <button>Go back</button>
+    </form>
+  {% endif %} 
   </div>
 
   </div>
