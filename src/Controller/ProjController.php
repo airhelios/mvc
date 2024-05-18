@@ -23,25 +23,26 @@ class ProjController extends AbstractController
     #endregion
 
     #region about
-    #[Route('/proj/about', name: 'proj_about')]
+    #[Route('/proj/play', name: 'proj_play')]
     public function home(
         SessionInterface $session
         ): Response
     {
 
-        $entryLevel = new EntryLevel();
-        $session->set("Level", $entryLevel);
+        // $entryLevel = new EntryLevel();
+        $level = $session->get("Level") ?? new EntryLevel();
+        $session->set("Level", $level);
         $heavenlyKey =$session->get("heavenly_key") ?? false;
         $key =$session->get("key") ?? false;
 
 
-        $structures = ["image" => $entryLevel->getImage(),
-        "prompt" => $entryLevel->getPrompt(),
+        $structures = ["image" => $level->getImage(),
+        "prompt" => $level->getPrompt(),
         "key" => $key,
         "heavenlyKey" => $heavenlyKey,
-        "backButton" => $entryLevel->backButtonExists()];
+        "backButton" => $level->backButtonExists()];
 
-        return $this->render('proj/about.html.twig', $structures);
+        return $this->render('proj/play.html.twig', $structures);
     }
     #endregion
 
@@ -56,53 +57,37 @@ class ProjController extends AbstractController
         $level = $session->get("Level");
         $heavenlyKey =$session->get("heavenly_key") ?? false;
         $key =$session->get("key") ?? false;
-
         $check = $level->checkCoord($xCoord, $yCoord);
-        $promptText = $check;
+
+        $level->setPrompt($check);
         if ($check == "key" && $key == false) {
             $session->set("key", true);
-            $promptText = "You found a key!";
+            $level->setPrompt("You found a key!");
             $key = true;
         } else if ($check =="heavenly_key" && $heavenlyKey == false)
         {
-            $promptText = "You found the Heavenly Portal Opener!";
+            $level->setPrompt("You found the Heavenly Portal Opener!");
             $session->set("heavenly_key", true);
             $heavenlyKey = true;
         } else if ($check != "Nothing happened")
         {
             $level = $level->next($key, $heavenlyKey);
-            $session->set("Level", $level);
-            $promptText = $level->getPrompt();
         }
 
-        $structures = ["image" => $level->getImage(),
-        "prompt" => $promptText,
-        "key" => $key,
-        "heavenlyKey" => $heavenlyKey,
-        "backButton" => $level->backButtonExists()];
-
-        return $this->render('proj/about.html.twig', $structures);
+        $session->set("Level", $level);
+        return $this->redirectToRoute('proj_play');
     }
 
-    
+    #region go back
     #[Route('/proj/back', name: 'proj_back', methods: ['POST'])]
     public function back(
-        Request $request,
         SessionInterface $session): Response
     {
         $level = $session->get("Level");
-        $heavenlyKey =$session->get("heavenly_key") ?? null;
-        $key =$session->get("key") ?? null;
-
-        $level = $level->getBack();
+        $level = $level->previous(); 
         $session->set("Level", $level);
 
-        $structures = ["image" => $level->getImage(),
-        "prompt" => $level->getPrompt(),
-        "key" => $key,
-        "heavenlyKey" => $heavenlyKey,
-        "backButton" => $level->backButtonExists()];
-
-        return $this->render('proj/about.html.twig', $structures);
+        return $this->redirectToRoute('proj_play');
     }
+    #endregion
 }

@@ -44,6 +44,11 @@ abstract Class Level
         return $this->promptText;
     }
 
+    public function setPrompt(string $text): void
+    {
+        $this->promptText = $text;
+    }
+
     public function getItems(): array
     {
         return $this->items;
@@ -63,6 +68,12 @@ abstract Class Level
     {
         $this->doors = $doors;
     }
+
+    abstract public function previous(): Level;
+  
+
+    abstract public function next($key, $heavenlyKey, $doorName): Level;
+ 
 
     public function checkCoord(float $xCoord, float $yCoord): string
     {
