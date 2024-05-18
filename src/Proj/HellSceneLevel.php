@@ -31,7 +31,7 @@ Class HellSceneLevel extends Level
 
     public function checkCoord(float $xCoord, float $yCoord): string
     {
-        return "Begin again";
+        return "Restart";
 
     }
 

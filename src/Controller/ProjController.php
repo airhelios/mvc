@@ -16,9 +16,14 @@ class ProjController extends AbstractController
 {
     #region home
     #[Route('/proj', name: 'proj_home')]
-    public function index(): Response
+    public function index(
+        SessionInterface $session
+        ): Response
     {
-        return $this->render('proj/index.html.twig');
+        $session->set("Level", new EntryLevel());
+        $session->set("key", false);
+        $session->set("heavenly_key", false);
+        return $this->redirectToRoute('proj_play');
     }
     #endregion
 
@@ -64,18 +69,27 @@ class ProjController extends AbstractController
             $session->set("key", true);
             $level->setPrompt("You found a key!");
             $key = true;
-        } else if ($check =="heavenly_key" && $heavenlyKey == false)
+        } 
+        else if ($check =="heavenly_key" && $heavenlyKey == false)
         {
             $level->setPrompt("You found the Heavenly Portal Opener!");
             $session->set("heavenly_key", true);
             $heavenlyKey = true;
-        } else if ($check == "Hell")
+        } 
+        else if ($check == "Hell")
         {
             $level = $level->next($key, $heavenlyKey, "Hell");
-        } else if ($check != "Nothing happened")
+        } 
+        else if ($check == "Restart")
+        {
+            $session->set("key", false);
+            $session->set("heavenly_key", false);
+            $level = $level->next();
+        }
+        else if ($check != "Nothing happened")
         {
             $level = $level->next($key, $heavenlyKey);
-        }
+        } 
 
         $session->set("Level", $level);
         return $this->redirectToRoute('proj_play');

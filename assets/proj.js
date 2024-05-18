@@ -7,21 +7,8 @@
  */
 // import './styles/app.css';
 import './styles/proj.scss';
-// const getNiceMessage = require('./js/clickhandler.js');
-import { checkClick } from  './js/clickhandler.js';
-
 
 let img = document.getElementById('level-img');
-
-// let button = document.getElementById("back-button");
-
-// button.addEventListener("click", (e) => {
-//     e.preventDefault();
-
-// });
-
-
-
 
 img.addEventListener("click", (e) => {
 
@@ -33,33 +20,6 @@ img.addEventListener("click", (e) => {
     yCoord.value = parseFloat(e.offsetY/e.target.offsetHeight)
 
     form.submit();
-
-    console.log(`${e.offsetX/e.target.offsetWidth} ${e.offsetY/e.target.offsetHeight}`);
-    // console.log(checkClick(e.offsetX, e.offsetY, targetX, targetY, e.target.offsetWidth, e.target.offsetHeight));
-
-
-        // let xCoord = parseFloat(e.offsetX/e.target.offsetWidth);
-        // let yCoord = parseFloat(e.offsetY/e.target.offsetHeight);
-
-        // fetch("/proj/check", {
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //       xCoord: xCoord,
-        //       yCoord: yCoord
-        //     }),
-        //     headers: {
-        //       "Content-type": "application/x-www-form-urlencoded"
-        //     }
-        //   });
-        
-        // fetch("/proj/check", {
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //       xCoord: xCoord,
-        //       yCoord: yCoord
-        //     })
-        //   });
-
-
+    // console.log(`${e.offsetX/e.target.offsetWidth} ${e.offsetY/e.target.offsetHeight}`);
 
     });
