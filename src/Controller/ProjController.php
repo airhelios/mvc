@@ -69,6 +69,9 @@ class ProjController extends AbstractController
             $level->setPrompt("You found the Heavenly Portal Opener!");
             $session->set("heavenly_key", true);
             $heavenlyKey = true;
+        } else if ($check == "Hell")
+        {
+            $level = $level->next($key, $heavenlyKey, "Hell");
         } else if ($check != "Nothing happened")
         {
             $level = $level->next($key, $heavenlyKey);

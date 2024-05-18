@@ -3,14 +3,6 @@
 
 namespace App\Proj;
 
-use App\Proj\EntryLevel;
-use App\Proj\HellPortalLevel;
-
-/**
- * @property string $promptText The scene text
- * @property array $consideredAnswers All answers that will merit a custom response
- * @property string $imagePath Path to the image of the level.
- */
 Class HatchLevel extends Level 
 {
     public function __construct()
@@ -27,8 +19,7 @@ Class HatchLevel extends Level
     {
 
         if ($heavenlyKey && $key) {
-            $next = new HatchLevel();
-            $next->setPrompt("Going to heaven");
+            $next = new BothPortalsLevel();
             return $next;
         } elseif ($key) {
             $next = new HellPortalLevel();
