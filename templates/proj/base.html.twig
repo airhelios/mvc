@@ -17,8 +17,10 @@
             {% block importmap %}{{ importmap('proj') }}{% endblock %}
         {% endblock %}
     </head>
-    <body style="background-image: url('{{ asset('img/project/Medieval-City_DALL-E.webp') }}')">
+
+        <body style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('img/project/Medieval-City_DALL-E.webp') }}')">
         {% include('./proj/navbar.html.twig') %}
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
