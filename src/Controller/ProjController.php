@@ -13,9 +13,8 @@ use App\Entity\Condemned;
 
 use App\Proj\EntryLevel;
 use Doctrine\Persistence\ManagerRegistry;
-use \DateTime;
-use \DateTimeZone;
-
+use DateTime;
+use DateTimeZone;
 
 /**
  * @SuppressWarnings(Shortvariable)
@@ -33,6 +32,21 @@ class ProjController extends AbstractController
         return $this->redirectToRoute('proj_play');
     }
     #endregion
+
+    #region about
+    #[Route('/proj/about', name: 'proj_about')]
+    public function about(): Response {
+        return $this->render('proj/about.html.twig');
+    }
+    #endregion
+
+    #region database
+    #[Route('/proj/about/database', name: 'proj_database')]
+    public function database(): Response {
+        return $this->render('proj/database.html.twig');
+    }
+    #endregion
+
 
     #region play
     #[Route('/proj/play', name: 'proj_play')]
@@ -119,16 +133,15 @@ class ProjController extends AbstractController
 
         $level = $session->get("Level");
 
-        if (get_class($level)== "App\Proj\HellSceneLevel"){
+        if (get_class($level) == "App\Proj\HellSceneLevel") {
             $formClass = new Condemned();
             $title = "What is your name, condemned one?";
-        } else 
-        {
+        } else {
             $formClass = new Saved();
             $title = "What is your name, you beautiful beast?";
         }
 
-        $form = $this->createForm(ScoreForm::class,  $formClass);
+        $form = $this->createForm(ScoreForm::class, $formClass);
 
         $form->handleRequest($request);
         if (!$form->isSubmitted() || !$form->isValid()) {

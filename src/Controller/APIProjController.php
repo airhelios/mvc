@@ -14,8 +14,8 @@ use App\Repository\SavedRepository;
 use App\Repository\CondemnedRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 
 class APIProjController extends AbstractController
 {
@@ -71,21 +71,21 @@ class APIProjController extends AbstractController
         $condemned = $condemnedRepository
             ->findAll();
 
-            $entityManager = $doctrine->getManager();
-            $now = new DateTime();
-            $now->setTimezone(new DateTimeZone('Europe/Stockholm'));
+        $entityManager = $doctrine->getManager();
+        $now = new DateTime();
+        $now->setTimezone(new DateTimeZone('Europe/Stockholm'));
 
-            foreach($condemned as $exCon) {
-                $saved = new Saved();
-                $saved->setName($exCon->getName()); 
-                $saved->setTime($now);
+        foreach($condemned as $exCon) {
+            $saved = new Saved();
+            $saved->setName($exCon->getName());
+            $saved->setTime($now);
 
-                $entityManager->persist($saved);
-                $entityManager->flush();
+            $entityManager->persist($saved);
+            $entityManager->flush();
 
-                $entityManager->remove($exCon);
-                $entityManager->flush();
-            }
+            $entityManager->remove($exCon);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('api_proj_saved_all');
     }
 
@@ -100,8 +100,8 @@ class APIProjController extends AbstractController
         $key = false;
         if ($session->has('key')) {
             $key = $session->get("key");
-        } 
-        
+        }
+
 
         $heavenlyKey = false;
         if ($session->has('heavenly_key')) {
@@ -112,7 +112,7 @@ class APIProjController extends AbstractController
         if ($session->has('Level')) {
             $temp = get_class($session->get("Level"));
             $parts = explode("\\", $temp);
-            $level= end($parts);
+            $level = end($parts);
         }
 
         $response = new Response();
@@ -122,12 +122,12 @@ class APIProjController extends AbstractController
 
         $response->setContent(json_encode($data));
         $response->headers->set('Content-Type', 'application/json; charset=utf-8');
-        
+
 
         return $response;
 
     }
-    
+
 
     #[Route('/proj/api/reset_game_tables', name:"api_proj_reset_tables")]
     public function apiReset(
@@ -156,7 +156,7 @@ class APIProjController extends AbstractController
         $em = $doctrine->getManager();
         $connection = $em->getConnection();/* @phpstan-ignore-line */
 
-        $sqlSaved= "
+        $sqlSaved = "
             INSERT INTO saved VALUES
             (1, 'Herman', '2024-05-18 16:41:09'),
             (2, 'Owe', '2024-05-18 17:23:03'),
@@ -165,7 +165,7 @@ class APIProjController extends AbstractController
         $stmt = $connection->prepare($sqlSaved);
         $stmt->executeStatement();
 
-        $sqlCond= "
+        $sqlCond = "
             INSERT INTO condemned VALUES
             (1, 'Faust', '2024-01-01 16:41:09'),
             (2, 'Dante', '2024-02-01 17:41:03'),

@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
-
 class ScoreForm extends AbstractType
 {
     /**
@@ -19,7 +18,7 @@ class ScoreForm extends AbstractType
             ->add('Name', null, ['attr' => ['class' => 'score-input',
                                             'required' => true],
             'label_attr' => ['class' => 'input-label']])
-            
+
             ->add('Submit', SubmitType::class, ['attr' => ['class' => 'button8bit red']])
         ;
     }

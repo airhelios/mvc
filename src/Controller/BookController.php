@@ -234,7 +234,7 @@ class BookController extends AbstractController
 
         return $this->redirectToRoute('book_show_all');
     }
-    
+
     protected function deleteImg(string $bookImage): void
     {
         if ($bookImage) {
