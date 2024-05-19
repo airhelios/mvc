@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <title>{% block title %}Game Project!{% endblock %}</title>
         <link rel="icon" type="image/jpg" href="{{ asset('img/project/favicon.webp') }}" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('proj') }}
@@ -17,6 +20,5 @@
     <body style="background-image: url('{{ asset('img/project/Medieval-City_DALL-E.webp') }}')">
         {% include('./proj/navbar.html.twig') %}
         {% block body %}{% endblock %}
-        {% include('./proj/footer.html.twig') %}
     </body>
 </html>

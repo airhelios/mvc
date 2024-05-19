@@ -4,9 +4,9 @@
 
 {% block body %}
 
-<div class="index center">
-    <h1>{{ title }}</h1>
-    {{ form(save_form) }}
+<div class="save-container center">
+    <h1 class="text-center">{{ title }}</h1>
+    {{ form(save_form, { 'attr' : { 'class': 'save-form' } }) }}
 </form>
 
 </div>

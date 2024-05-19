@@ -16,11 +16,11 @@ class ScoreForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name', null, ['attr' => ['class' => 'form-title',
+            ->add('Name', null, ['attr' => ['class' => 'score-input',
                                             'required' => true],
             'label_attr' => ['class' => 'input-label']])
             
-            ->add('Submit', SubmitType::class, ['attr' => ['class' => 'button red-button']])
+            ->add('Submit', SubmitType::class, ['attr' => ['class' => 'button8bit red']])
         ;
     }
 

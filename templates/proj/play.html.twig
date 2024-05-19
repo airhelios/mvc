@@ -4,45 +4,44 @@
 
 {% block body %}
 <div class="game-container">
-  <div class="images-game">
 
-<div class="level">
+  <table class="game-table">
+    <tbody>
+        <tr>
+            <td class="level-td"><img class="level-img" src="{{ asset('img/project/' ~ image) }}" id="level-img"></td>
+            <td class="sidebar-td">
+                <div class="game-side-table">
+                    <div class="sling-container"><h3 class="inventory-text">Items in backpack</h3>
+                      <img class="sling-img" src="{{ asset('img/project/Sling_DALL-E_2.webp') }}" id="sling-img"></div>
+                    <div class="key-container">
+                        {% if key %}
+                        <img src="{{ asset('img/project/Key2_DALL-E.webp') }}" id="key-img">
+                        {% endif %}
+                    </div>
+                    <div class="heavenly-key-container">
+                        {% if heavenlyKey %}
+                        <img src="{{ asset('img/project/Heavens-Key2_DALL-E.webp') }}" id="gate-key-img">
+                        {% endif %}
+                    </div>
+                    <div class="back-container">
+                        {% if backButton %}
+                        <form action="{{ path('proj_back') }}" method="post" id="backForm">
+                            <button class="button8bit">Go back</button>
+                        </form>
+                        {% endif %} 
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="prompt-text">
+                {{ prompt }}
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-  <img src="{{ asset('img/project/' ~ image) }}" id="level-img">
-</div>
 
-<div class="sling" id="sling">
-
-    <img src="{{ asset('img/project/Sling_DALL-E_2.webp') }}" id="sling-img" >
-
-</div>
-
-  <div class="key" id="key">
-    <h2>Items in backpack</h2>
-    {% if key %}
-    <img src="{{ asset('img/project/Key2_DALL-E.webp') }}"id="key-img">
-    {% endif %}
-  </div>
-
-  <div class="gate-key" id="gate-key">
-    {% if heavenlyKey %}
-    <img src="{{ asset('img/project/Heavens-Key2_DALL-E.webp') }}" id="gate-key-img" >
-    {% endif %}
-  </div>
-    
-  <div class="prompt-text">
-    {{ prompt }}
-  </div>
-
-  <div class="back">
-  {% if backButton %}
-    <form action="{{ path('proj_back') }}" method="post" id="backForm">
-    <button>Go back</button>
-    </form>
-  {% endif %} 
-  </div>
-
-  </div>
 </div>
 
 <form action="{{ path('proj_check') }}" method="post" id="coordForm">

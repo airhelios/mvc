@@ -1,8 +1,9 @@
-.form-isbn, .form-author, .form-title, .form-img {
+.score-input {
     font-size: $body-font-size;
     line-height: $line-height;
-    font-family: $font-body;
+    font-family: "Press Start 2P", system-ui;
     display: block;
+    margin: 0 auto;
     border: 1px solid #ccc;
     border-radius: 0.2rem;
     padding: 0.6rem;
@@ -11,10 +12,17 @@
     margin-bottom: 1.4rem;
 }
 
+.save-form {
+    text-align:center;
+}
+
 .input-text {
+    margin-top: 0.5rem;
     border:0;
     border-bottom: 2px dotted;
+    margin-bottom: 0.5rem;
 }
+
 
 %valid {
     border: 1px solid green;
@@ -34,6 +42,7 @@
 
 .input-label {
     font-weight: bold;
+    font-size: $body-font-size;
     margin: 2rem 0 0;
     display: block;
 }

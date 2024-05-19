@@ -4,25 +4,32 @@
     margin: 0;
     padding: 0;
     color: $font-color;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
+
+.font8bit {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
 
 .nav-ul{
-    background-color: $comp2;
-    border: 2px solid $border-color;
-    border-radius: 2px;
+    background-color: #000;
+    border: 5px groove #f3f3f3;
 }
 
-.nav-ul-lucky{
-    background-color: $comp2;
-    border: 20px solid $border-color-lucky;
-    border-radius: 4px;
-}
+
 
 
 
 html, body {
     height: 100%;
     line-height: 1.4rem;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
 
 
@@ -59,32 +66,14 @@ p {
     margin-left: auto;
 }
 
-.social {
-    color: $icon-color;
-    border: 2px solid $border-color;
-    background-color: $comp2;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    padding: 0.2rem;
-    padding-bottom: 0;
-    max-width: 35%;
-    display: flex;
-    flex-direction: columns;
-    justify-content: center;
-    gap: 2rem;
-    box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.5);
-}
 
-.footer {
-    margin-top: 2rem;
-
-}
 
    
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-    color: $header-color;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 900;
+    font-style: normal;
+    line-height: 1.4;
 }
 
 a .site-title {

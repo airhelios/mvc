@@ -1,10 +1,6 @@
 <div class="header" role="banner">
     <div class="site-header">
-        <div class="logo">
-            <a href="{{ path('home') }}" title="Home">
-                <img src="{{ asset('img/mvc-logo.png') }}" class="logo" alt="logo">
-            </a>
-        </div>
+
         {# <div class="title">
             <a href="{{ path('home') }}" title="Link to main page">
                 <h1 class="site-title">Home</h1>
@@ -19,9 +15,10 @@
     <div class="nav">
         <div id="nav" role="navigation" tabindex="0">
             <ul class="nav-ul">
-                <li><a href="{{ path('proj_home') }}">Game (Re)Start</a></li>
-                <li><a href="{{ path('proj_play') }}">Play Game</a></li>
-                <li><a href="{{ path('proj_score') }}">Save form</a></li>
+                <li><a href="{{ path('proj_home') }}" class="button8bit smaller-font">Game (Re)Start</a></li>
+                <li><a href="{{ path('proj_play') }}" class="button8bit smaller-font">Continue Playing Game</a></li>
+                <li><a href="{{ path('proj_score') }}" class="button8bit smaller-font">Save form</a></li>
+                <li></li><a href="{{ path('home') }}"  class="button8bit smaller-font" title="Home">Home</a></li>
             </ul>
         </div>
     </div>
