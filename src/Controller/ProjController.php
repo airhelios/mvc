@@ -11,6 +11,9 @@ use App\Form\ScoreForm;
 use App\Entity\Saved;
 use App\Entity\Condemned;
 
+use App\Entity\IPLogger;
+
+
 use App\Proj\EntryLevel;
 use Doctrine\Persistence\ManagerRegistry;
 use DateTime;
@@ -131,11 +134,15 @@ class ProjController extends AbstractController
         Request $request,
     ): Response {
 
-        $level = $session->get("Level");
+        $ipAddress = $request->getClientIp();
+        $ipLogger = new IPLogger();
 
+        $level = $session->get("Level");
+        $destination = "Elysium";
         if (get_class($level) == "App\Proj\HellSceneLevel") {
             $formClass = new Condemned();
             $title = "What is your name, condemned one?";
+            $destination = "Hell";
         } else {
             $formClass = new Saved();
             $title = "What is your name, you beautiful beast?";
@@ -157,8 +164,13 @@ class ProjController extends AbstractController
         $level = $level->next();
         $session->set("Level", $level);
 
+        $ipLogger->setDestination($destination);
+        $ipLogger->setName($form->get('Name')->getData());
+        $ipLogger->setIp($ipAddress);
+
         $entityManager = $doctrine->getManager();
         $entityManager->persist($formClass);
+        $entityManager->persist($ipLogger);
         $entityManager->flush();
         return $this->redirectToRoute('proj_home');
     }

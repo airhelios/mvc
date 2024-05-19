@@ -7,9 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Saved;
 use App\Entity\Condemned;
+use App\Repository\IPLoggerRepository;
 use App\Repository\SavedRepository;
 use App\Repository\CondemnedRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -56,9 +58,28 @@ class APIProjController extends AbstractController
         return $response;
     }
 
-    #[Route('/proj/api', name:"api_proj_home")]
-    public function apiHome(
+    
+    #[Route('/proj/api/logged', name:"api_proj_logged")]
+    public function apiLoggedAll(
+        IPLoggerRepository $IPLoggerRepository
     ): Response {
+        $ipEntries = $IPLoggerRepository
+            ->findAll();
+
+        // $response = new Response();
+        // $response->setContent(json_encode($books));
+        $response = $this->json($ipEntries);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+
+        return $response;
+    }
+
+    #[Route('/proj/api', name:"api_proj_home")]
+    public function apiHome(): Response {
+
+
         return $this->render('proj/api.html.twig');
     }
 
@@ -89,6 +110,8 @@ class APIProjController extends AbstractController
         return $this->redirectToRoute('api_proj_saved_all');
     }
 
+    
+
     #[Route('/proj/api/get_status', name:"api_status")]
     public function apiStatus(
         SavedRepository $savedRepository,
@@ -101,7 +124,6 @@ class APIProjController extends AbstractController
         if ($session->has('key')) {
             $key = $session->get("key");
         }
-
 
         $heavenlyKey = false;
         if ($session->has('heavenly_key')) {
@@ -123,23 +145,22 @@ class APIProjController extends AbstractController
         $response->setContent(json_encode($data));
         $response->headers->set('Content-Type', 'application/json; charset=utf-8');
 
-
         return $response;
 
     }
-
 
     #[Route('/proj/api/reset_game_tables', name:"api_proj_reset_tables")]
     public function apiReset(
         SavedRepository $savedRepository,
         CondemnedRepository $condemnedRepository,
+        IPLoggerRepository $IPLoggerRepository,
         ManagerRegistry $doctrine,
         SessionInterface $session
     ): Response {
 
-
         $condemned = $condemnedRepository->findAll();
         $saved = $savedRepository->findAll();
+        $ipEntries = $IPLoggerRepository->findAll();
         $entityManager = $doctrine->getManager();
         //Delete All
         foreach($condemned as $exCon) {
@@ -149,6 +170,10 @@ class APIProjController extends AbstractController
 
         foreach($saved as $happy) {
             $entityManager->remove($happy);
+        }
+
+        foreach($ipEntries as $ipAdd) {
+            $entityManager->remove($ipAdd);
         }
         $entityManager->flush();
 
@@ -174,9 +199,22 @@ class APIProjController extends AbstractController
         $stmt = $connection->prepare($sqlCond);
         $stmt->executeStatement();
 
-        return $this->redirectToRoute('api_proj_home');
+        $sqlIp = "
+        INSERT INTO iplogger VALUES
+        (1, 'Faust', 'Hell', '666.666.666.1'),
+        (2, 'Dante', 'Hell', '666.666.666.1'),
+        (3, 'Samael', 'Hell', '666.666.666.1'),
+        (4, 'Beast', 'Hell', '666.666.666.1'),
+        (5, 'Herman', 'Elysium', '127.0.0.1'),
+        (6, 'Owe', 'Elysium', '127.0.0.1'),
+        (7, 'Gurkan', 'Elysium', '127.0.0.1'),
+        (8, 'Kenneth', 'Elysium', '127.0.0.1');";
+        $stmt = $connection->prepare($sqlIp);
+        $stmt->executeStatement();
 
+        return $this->redirectToRoute('api_proj_home');
     }
+
 
 
 

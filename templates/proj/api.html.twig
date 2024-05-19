@@ -9,7 +9,9 @@
         <li><a href="{{ path('api_proj_saved_all') }}" class="button8bit smaller-font">Everyone who made it</a></li>
         <li><a href="{{ path('api_proj_condemned_all') }}" class="button8bit smaller-font">Everyone who chose the wrong portal</a></li>
         <li><a href="{{ path('api_status') }}" class="button8bit smaller-font">Get Game Status</a></li>
-        <li><a href="{{ path('api_proj_reset_tables') }}" class="button8bit smaller-font">Reset Saved/Condemned Tables</a></li>
+        <li><a href="{{ path('api_proj_logged') }}" class="button8bit smaller-font">Show IP addresses</a></li>
+        <li><a href="{{ path('api_proj_reset_tables') }}" class="button8bit smaller-font">Reset Saved/Condemned/IPLogger Tables</a></li>
+        
         <li>
             <form action="{{ path('api_proj_save_all') }}" method="post">
             <button class ="button8bit smaller-font button8bitblue" type="submit">Move all Condemned to Saved[POST]
