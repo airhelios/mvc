@@ -1,11 +1,8 @@
 <?php
 
-
 namespace App\Proj;
 
-
-
-Class HellPortalLevel extends Level 
+class HellPortalLevel extends Level
 {
     public function __construct()
     {
@@ -17,7 +14,7 @@ Class HellPortalLevel extends Level
         $this->backButton = true;
     }
 
-    public function next($key=null, $heavenlyKey=null, $doorName=null): Level
+    public function next($key = null, $heavenlyKey = null, $doorName = null): Level
     {
         return new HellSceneLevel();
     }
@@ -33,15 +30,14 @@ Class HellPortalLevel extends Level
 
         $doorTolerance = 0.5;
         foreach($this->doors as $item => $value) {
-            $lowerX = $value[0] * (1 - $doorTolerance); 
-            $lowerY = $value[1] * (1- $doorTolerance);
+            $lowerX = $value[0] * (1 - $doorTolerance);
+            $lowerY = $value[1] * (1 - $doorTolerance);
             $higherX = $value[0] * (1 + $doorTolerance);
             $higherY = $value[1] * (1 + $doorTolerance);
-            if ( ($lowerX <= $xCoord && $xCoord<= $higherX) && 
-                 ($lowerY <= $yCoord && $yCoord <= $higherY) )
-                 {
-                    return $item;
-                 }
+            if (($lowerX <= $xCoord && $xCoord <= $higherX) &&
+                 ($lowerY <= $yCoord && $yCoord <= $higherY)) {
+                return $item;
+            }
         }
         return "Nothing happened";
     }

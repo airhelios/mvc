@@ -1,11 +1,8 @@
 <?php
 
-
 namespace App\Proj;
 
-
-
-Class BothPortalsLevel extends Level 
+class BothPortalsLevel extends Level
 {
     public function __construct()
     {
@@ -18,10 +15,9 @@ Class BothPortalsLevel extends Level
         $this->backButton = true;
     }
 
-    public function next($key=null, $heavenlyKey=null, $doorName=null): Level
+    public function next($key = null, $heavenlyKey = null, $doorName = null): Level
     {
-        if ($doorName == "Hell")
-        {
+        if ($doorName == "Hell") {
             return new HellSceneLevel();
         } else {
             return new HeavenSceneLevel();
@@ -39,15 +35,14 @@ Class BothPortalsLevel extends Level
 
         $doorTolerance = 0.5;
         foreach($this->doors as $item => $value) {
-            $lowerX = $value[0] - 0.25; 
-            $lowerY = $value[1] * (1- $doorTolerance);
+            $lowerX = $value[0] - 0.25;
+            $lowerY = $value[1] * (1 - $doorTolerance);
             $higherX = $value[0] + 0.25;
             $higherY = $value[1] * (1 + $doorTolerance);
-            if ( ($lowerX <= $xCoord && $xCoord < $higherX) && 
-                 ($lowerY <= $yCoord && $yCoord <= $higherY) )
-                 {
-                    return $item;
-                 }
+            if (($lowerX <= $xCoord && $xCoord < $higherX) &&
+                 ($lowerY <= $yCoord && $yCoord <= $higherY)) {
+                return $item;
+            }
         }
         return "Nothing happened";
     }

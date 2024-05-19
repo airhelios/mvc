@@ -1,9 +1,8 @@
 <?php
 
-
 namespace App\Proj;
 
-Class HellSceneLevel extends Level 
+class HellSceneLevel extends Level
 {
     public function __construct()
     {
@@ -18,7 +17,7 @@ Class HellSceneLevel extends Level
         $this->backButton = false;
     }
 
-    public function next($key=null, $heavenlyKey=null, $doorName=null): Level
+    public function next($key = null, $heavenlyKey = null, $doorName = null): Level
     {
         return new EntryLevel();
     }

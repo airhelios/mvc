@@ -1,9 +1,8 @@
 <?php
 
-
 namespace App\Proj;
 
-Class HatchLevel extends Level 
+class HatchLevel extends Level
 {
     public function __construct()
     {
@@ -15,7 +14,7 @@ Class HatchLevel extends Level
         $this->backButton = true;
     }
 
-    public function next($key, $heavenlyKey, $doorName=null): Level
+    public function next($key, $heavenlyKey, $doorName = null): Level
     {
 
         if ($heavenlyKey && $key) {
@@ -35,6 +34,22 @@ Class HatchLevel extends Level
     public function previous(): Level
     {
         return new EntryLevel();
+    }
+
+    public function checkCoord(float $xCoord, float $yCoord): string
+    {
+        $doorTolerance = 0.20;
+        foreach($this->doors as $item => $value) {
+            $lowerX = $value[0] * (1 - $doorTolerance);
+            $lowerY = $value[1] * (1 - $doorTolerance);
+            $higherX = $value[0] * (1 + $doorTolerance);
+            $higherY = $value[1] * (1 + $doorTolerance);
+            if (($lowerX <= $xCoord && $xCoord <= $higherX) &&
+                 ($lowerY <= $yCoord && $yCoord <= $higherY)) {
+                return $item;
+            }
+        }
+        return "Nothing happened";
     }
 
 }

@@ -7,8 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Form\ScoreForm;
+use App\Entity\Saved;
+use App\Entity\Condemned;
+
 use App\Proj\EntryLevel;
-use App\Proj\HatchLevel;
+use Doctrine\Persistence\ManagerRegistry;
+use \DateTime;
+use \DateTimeZone;
+
+
 /**
  * @SuppressWarnings(Shortvariable)
  */
@@ -18,8 +26,7 @@ class ProjController extends AbstractController
     #[Route('/proj', name: 'proj_home')]
     public function index(
         SessionInterface $session
-        ): Response
-    {
+    ): Response {
         $session->set("Level", new EntryLevel());
         $session->set("key", false);
         $session->set("heavenly_key", false);
@@ -27,18 +34,17 @@ class ProjController extends AbstractController
     }
     #endregion
 
-    #region about
+    #region play
     #[Route('/proj/play', name: 'proj_play')]
     public function home(
         SessionInterface $session
-        ): Response
-    {
+    ): Response {
 
         // $entryLevel = new EntryLevel();
         $level = $session->get("Level") ?? new EntryLevel();
         $session->set("Level", $level);
-        $heavenlyKey =$session->get("heavenly_key") ?? false;
-        $key =$session->get("key") ?? false;
+        $heavenlyKey = $session->get("heavenly_key") ?? false;
+        $key = $session->get("key") ?? false;
 
 
         $structures = ["image" => $level->getImage(),
@@ -51,17 +57,18 @@ class ProjController extends AbstractController
     }
     #endregion
 
+    #region check click
     #[Route('/proj/check', name: 'proj_check', methods: ['POST'])]
     public function check(
         Request $request,
-        SessionInterface $session): Response
-    {
+        SessionInterface $session
+    ): Response {
 
         $xCoord = $request->request->get('xCoord');
         $yCoord = $request->request->get('yCoord');
         $level = $session->get("Level");
-        $heavenlyKey =$session->get("heavenly_key") ?? false;
-        $key =$session->get("key") ?? false;
+        $heavenlyKey = $session->get("heavenly_key") ?? false;
+        $key = $session->get("key") ?? false;
         $check = $level->checkCoord($xCoord, $yCoord);
 
         $level->setPrompt($check);
@@ -69,42 +76,77 @@ class ProjController extends AbstractController
             $session->set("key", true);
             $level->setPrompt("You found a key!");
             $key = true;
-        } 
-        else if ($check =="heavenly_key" && $heavenlyKey == false)
-        {
+        } elseif ($check == "heavenly_key" && $heavenlyKey == false) {
             $level->setPrompt("You found the Heavenly Portal Opener!");
             $session->set("heavenly_key", true);
             $heavenlyKey = true;
-        } 
-        else if ($check == "Hell")
-        {
+        } elseif ($check == "Hell") {
             $level = $level->next($key, $heavenlyKey, "Hell");
-        } 
-        else if ($check == "Restart")
-        {
+        } elseif ($check == "Restart") {
             $session->set("key", false);
             $session->set("heavenly_key", false);
-            $level = $level->next();
-        }
-        else if ($check != "Nothing happened")
-        {
+            return $this->redirectToRoute('proj_score');
+            // $level = $level->next();
+        } elseif ($check != "Nothing happened") {
             $level = $level->next($key, $heavenlyKey);
-        } 
+        }
 
         $session->set("Level", $level);
         return $this->redirectToRoute('proj_play');
     }
+    #endregion
 
     #region go back
     #[Route('/proj/back', name: 'proj_back', methods: ['POST'])]
     public function back(
-        SessionInterface $session): Response
-    {
+        SessionInterface $session
+    ): Response {
         $level = $session->get("Level");
-        $level = $level->previous(); 
+        $level = $level->previous();
         $session->set("Level", $level);
 
         return $this->redirectToRoute('proj_play');
     }
     #endregion
+
+    #region Form for Saving
+    #[Route('/proj/score', name: 'proj_score')]
+    public function score(
+        SessionInterface $session,
+        ManagerRegistry $doctrine,
+        Request $request,
+    ): Response {
+
+        $level = $session->get("Level");
+
+        if (get_class($level)== "App\Proj\HellSceneLevel"){
+            $formClass = new Condemned();
+            $title = "What is your name, condemned one?";
+        } else 
+        {
+            $formClass = new Saved();
+            $title = "What is your name, you beautiful beast?";
+        }
+
+        $form = $this->createForm(ScoreForm::class,  $formClass);
+
+        $form->handleRequest($request);
+        if (!$form->isSubmitted() || !$form->isValid()) {
+
+            return $this->render('proj/save.html.twig', [
+                'save_form' => $form->createView(),
+                "title" => $title]);
+        }
+        $now = new DateTime();
+        $now->setTimezone(new DateTimeZone('Europe/Stockholm'));
+        $formClass->setTime($now);
+        $formClass->setName($form->get('Name')->getData());
+        $level = $level->next();
+        $session->set("Level", $level);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($formClass);
+        $entityManager->flush();
+        return $this->redirectToRoute('proj_home');
+    }
 }

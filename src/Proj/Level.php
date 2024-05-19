@@ -2,9 +2,8 @@
 
 namespace App\Proj;
 
-abstract Class Level
+abstract class Level
 {
-
     protected string $promptText;
     protected array $items;
     protected array $doors;
@@ -62,36 +61,34 @@ abstract Class Level
     }
 
     abstract public function previous(): Level;
-  
+
 
     abstract public function next($key, $heavenlyKey, $doorName): Level;
- 
+
 
     public function checkCoord(float $xCoord, float $yCoord): string
     {
         $itemTolerance = 0.05;
         foreach($this->items as $item => $value) {
-            $lowerX = $value[0] * (1 - $itemTolerance); 
-            $lowerY = $value[1] * (1- $itemTolerance);
+            $lowerX = $value[0] * (1 - $itemTolerance);
+            $lowerY = $value[1] * (1 - $itemTolerance);
             $higherX = $value[0] * (1 + $itemTolerance);
             $higherY = $value[1] * (1 + $itemTolerance);
-            if ( ($lowerX <= $xCoord && $xCoord<= $higherX) && 
-                 ($lowerY <= $yCoord && $yCoord <= $higherY) )
-                 {
-                    return $value[2];
-                 }
+            if (($lowerX <= $xCoord && $xCoord <= $higherX) &&
+                 ($lowerY <= $yCoord && $yCoord <= $higherY)) {
+                return $value[2];
+            }
         }
         $doorTolerance = 0.10;
         foreach($this->doors as $item => $value) {
-            $lowerX = $value[0] * (1 - $doorTolerance); 
-            $lowerY = $value[1] * (1- $doorTolerance);
+            $lowerX = $value[0] * (1 - $doorTolerance);
+            $lowerY = $value[1] * (1 - $doorTolerance);
             $higherX = $value[0] * (1 + $doorTolerance);
             $higherY = $value[1] * (1 + $doorTolerance);
-            if ( ($lowerX <= $xCoord && $xCoord<= $higherX) && 
-                 ($lowerY <= $yCoord && $yCoord <= $higherY) )
-                 {
-                    return $item;
-                 }
+            if (($lowerX <= $xCoord && $xCoord <= $higherX) &&
+                 ($lowerY <= $yCoord && $yCoord <= $higherY)) {
+                return $item;
+            }
         }
         return "Nothing happened";
     }
