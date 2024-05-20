@@ -15,13 +15,13 @@ class BothPortalsLevel extends Level
         $this->backButton = true;
     }
 
-    public function next($key = null, $heavenlyKey = null, $doorName = null): Level
+    public function next(?bool $key = null, ?bool $heavenlyKey = null, ?string $doorName = null): Level
     {
         if ($doorName == "Hell") {
             return new HellSceneLevel();
-        } else {
-            return new HeavenSceneLevel();
         }
+
+        return new HeavenSceneLevel();
     }
 
 

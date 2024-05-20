@@ -19,16 +19,35 @@
     
 
 
+
+
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
+            
+
         </testsuite>
+
     </testsuites>
 
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <file>src/Controller/APIController.php</file>
+            <file>src/Controller/BaseController.php</file>
+            <file>src/Controller/BookController.php</file>
+            <file>src/Controller/CardGameController.php</file>
+            <file>src/Controller/LuckyController.php</file>
+            <file>src/Card.php</file>
+            <file>src/CardGraphic.php</file>
+            <file>src/CardHand.php</file>
+            <file>src/DeckOfCards.php</file>
+            <directory suffix=".php">src/Service</directory>
+        </exclude>
+
+
         <report>
             <clover outputFile="docs/coverage.clover"/>
             <html outputDirectory="docs/coverage" lowUpperBound="35" highLowerBound="70"/>

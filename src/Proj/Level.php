@@ -2,10 +2,21 @@
 
 namespace App\Proj;
 
+/**
+ * Suppress all rules containing "CyclomaticComplexity" in this
+ * class
+ *
+ * @SuppressWarnings("CyclomaticComplexity")
+    * @param array<string> $items
+ */
 abstract class Level
 {
     protected string $promptText;
+
+    /** @var array<mixed> */
     protected array $items;
+
+    /** @var array<mixed> */
     protected array $doors;
     protected string $image;
     protected bool $backButton;
@@ -40,22 +51,34 @@ abstract class Level
         $this->promptText = $text;
     }
 
+    /**
+    * @return string[]
+    */
     public function getItems(): array
     {
         return $this->items;
     }
 
-    public function setItems($items): void
+    /**
+    * @param string[] $items
+    */
+    public function setItems(array $items): void
     {
         $this->items = $items;
     }
 
+    /**
+    * @return string[]
+    */
     public function getDoors(): array
     {
         return $this->doors;
     }
 
-    public function setDoors($doors): void
+    /**
+    * @param string[] $doors
+    */
+    public function setDoors(array $doors): void
     {
         $this->doors = $doors;
     }
@@ -63,7 +86,8 @@ abstract class Level
     abstract public function previous(): Level;
 
 
-    abstract public function next($key, $heavenlyKey, $doorName): Level;
+    abstract public function next(?bool $key, ?bool $heavenlyKey, ?string $doorName): Level;
+
 
 
     public function checkCoord(float $xCoord, float $yCoord): string

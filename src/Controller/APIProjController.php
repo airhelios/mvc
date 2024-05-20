@@ -19,6 +19,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use DateTime;
 use DateTimeZone;
 
+/**
+ * Suppress CamelCaseErrors
+ * class
+ *
+ * @SuppressWarnings("CamelCaseParameterName")
+ * @SuppressWarnings("CamelCaseVariableName")
+ */
 class APIProjController extends AbstractController
 {
     /**
@@ -58,7 +65,7 @@ class APIProjController extends AbstractController
         return $response;
     }
 
-    
+
     #[Route('/proj/api/logged', name:"api_proj_logged")]
     public function apiLoggedAll(
         IPLoggerRepository $IPLoggerRepository
@@ -77,7 +84,8 @@ class APIProjController extends AbstractController
     }
 
     #[Route('/proj/api', name:"api_proj_home")]
-    public function apiHome(): Response {
+    public function apiHome(): Response
+    {
 
 
         return $this->render('proj/api.html.twig');
@@ -85,7 +93,6 @@ class APIProjController extends AbstractController
 
     #[Route('/proj/api/save_all', name:"api_proj_save_all", methods: ['POST'])]
     public function apiSaveAll(
-        SavedRepository $savedRepository,
         CondemnedRepository $condemnedRepository,
         ManagerRegistry $doctrine,
     ): Response {
@@ -110,13 +117,10 @@ class APIProjController extends AbstractController
         return $this->redirectToRoute('api_proj_saved_all');
     }
 
-    
+
 
     #[Route('/proj/api/get_status', name:"api_status")]
     public function apiStatus(
-        SavedRepository $savedRepository,
-        CondemnedRepository $condemnedRepository,
-        ManagerRegistry $doctrine,
         SessionInterface $session
     ): Response {
 
@@ -154,8 +158,7 @@ class APIProjController extends AbstractController
         SavedRepository $savedRepository,
         CondemnedRepository $condemnedRepository,
         IPLoggerRepository $IPLoggerRepository,
-        ManagerRegistry $doctrine,
-        SessionInterface $session
+        ManagerRegistry $doctrine
     ): Response {
 
         $condemned = $condemnedRepository->findAll();
@@ -178,8 +181,8 @@ class APIProjController extends AbstractController
         $entityManager->flush();
 
 
-        $em = $doctrine->getManager();
-        $connection = $em->getConnection();/* @phpstan-ignore-line */
+        $entityManager = $doctrine->getManager();
+        $connection = $entityManager->getConnection();/* @phpstan-ignore-line */
 
         $sqlSaved = "
             INSERT INTO saved VALUES

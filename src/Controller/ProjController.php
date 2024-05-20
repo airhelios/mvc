@@ -38,14 +38,16 @@ class ProjController extends AbstractController
 
     #region about
     #[Route('/proj/about', name: 'proj_about')]
-    public function about(): Response {
+    public function about(): Response
+    {
         return $this->render('proj/about.html.twig');
     }
     #endregion
 
     #region database
     #[Route('/proj/about/database', name: 'proj_database')]
-    public function database(): Response {
+    public function database(): Response
+    {
         return $this->render('proj/database.html.twig');
     }
     #endregion
@@ -139,13 +141,13 @@ class ProjController extends AbstractController
 
         $level = $session->get("Level");
         $destination = "Elysium";
+        $formClass = new Saved();
+        $title = "What is your name, you beautiful beast?";
+
         if (get_class($level) == "App\Proj\HellSceneLevel") {
             $formClass = new Condemned();
             $title = "What is your name, condemned one?";
             $destination = "Hell";
-        } else {
-            $formClass = new Saved();
-            $title = "What is your name, you beautiful beast?";
         }
 
         $form = $this->createForm(ScoreForm::class, $formClass);

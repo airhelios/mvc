@@ -16,7 +16,7 @@ class EntryLevel extends Level
         $this->backButton = false;
     }
 
-    public function next($key = null, $heavenlyKey = null, $doorName = null): Level
+    public function next(?bool $key = null, ?bool $heavenlyKey = null, ?string $doorName = null): Level
     {
         return new HatchLevel();
     }

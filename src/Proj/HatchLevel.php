@@ -14,7 +14,7 @@ class HatchLevel extends Level
         $this->backButton = true;
     }
 
-    public function next($key, $heavenlyKey, $doorName = null): Level
+    public function next(?bool $key, ?bool $heavenlyKey, ?string $doorName = null): Level
     {
 
         if ($heavenlyKey && $key) {
@@ -23,11 +23,10 @@ class HatchLevel extends Level
         } elseif ($key) {
             $next = new HellPortalLevel();
             return $next;
-        } else {
-            $next = new HatchLevel();
-            $next->setPrompt("The door is locked, you need a key to open it");
-            return $next;
         }
+        $next = new HatchLevel();
+        $next->setPrompt("The door is locked, you need a key to open it");
+        return $next;
     }
 
 
