@@ -76,7 +76,7 @@ abstract class Level
     }
 
     /**
-    * @param string[] $doors
+    * @param array<string, array<int, int>> $doors
     */
     public function setDoors(array $doors): void
     {

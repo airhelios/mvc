@@ -36,6 +36,7 @@
         </include>
         <exclude>
             <file>src/Controller/APIController.php</file>
+            <file>src/Controller/APICardController.php</file>
             <file>src/Controller/BaseController.php</file>
             <file>src/Controller/BookController.php</file>
             <file>src/Controller/CardGameController.php</file>
@@ -45,6 +46,8 @@
             <file>src/CardHand.php</file>
             <file>src/DeckOfCards.php</file>
             <directory suffix=".php">src/Service</directory>
+            <directory suffix=".php">src/Entity</directory>
+            <directory suffix=".php">src/Repository</directory>
         </exclude>
 
 
