@@ -19,7 +19,14 @@ class APIProjControllerTest extends WebTestCase
     /**
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
-     */
+     */public function setUp(): void
+    {
+        if (isset($_ENV['SCRUTINIZER'])) {
+            $this->markTestSkipped(
+                'Scrutinizer CI build'
+            );
+        }
+    }
     public function testAPICondemned(): void
     {
         $client = static::createClient();

@@ -2,12 +2,10 @@ imports:
     - php
 
 filter:
-    excluded_paths: [vendor/*, test/*, tests/Proj/ExcludedFromScrutinizer/*]
+    excluded_paths: [vendor/*, test/*]
 
 build:
     image: default-bionic
-    filter:
-    excluded_paths: [vendor/*, test/*, tests/Proj/ExcludedFromScrutinizer/*]
 
     nodes:  
         my-tests:
