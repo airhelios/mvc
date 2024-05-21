@@ -7,7 +7,7 @@ filter:
 build:
     image: default-bionic
 
-    nodes:
+    nodes:  
         my-tests:
             environment:
                 php:
@@ -21,8 +21,10 @@ build:
                     - php-scrutinizer-run
                     #- phpcs-run # Not used, missing config file
     tests:
+        excluded_paths: [vendor/*, test/*, tests/Proj/ExcludedFromScrutinizer/*]
         override:
             -   command: "composer phpunit"
+            
                 # command: "XDEBUG_MODE=coverage vendor/bin/phpunit"
                 coverage:
                     file: "docs/coverage.clover"
