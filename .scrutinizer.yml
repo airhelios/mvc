@@ -6,9 +6,6 @@ filter:
 
 build:
     image: default-bionic
-    environment:
-        variables:
-            FOO: 'BAR123'
 
     nodes:  
         my-tests:

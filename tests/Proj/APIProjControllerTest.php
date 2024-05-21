@@ -20,7 +20,8 @@ class APIProjControllerTest extends WebTestCase
      * properties, use no arguments.
      */public function setUp(): void
     {
-        if (isset($_ENV['FOO'])) {
+        //Funkar inte
+        if (isset($_ENV['SCRUTINIZER'])) {
             $this->markTestSkipped(
                 'Scrutinizer CI build'
             );
@@ -28,11 +29,6 @@ class APIProjControllerTest extends WebTestCase
     }
     public function testAPICondemned(): void
     {
-        if (isset($_ENV['SCRUTINIZER'])) {
-            $this->markTestSkipped(
-                'Scrutinizer CI build'
-            );
-        }
         $client = static::createClient();
         $client->request('GET', '/proj/api/condemned');
         $this->assertResponseIsSuccessful();
@@ -40,11 +36,6 @@ class APIProjControllerTest extends WebTestCase
 
     public function testAPISaved(): void
     {
-        if (isset($_ENV['FOO'])) {
-            $this->markTestSkipped(
-                'Scrutinizer CI build'
-            );
-        }
         $client = static::createClient();
         $client->request('GET', '/proj/api/saved');
         $this->assertResponseIsSuccessful();
