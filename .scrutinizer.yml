@@ -6,6 +6,8 @@ filter:
 
 build:
     image: default-bionic
+    filter:
+    excluded_paths: [vendor/*, test/*, tests/Proj/ExcludedFromScrutinizer/*]
 
     nodes:  
         my-tests:
@@ -21,7 +23,6 @@ build:
                     - php-scrutinizer-run
                     #- phpcs-run # Not used, missing config file
     tests:
-        excluded_paths: [vendor/*, test/*, tests/Proj/ExcludedFromScrutinizer/*]
         override:
             -   command: "composer phpunit"
             
