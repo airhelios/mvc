@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -34,9 +33,7 @@ yarn-error.log
 
 ### från kursen
 tools/
-/src/Game_bu
 .phpdoc/
 /docs
-/tests/Proj/APIProjControllerTest.php
-# .env
 
+/tests/Proj/APIProjControllerTest.php
