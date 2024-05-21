@@ -2,7 +2,7 @@ imports:
     - php
 
 filter:
-    excluded_paths: [vendor/*, test/*]
+    excluded_paths: [vendor/*, test/*,tests/Proj/APIProjControllerTest.php]
 
 build:
     image: default-bionic
@@ -27,8 +27,6 @@ build:
                 coverage:
                     file: "docs/coverage.clover"
                     format: "php-clover"
-                    filter:
-                        excluded_paths: ["tests/Proj/APIProjControllerTest.php"]
 
 
 
