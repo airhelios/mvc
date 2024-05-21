@@ -7,7 +7,6 @@ namespace App\Proj;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-
 // use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
 // use Symfony\Component\HttpFoundation\Response;
 
@@ -21,7 +20,7 @@ class APIProjControllerTest extends WebTestCase
      * properties, use no arguments.
      */public function setUp(): void
     {
-        if (isset($_ENV['SCRUTINIZER'])) {
+        if (isset($_ENV['FOO'])) {
             $this->markTestSkipped(
                 'Scrutinizer CI build'
             );
@@ -29,6 +28,11 @@ class APIProjControllerTest extends WebTestCase
     }
     public function testAPICondemned(): void
     {
+        if (isset($_ENV['SCRUTINIZER'])) {
+            $this->markTestSkipped(
+                'Scrutinizer CI build'
+            );
+        }
         $client = static::createClient();
         $client->request('GET', '/proj/api/condemned');
         $this->assertResponseIsSuccessful();
@@ -36,6 +40,11 @@ class APIProjControllerTest extends WebTestCase
 
     public function testAPISaved(): void
     {
+        if (isset($_ENV['FOO'])) {
+            $this->markTestSkipped(
+                'Scrutinizer CI build'
+            );
+        }
         $client = static::createClient();
         $client->request('GET', '/proj/api/saved');
         $this->assertResponseIsSuccessful();
