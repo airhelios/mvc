@@ -37,6 +37,6 @@ tools/
 /src/Game_bu
 .phpdoc/
 /docs
-t/ests/Proj/APIProjControllerTest.php
+/tests/Proj/APIProjControllerTest.php
 # .env
 
