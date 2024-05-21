@@ -23,14 +23,6 @@ use App\Entity\Saved;
  */
 class ProjControllerTest extends WebTestCase
 {
-    public Session $session;
-    public function setUp(): void
-    {
-        $this->session = new Session(new MockFileSessionStorage());
-        $this->session->start();
-
-        parent::setUp();
-    }
     /**
      * Construct object and verify that the object has the expected
      * properties, use no arguments.

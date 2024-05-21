@@ -13,7 +13,8 @@ class APIGameControllerTest extends WebTestCase
     public function testAPILibraryAllRoute(): void
     {
         $client = static::createClient();
-        $client->request('GET', 'api/game');
+        $client->request('GET', '/game/play');
+        $client->request('GET', '/api/game');
 
         // $this->assertResponseIsSuccessful();
         $this->assertRouteSame("api_game");

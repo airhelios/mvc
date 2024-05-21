@@ -21,144 +21,73 @@ use App\Entity\Saved;
 /**
  * Test cases for class Dice.
  */
-class ProjControllerTest extends WebTestCase
+class APIProjControllerTest extends WebTestCase
 {
-    public Session $session;
-    public function setUp(): void
-    {
-        $this->session = new Session(new MockFileSessionStorage());
-        $this->session->start();
 
-        parent::setUp();
-    }
     /**
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
      */
-    public function testProjHome(): void
+    public function testAPICondemned(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/proj');
-        $this->assertRouteSame("proj_home");
-        $this->assertResponseRedirects('/proj/play');
-    }
-
-    public function testProjAbout(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/proj/about');
-        $this->assertRouteSame("proj_about");
+        $client->request('GET', '/proj/api/condemned');
         $this->assertResponseIsSuccessful();
     }
 
-    public function testProjDatabase(): void
+    public function testAPISaved(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/proj/about/database');
-        $this->assertRouteSame("proj_database");
+        $client->request('GET', '/proj/api/saved');
         $this->assertResponseIsSuccessful();
     }
 
-    public function testProjPlay(): void
+    public function testAPILogged(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/proj/play');
-        $this->assertRouteSame("proj_play");
+        $client->request('GET', '/proj/api/logged');
         $this->assertResponseIsSuccessful();
     }
 
-    public function testProjCheck(): void
+    public function testAPIHome(): void
     {
         $client = static::createClient();
-        //Setup session
-        $client->request('GET', '/proj/play');
-
-
-        $client->request('POST', '/proj/check',["xCoord" => 549 / 679, "yCoord" => 550 / 679],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $session = $client->getRequest()->getSession();
-        $this->assertEquals(true,$session->get("key"));
-        $this->assertRouteSame("proj_check");
-        // $this->assertResponseIsSuccessful();
-        $this->assertResponseRedirects('/proj/play');
-
-        
-        $client->request('POST', '/proj/check',["xCoord" => 763 / 1024, "yCoord" => 586 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $session = $client->getRequest()->getSession();
-        $this->assertEquals(true,$session->get("heavenly_key"));
-
-        $client->request('POST', '/proj/check',["xCoord" => 514 / 1024, "yCoord" => 762 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $session = $client->getRequest()->getSession();
-        $nextLevel = new HatchLevel();
-        $this->assertEquals($nextLevel, $session->get("Level"));
-
-        $session = $client->getRequest()->getSession();
-        $nextLevel = new HatchLevel();
-        $this->assertEquals($nextLevel, $session->get("Level"));
-
-        $client->request('POST', '/proj/check',["xCoord" => 0.49, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $session = $client->getRequest()->getSession();
-        $nextLevel = new HellSceneLevel();
-        $this->assertEquals($nextLevel, $session->get("Level"));
-
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $this->assertResponseRedirects('/proj/score');
-
+        $client->request('GET', '/proj/api');
+        $this->assertResponseIsSuccessful();
     }
 
-    public function testProjBack(): void
+    public function testAPISaveAll(): void 
     {
         $client = static::createClient();
-        //Setup session
-        $client->request('GET', '/proj/play');
-
-        $client->request('POST','/proj/back');
-        $this->assertResponseRedirects('/proj/play');
-
+        $client->request('POST', '/proj/api/save_all');
+        $this->assertResponseRedirects('/proj/api/saved');
     }
 
-    public function testProjSaveRoute(): void {
+    public function testAPIGetStatus(): void 
+    {
+        //Get level
         $client = static::createClient();
         $client->request('GET', '/proj/play');
+
+        //Get key
         $client->request('POST', '/proj/check',["xCoord" => 549 / 679, "yCoord" => 550 / 679],
         [],['Content-Type' => 'application/x-www-form-urlencoded']);
 
 
-        
+        //Get heavenly key  
         $client->request('POST', '/proj/check',["xCoord" => 763 / 1024, "yCoord" => 586 / 1024],
         [],['Content-Type' => 'application/x-www-form-urlencoded']);
 
 
-        $client->request('POST', '/proj/check',["xCoord" => 514 / 1024, "yCoord" => 762 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        
+        $client->request('POST', '/proj/api/get_status');
+        $this->assertResponseIsSuccessful();
+    }
 
-
-        $client->request('POST', '/proj/check',["xCoord" => 0.49, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-
-
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        //     'Name' => 'Yuri']);
-        $crawler = $client->request('GET', '/proj/score');
-
-        // Check if the form exists and then submit the form
-        $form = $crawler->selectButton('score_form_Submit')->form([
-            'score_form[Name]' => 'Yuri'
-        ]);
-
-        // Submit the form
-        $client->submit($form);
-        $this->assertResponseRedirects('/proj');
-            
-
+    public function testAPIResetTable(): void 
+    {
+        $client = static::createClient();
+        $client->request('POST', '/proj/api/reset_game_tables');
+        $this->assertResponseRedirects('/proj/api');
     }
 }

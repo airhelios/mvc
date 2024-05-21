@@ -23,7 +23,7 @@ class GameControllerTest extends WebTestCase
         $client->request('GET', '/game');
         $this->assertRouteSame("game");
 
-        // $this->assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
         // $this->assertSelectorTextContains('h1', 'Game Page');
     }
 
@@ -32,7 +32,7 @@ class GameControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/game/doc');
 
-        // $this->assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
         $this->assertRouteSame("game_docs");
         // $this->assertSelectorTextContains('h1', 'Game Page');
     }
@@ -48,56 +48,27 @@ class GameControllerTest extends WebTestCase
     public function testGameHit(): void
     {
         $client = static::createClient();
+        $client->request('GET', '/game/play');
+        //Repeated so that we get player_bust case
+        $client->request('GET', '/game/hit_me');
+        $client->request('GET', '/game/hit_me');
+        $client->request('GET', '/game/hit_me');
+        $client->request('GET', '/game/hit_me');
+        $client->request('GET', '/game/hit_me');
         $client->request('GET', '/game/hit_me');
 
         $this->assertResponseRedirects('/game/play');
     }
 
 
-    // public function testGameHitSession(): void
-    // {
-
-    //     $sessionMock = $this->createMock(SessionInterface::class);
-    //             $gameManager = GameManager::gameManagerNew();
-    //     // Configure the mock to return specific values
-    //     $sessionMock->method('get')
-    //                 ->willReturnMap([
-    //                     ['game', $gameManager],  // Simulate $session->get('key') returning 'default_value'
-    //                 ]);
-    //     $client = static::createClient();
-    //     $client->getContainer()->set('session', $sessionMock);
-    //     $client->request('GET', '/game/hit_me');
-    //     $sessionLocale = $client->getRequest()->getSession()->get('game');
-    //     // $this->assertEquals(302, $client->getResponse()->getStatusCode());
-    //     $this->assertEquals($gameManager, $sessionLocale);
-    //     // $client = static::createClient();
-    //     // $gameManager = GameManager::gameManagerNew();
-    
-    //     // $session = $client->getContainer()->get('session');
-    //     // $session->start(); // optional because the ->set() method do the start
-    //     // $session->set('game', serialize($gameManager)); // the session is started  here if you do not use the ->start() method
-    //     // $session->save(); // important if you want to persist the params
-    //     // $client->getCookieJar()->set(new Cookie($session->getName(),  $session->getId()));
-    //     // // $session = new Session(new MockFileSessionStorage());
-    //     // // $session = $this->createMock(SessionInterface::class);
-
-    //     // // $session->set("game",$gameManager);
-    //     // // $client->getContainer()->set('session', $session);
-    //     // $client->request('GET', '/game/hit_me');
-
-    //     // $sessionLocale = $client->getRequest()->getSession()->get('game');
-
-
-
-    //     // $this->assertInstanceOf(GameManager::class, $sessionLocale);
-    // }
 
     public function testGamePlay(): void
     {
         $client = static::createClient();
         $client->request('GET', '/game/play');
+        $client->request('GET', '/game/play');
 
-        // $this->assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
         $this->assertRouteSame("game_play");
     }
 
@@ -105,9 +76,10 @@ class GameControllerTest extends WebTestCase
     public function testGameStay(): void
     {
         $client = static::createClient();
+        $client->request('GET', '/game/play');
         $client->request('GET', '/game/stay');
 
         $this->assertRouteSame("game_stay");
-        // $this->assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
     }
 }
