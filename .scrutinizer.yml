@@ -2,7 +2,7 @@ imports:
     - php
 
 filter:
-    excluded_paths: [vendor/*, test/*,tests/Proj/APIProjControllerTest.php]
+    excluded_paths: [vendor/*, test/*, tests/Proj/ExcludedFromScrutinizer/*]
 
 build:
     image: default-bionic
