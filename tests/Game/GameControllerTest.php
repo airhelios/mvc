@@ -5,11 +5,6 @@ namespace App\Game;
 // use PHPUnit\Framework\TestCase;
 // use App\Controller\GameController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\BrowserKit\Cookie;
-use App\Controller\GameController;
 // use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
 // use Symfony\Component\HttpFoundation\Response;
 
