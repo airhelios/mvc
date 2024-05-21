@@ -20,12 +20,12 @@ class APIProjControllerTest extends WebTestCase
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
      */
-    // public function testAPICondemned(): void
-    // {
-    //     $client = static::createClient();
-    //     $client->request('GET', '/proj/api/condemned');
-    //     $this->assertResponseIsSuccessful();
-    // }
+    public function testAPICondemned(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/proj/api/condemned');
+        $this->assertResponseIsSuccessful();
+    }
 
     public function testAPISaved(): void
     {

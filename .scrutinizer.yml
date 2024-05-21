@@ -27,6 +27,10 @@ build:
                 coverage:
                     file: "docs/coverage.clover"
                     format: "php-clover"
+                    filter:
+                        excluded_paths: ["tests/Proj/APIProjControllerTest.php"]
+
+
 
 
 
