@@ -17,8 +17,9 @@ class HatchLevelTest extends TestCase
     public function testHatchLevelConstructor(): void
     {
 
-        $level = new HatchLevel();;
-    
+        $level = new HatchLevel();
+        ;
+
         // Assert the mock is an instance of Level
         $this->assertInstanceOf(HatchLevel::class, $level);
     }

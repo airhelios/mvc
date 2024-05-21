@@ -18,7 +18,7 @@ class LevelTest extends TestCase
     {
 
         $level = $this->getMockForAbstractClass(Level::class);
-    
+
         // Assert the mock is an instance of Level
         $this->assertInstanceOf(Level::class, $level);
     }
@@ -37,7 +37,7 @@ class LevelTest extends TestCase
 
     public function testGetPrompt(): void
     {
-        $hatchLevel = new HatchLevel(); 
+        $hatchLevel = new HatchLevel();
         $this->assertEquals($hatchLevel->getPrompt(), "You have found a locked hatch! Open it!");
     }
 

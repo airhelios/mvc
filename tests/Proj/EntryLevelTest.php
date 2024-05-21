@@ -17,8 +17,9 @@ class EntryLevelTest extends TestCase
     public function testLevelConstructor(): void
     {
 
-        $level = new EntryLevel();;
-    
+        $level = new EntryLevel();
+        ;
+
         // Assert the mock is an instance of Level
         $this->assertInstanceOf(EntryLevel::class, $level);
     }

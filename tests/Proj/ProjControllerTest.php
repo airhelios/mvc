@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 use App\Form\ScoreForm;
 use App\Entity\Saved;
 
@@ -66,22 +66,37 @@ class ProjControllerTest extends WebTestCase
         $client->request('GET', '/proj/play');
 
 
-        $client->request('POST', '/proj/check',["xCoord" => 549 / 679, "yCoord" => 550 / 679],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 549 / 679, "yCoord" => 550 / 679],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
         $session = $client->getRequest()->getSession();
-        $this->assertEquals(true,$session->get("key"));
+        $this->assertEquals(true, $session->get("key"));
         $this->assertRouteSame("proj_check");
         // $this->assertResponseIsSuccessful();
         $this->assertResponseRedirects('/proj/play');
 
-        
-        $client->request('POST', '/proj/check',["xCoord" => 763 / 1024, "yCoord" => 586 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $session = $client->getRequest()->getSession();
-        $this->assertEquals(true,$session->get("heavenly_key"));
 
-        $client->request('POST', '/proj/check',["xCoord" => 514 / 1024, "yCoord" => 762 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 763 / 1024, "yCoord" => 586 / 1024],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
+        $session = $client->getRequest()->getSession();
+        $this->assertEquals(true, $session->get("heavenly_key"));
+
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 514 / 1024, "yCoord" => 762 / 1024],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
         $session = $client->getRequest()->getSession();
         $nextLevel = new HatchLevel();
         $this->assertEquals($nextLevel, $session->get("Level"));
@@ -90,16 +105,31 @@ class ProjControllerTest extends WebTestCase
         $nextLevel = new HatchLevel();
         $this->assertEquals($nextLevel, $session->get("Level"));
 
-        $client->request('POST', '/proj/check',["xCoord" => 0.49, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 0.49, "yCoord" => 0.415],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 0.25, "yCoord" => 0.415],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
         $session = $client->getRequest()->getSession();
         $nextLevel = new HellSceneLevel();
         $this->assertEquals($nextLevel, $session->get("Level"));
 
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 0.25, "yCoord" => 0.415],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
         $this->assertResponseRedirects('/proj/score');
 
     }
@@ -110,35 +140,66 @@ class ProjControllerTest extends WebTestCase
         //Setup session
         $client->request('GET', '/proj/play');
 
-        $client->request('POST','/proj/back');
+        $client->request('POST', '/proj/back');
         $this->assertResponseRedirects('/proj/play');
 
     }
 
-    public function testProjSaveRoute(): void {
+    public function testProjSaveRoute(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/proj/play');
-        $client->request('POST', '/proj/check',["xCoord" => 549 / 679, "yCoord" => 550 / 679],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 549 / 679, "yCoord" => 550 / 679],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
 
 
-        
-        $client->request('POST', '/proj/check',["xCoord" => 763 / 1024, "yCoord" => 586 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 763 / 1024, "yCoord" => 586 / 1024],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
 
 
-        $client->request('POST', '/proj/check',["xCoord" => 514 / 1024, "yCoord" => 762 / 1024],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 514 / 1024, "yCoord" => 762 / 1024],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
 
 
-        $client->request('POST', '/proj/check',["xCoord" => 0.49, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 0.49, "yCoord" => 0.415],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 0.25, "yCoord" => 0.415],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
 
 
-        $client->request('POST', '/proj/check',["xCoord" => 0.25, "yCoord" => 0.415],
-        [],['Content-Type' => 'application/x-www-form-urlencoded']);
+        $client->request(
+            'POST',
+            '/proj/check',
+            ["xCoord" => 0.25, "yCoord" => 0.415],
+            [],
+            ['Content-Type' => 'application/x-www-form-urlencoded']
+        );
         //     'Name' => 'Yuri']);
         $crawler = $client->request('GET', '/proj/score');
 
@@ -150,7 +211,7 @@ class ProjControllerTest extends WebTestCase
         // Submit the form
         $client->submit($form);
         $this->assertResponseRedirects('/proj');
-            
+
 
     }
 }

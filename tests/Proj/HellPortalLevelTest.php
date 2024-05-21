@@ -17,8 +17,9 @@ class HellPortalLevelTest extends TestCase
     public function testLevelConstructor(): void
     {
 
-        $level = new HellPortalLevel();;
-    
+        $level = new HellPortalLevel();
+        ;
+
 
         $this->assertInstanceOf(HellPortalLevel::class, $level);
     }

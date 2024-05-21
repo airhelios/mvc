@@ -17,8 +17,9 @@ class BothPortalsLevelTest extends TestCase
     public function testLevelConstructor(): void
     {
 
-        $level = new BothPortalsLevel();;
-    
+        $level = new BothPortalsLevel();
+        ;
+
         // Assert the mock is an instance of Level
         $this->assertInstanceOf(BothPortalsLevel::class, $level);
     }
