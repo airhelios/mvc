@@ -154,6 +154,7 @@ class ProjController extends AbstractController
         $form = $this->createForm(ScoreForm::class, $formClass);
 
         $form->handleRequest($request);
+
         if (!$form->isSubmitted() || !$form->isValid()) {
 
             return $this->render('proj/save.html.twig', [
