@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Form\ScoreForm;
 use App\Entity\Saved;
 use App\Entity\Condemned;
@@ -27,7 +28,7 @@ class ProjController extends AbstractController
     #region home
     #[Route('/proj', name: 'proj_home')]
     public function index(
-        SessionInterface $session
+        Session $session
     ): Response {
         $session->set("Level", new EntryLevel());
         $session->set("key", false);
@@ -56,7 +57,7 @@ class ProjController extends AbstractController
     #region play
     #[Route('/proj/play', name: 'proj_play')]
     public function home(
-        SessionInterface $session
+        Session $session
     ): Response {
 
         // $entryLevel = new EntryLevel();
@@ -80,7 +81,7 @@ class ProjController extends AbstractController
     #[Route('/proj/check', name: 'proj_check', methods: ['POST'])]
     public function check(
         Request $request,
-        SessionInterface $session
+        Session $session
     ): Response {
 
         $xCoord = $request->request->get('xCoord');
@@ -118,7 +119,7 @@ class ProjController extends AbstractController
     #region go back
     #[Route('/proj/back', name: 'proj_back', methods: ['POST'])]
     public function back(
-        SessionInterface $session
+        Session $session
     ): Response {
         $level = $session->get("Level");
         $level = $level->previous();
@@ -131,7 +132,7 @@ class ProjController extends AbstractController
     #region Form for Saving
     #[Route('/proj/score', name: 'proj_score')]
     public function score(
-        SessionInterface $session,
+        Session $session,
         ManagerRegistry $doctrine,
         Request $request,
     ): Response {
