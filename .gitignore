@@ -37,5 +37,5 @@ tools/
 .phpdoc/
 /docs
 
-/tests/Proj/APIProjControllerTest.php
+# /tests/Proj/APIProjControllerTest.php
 !/var/data.db
