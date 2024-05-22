@@ -45,6 +45,14 @@ class ProjController extends AbstractController
     }
     #endregion
 
+    #region about
+    #[Route('/proj/cheat', name: 'proj_cheat')]
+    public function cheat(): Response
+    {
+        return $this->render('proj/cheat.html.twig');
+    }
+    #endregion
+
     #region database
     #[Route('/proj/about/database', name: 'proj_database')]
     public function database(): Response

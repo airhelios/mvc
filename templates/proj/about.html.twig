@@ -4,8 +4,24 @@
 
 {% block body %}
 <div class="proj-container center">
-    <h1 class="text-center">HEJ</h1>
+    <h1 class="text-center">Kmom07/10 i kursen Objektorienterade Webbteknologier DV1608</h1>
+    <p class="report">Den här applikationen är byggd för att möta alla krav i slutprojektet i MVC-kursen (DV1608). Ett Escape Room/Point and Click-spel med 3 navigerbara nivåer har skapats. 
+        <a href="{{ path('proj_cheat') }}">Klicka här för en fusklapp</a>.
+        </p>
+        <p class="report">Nedan beskrivs de huvudsakliga ramverken och teknikerna som har använts i projektet.</p>
+        <ul class="ul-report">
+            <li>PHP med Symfony - som webbramverk</li>
+            <li>PHPUnit för enhetstester</li>
+            <li>PHP CS Fixer för att koden ska följa PSR12-standarden</li>
+            <li>PHPMetrics för att analysera kodkvaliteten</li>
+            <li>Scrutinizer för att analysera kodkvaliteten och för att säkerställa att den deployade versionen fungerar</li>
+            <li>PHPMD och PHPStan för mess detection, linting och för att preemptivt hitta buggar.</li>
+            <li>PHPDoc för att ta fram dokumentation från koden.</li>
+        </ul>
+        
 
+
+</div>
 
 
 </div>
