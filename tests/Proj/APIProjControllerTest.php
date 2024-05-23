@@ -2,30 +2,32 @@
 
 namespace App\Proj;
 
-// use PHPUnit\Framework\TestCase;
-// use App\Controller\GameController;
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-// use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
-// use Symfony\Component\HttpFoundation\Response;
-
 /**
- * Test cases for class Dice.
+ * Test cases for class APIProjController.
  */
 class APIProjControllerTest extends WebTestCase
 {
     /**
      * Construct object and verify that the object has the expected
      * properties, use no arguments.
-     */public function setUp(): void
+     */
+    public function setUp(): void
     {
-        //Funkar inte
-        if (isset($_ENV['SCRUTINIZER'])) {
-            $this->markTestSkipped(
-                'Scrutinizer CI build'
-            );
-        }
+
+        $client = static::createClient();
+        $client->request('POST', '/proj/api/reset_game_tables');
+        $this->assertResponseRedirects('/proj/api');
+        self::ensureKernelShutdown();
+    }
+
+
+    public function testAPIResetTable(): void
+    {
+        $client = static::createClient();
+        $client->request('POST', '/proj/api/reset_game_tables');
+        $this->assertResponseRedirects('/proj/api');
     }
     public function testAPICondemned(): void
     {
@@ -93,10 +95,4 @@ class APIProjControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testAPIResetTable(): void
-    {
-        $client = static::createClient();
-        $client->request('POST', '/proj/api/reset_game_tables');
-        $this->assertResponseRedirects('/proj/api');
-    }
 }

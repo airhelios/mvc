@@ -2,24 +2,10 @@
 
 namespace App\Proj;
 
-// use PHPUnit\Framework\TestCase;
-// use App\Controller\GameController;
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
-use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use DateTime;
-use DateTimeZone;
-use App\Form\ScoreForm;
-use App\Entity\Saved;
-
-// use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
-// use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Test cases for class Dice.
+ * Test cases for class ProjController.
  */
 class ProjControllerTest extends WebTestCase
 {
@@ -40,6 +26,14 @@ class ProjControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/proj/about');
         $this->assertRouteSame("proj_about");
+        $this->assertResponseIsSuccessful();
+    }
+
+    public function testProjCheat(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/proj/cheat');
+        $this->assertRouteSame("proj_cheat");
         $this->assertResponseIsSuccessful();
     }
 

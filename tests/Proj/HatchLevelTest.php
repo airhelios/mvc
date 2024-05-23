@@ -5,7 +5,7 @@ namespace App\Proj;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test cases for class Dice.
+ * Test cases for class HatchLevel.
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class HatchLevelTest extends TestCase

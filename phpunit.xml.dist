@@ -45,9 +45,10 @@
             <file>src/CardGraphic.php</file>
             <file>src/CardHand.php</file>
             <file>src/DeckOfCards.php</file>
+            <file>src/Entity/Book.php</file>
             <directory suffix=".php">src/Service</directory>
-            <directory suffix=".php">src/Entity</directory>
-            <directory suffix=".php">src/Repository</directory>
+            <!-- <directory suffix=".php">src/Entity</directory> -->
+            <!-- <directory suffix=".php">src/Repository</directory> -->
         </exclude>
 
 

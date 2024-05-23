@@ -5,7 +5,7 @@ namespace App\Proj;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test cases for class Dice.
+ * Test cases for class BothPortalsLevel.
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class BothPortalsLevelTest extends TestCase
