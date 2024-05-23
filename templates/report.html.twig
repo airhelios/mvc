@@ -202,6 +202,132 @@ det känns mindre strukturerat. Jag vet inte varför det finns controllers i bå
     <li>Testning är allmänt känt för att öka kodkvalitet.</li>
     <li>Cyklomatisk komplexitet är något man bör hålla nere.</li>
 </ul>
+
+<h1 id="kmom10">Kmom10</h1></a>
+
+<h2>Krav 1-3: Webbplats</h2>
+<p class="report">Jag valde att skapa ett point-and-click-spel i form av en escape room, med 4-6 banor (beroende på hur man räkna).
+    Tanken är att man ska ta sig till sista rummet och klara spelet. Man kan klicka var som helst på en bild och se ifall det leder till någon specifik reaktion.
+    Spelet är skapat i 8-bitarsgrafik. Jag har använt mig av ChatGPT för att ta fram bilder. Promptsen till ChatGPT har varit någon variant av ”8-bit images of medieval style cottage",
+    ”sling”, ”portals”, ”hatch” med mera. Jag har modifierat promptsen för att se till så att jag får bilden såsom jag vill ha den (can you make the portal key look like a
+    garage opener but in 8 bit-style but more in tune with the previous image?).</p>
+
+<p class="report">Jag skapade en ny SCSS-mapp för att bygga den nya stylesheet:en. Återanvände tidigare SCSS-filer men såg till så att fonten var mer lik spelet,
+    jag la till bakgrundsbild, tog bort footer, la till 8-bitsknappar (inte min egen CSS-kod, jag hittade den på nätet), alltså allt för att göra sidan mer likt ett 8-bitarsspel.
+    Spelet är inte anpassat för att vara mobilt responsiv, det hade nog gjort kodningen mycket mer komplicerad. </p>
+
+<p class="report">Min README.md var skapad i kmom01/02 men hade en bra grundstruktur som jag ändrade om i och anpassade för kmom10.
+    Jag la till en extra bild och beskrev kursen, kursmomenten och projektet.</p>
+
+<p class="report">Mina badges från Scrutinizer var kvar från tidigare kmom.</p>
+
+<p class="report">Jag testade alla klasser som jag själv hade skrivit för att få en kodtäckning på nästan 100% (även controllers). 
+    Detta innebär alltså att jag knappt testade Repository och all testning av Entities var en biprodukt, allt annat som inte testades exkluderades från coverage rapporten.</p>
+<h2>Krav 4: JSON</h2>
+<p class="report">Det svåra med detta krav var inte den tekniska biten. Det var att fundera ut 5 olika API-routes som var användbara för mitt projekt. Till slut så landade jag på dessa routes:</p>
+<ul class="report">
+<li>En lista på alla som nådde det lyckliga slutet i spelet.</li>
+<li>En lista på alla som nådde det olyckliga slutet i spelet.</li>
+<li>Få status på spelet (den kollar diverse sessionvariabler).</li>
+<li>IP-adresser på alla som har valt att spara sitt namn när man har klarat spelet.</li>
+<li>Återställ alla tabeller till defaultläge.</li>
+<li>POST: man flyttar alla namn i tabellen för det olyckliga slutet till det lyckliga slutet. De går från condemned till saved alltså. För att POST action ska fungera så har jag kopplat denna knapp till ett formulär</li>
+</ul>
+
+<p class="report">Alla routes, förutom en, var kopplade till databasen. Jag skapade en egen APIProjController-klass för att göra koden lite mer överskådlig och objektorienterad. Jag skapade även tester för alla routes i controllern.</p>
+<p class="report">Alla länkar gjordes i 8-bitars knappar för att de skulle vara enhetliga med resterande projekt.</p>
+<h2>Krav 5: ORM</h2>
+
+<p class="report">Jag skapade tre Entities med tillhörande Repositories (och tillhörande tabeller) via Doctrine. 
+Jag använde mig av SQLite här för att jag anser det vara en enkel lösning till en enkel liten databas som inte kräver en server. 
+Jag hade två tabeller för att spara alla som fullföljde spelet och en tabell för att spara IP-adresserna på de som klarade spelet. 
+Dessa tabeller är inte direkt kopplade till varandra, de hade kunnat vara det, men jag bestämde mig för att ha en lös koppling istället. 
+Detta innebär att jag har funktioner som för in lite av informationen i de två andra tabellerna till IP-tabellen. 
+När man raderar någon rad i de två andra tabellerna så påverkas inte IP-tabellen. Det finns också en funktion som för över alla rader i ena tabellen till den andra tabellen.</p>
+
+<p class="report">Informationen i tabellerna får man tillgång via API-routes:en som skapades i krav 4.</p>
+
+<p class="report">Jag gjorde några enkla enhetstester till Repository-klasserna bara för att testa om det fungerade, 
+jag gjorde dock aldrig några till Entity för att det kändes mer tidskrävande än tankemässigt utmanande.</p> 
+
+<p class="report">Mitt ER-diagram gjordes med draw.io.</p>
+<h2>Krav 6: Avancerade features</h2>
+<p class="report">Jag skulle vilja framhäva följande features:</p>
+<ol class="ul-report">
+<li><p class="report">100% kodtäckning på mina levels i point-and-click-spelet samt 100% kodtäckning i mina två controller-klasser till det här projektet. 
+    En stor del av controllers är beroende av formulärdata och sessions. Jag arbetade länge med att försöka ”mocka” sessiondata och formulärdata. 
+    Formulärdatan var tvungen att hanteras på två sätt beroende på ifall jag använde Symfonys inbyggda formulärklass (FormBuilderInterface) eller ifall jag använde ett vanligt HTML-formulär.</p> 
+
+    <p class="report">Formulärtestningen löste jag genom att lägga till parametrar i $client->request()-funktionen (mer om $client senare) 
+        med datan som jag ville skicka samt en header som säkerställde att content-type var "application/x-www-form-urlencoded". 
+        Jag använde den inbyggda DOM-crawlern i Symfony för att testa FormBuilderInterface-formuläret.</p>
+    
+    <p class="report">Det var betydligt svårare att testa routes som var beroende av session. Mina mock sessions och cookies fungerade inte. 
+        Jag fick inte session-variablerna som jag skapade i testfunktionen att följa med in i route-funktionen. 
+        Till slut insåg jag att $client som jag använt för att skapa requests mot mina routes i testklasserna är en typ av headless browser. 
+        Den fungerar alltså som en browser utan GUI. För att få in data i session så får man dirigera den till att utföra de handlingar på sidan som skapar den data jag vill ha. 
+        Om mitt spel exempelvis ställer om variabeln key=false till key=true efter att man klickar på en viss punkt på en av banorna i mitt spel, 
+        då får man se till så att $client utför denna klickning också. Efter denna insikt kunde jag få upp min kodtäckning till 100%.</p>
+    
+    <p class="report">Man kan diskutera ifall testandet skedde på rätt sätt och ifall kodtäckning är det bästa mätvärdet för att bedöma ifall koden har rätt tester. 
+        Dock anser jag det ändå vara en bedrift att lyckas få 100% kodtäckning och mina tester ger en bra bild av ifall applikationen fungerar som den ska.</p>
+    </li>
+<li>
+
+    <p class="report">Min abstrakta klass Level samt mina alla "levels" byggda på denna. 
+    För att göra det enklare för mig att lägga till nya banor/levels i mitt spel så skapade jag en grundläggande abstrakt klass: 
+    Level. Denna innehöll abstrakta och konkreta metoder som alla ärvande klasser kunde skapa och modifiera. 
+    Den grundläggande idén var att varje klass ska ha metoder som berättar:</p>
+    <ul class="ul-report">
+    <li>var man ska kunna klicka för att spelet ska reagera (antingen att man klickar vidare till nästa bana eller att man får en nyckel eller item).</li>
+    <li>vilken bild spelet ska baseras på.</li>
+    <li>vilken nästa bana är och vad kravet är för att få tillgång till den banan. Man kan ställa in egen logik för varje bana eller utgå från den abstrakta klassens logik.</li>
+    <li>vilken föregående bana var.</li>
+    <li>samt har enkla metoder för att hämta ut data.</li>
+    </ul>
+    <p class="report">Detta tycker jag är en elegant objektorienterad lösning för att bygga mitt spel på ett enkelt och enhetligt sätt. 
+        Skulle jag vilja så hade det varit enkelt att skapa fler levels.</p>
+</li>
+
+<li>
+<p class="report">Min klick-funktion i spelet som baseras på att jag bland annat ändrade importmap.php och webpack.config.js för att importera en proj.js-fil. 
+    Denna proj.js-fil användes istället för den vanliga app.js, vars syfte är att importera .scss-filer.</p>
+
+    <p class="report">I proj.js skapade jag en event listener som spårade koordinaterna på varje klick i spelet. 
+        Den la sen in dessa koordinater som värden i ett dolt formulär och submittade det formuläret. 
+        Jag hade en route som kontrollerade ifall klick-koordinaterna hamnade i närheten av någon dörr/item på den specifika banan. 
+        Om den gjorde det så sparades detta item, eller så kunde man kontrollera ifall man hade alla rätt items (nycklar) för att gå vidare till nästa level. 
+        Som tidigare nämnt så kunde man för varje level ställa in var de dolda objekten/dörrarna skulle ligga och vad som krävdes för att man skulle få tillgång till nästa level.</p>
+    
+    <p class="report">Denna enkla lösning med en event listener och ett dolt formulär tycker jag är minimalistiskt och lätt att förstå. 
+        Den är robust och går inte alltför långt utanför kursens PHP-ramar, JavaScript-koden är endast på 8 rader.</p>
+</li>
+<li>
+<p class="report">Jag är också nöjd med dessa saker som är lite enklare men utanför kursens ramar:</p>
+<ul class="ul-report">
+    <li>Ett enhetligt 8-bitars gränssnitt som förstärks av mina ChatGPT-genererade-bilder. 
+    För 40 år sen så hade man kanske kunnat tjäna mycket pengar på ett spel som detta, fast litet större.</li>
+    <li>Jag använder Symfonys egna inbyggda FormBuilderInterface för att skapa ett formulär som sparar namnet på de som slutför spelet. 
+    Jag är nöjd med denna bit för att vi inte har gått igenom detta i kursen tidigare, det är trevligt att kunna skapa en lösning utifrån Symfony-dokumentation 
+    istället för dokumentation från kursen.</li>
+</ul>
+</li>
+</ol>
+
+<h2>Om projektets genomförande</h2>
+<p class="report">Projektet tog mer än de där 20-40 timmarna. Förutom spellogiken och grafiken, som jag beskrev i krav 6 ovan, så tog testningen och Scrutinizer-delen lång tid (jag tror jag la 8-10h på felsökande). 95% av alla mina Scrutinizer-fel berodde på att min .gitignore-fil ledde till att relevanta delar inte laddades upp till mitt repo. Nu tror jag mig i alla fall veta hur man använder Scrutinizer och feltestar på ett mindre smärtsamt sätt.</p>
+<p class="report">Jag förstår också att när man gör något så fritt som ett spel som man designar själv så kan det leda till att det tar mycket längre tid, projektet har ju färre ramar att förhålla sig till. Jag är ändå nöjd med mitt val och jag tror inte jag hade klarat av att programmera ytterligare ett kortspel. Detta var betydligt mer stimulerande.</p>
+<p class="report">I övrigt så kunde man återanvända mycket av koden från tidigare kursmoment. Vi hade ju redan byggt upp produktionsmiljön sen innan. Vi hade också blivit bekanta med alla verktyg (PHPUnit, PHPMD etc.). </p>
+<p class="report">Jag blev lite förvirrad kring ORM-kravet, eller specifikt ER-diagrammet. Jag fick känslan av att man skulle skapa flera foreign keys och relationer i ens databas. Jag gjorde inte detta för jag kände inte att det behövdes och det fanns inget specifikt krav, men jag fick känslan att man hintade till att man bör göra det. </p>
+<p class="report">Projektet var kanske fortfarande lite för stort för kursen, jag hade gärna haft det lite mindre omfattande. I såna fall hade man kanske kunnat skära ner på Scrutinizer-delen.</p>
+<h2>Tankar kring kurs</h2></p>
+<p class="report">Jag är återigen väldigt nöjd med ytterligare en av era kurser! Vi täckte många områden, jag gillar detta. Vi arbetade enligt MVC-mönstret, vi lärde oss mer om OOP, vi byggde vidare på våra databaskunskaper, vi lärde oss att arbeta med Symfony, vi utförde fler enhetstester m.m. </p>
+<p class="report">Vi kollade överskådligt på en del designmönster och vad bra kod är, vilket var väldigt intressant. Jag hade gärna grottat ner mig mer i den senare delen.</p>
+<p class="report">Hade jag rekommenderat kursen till kollegor? Absolut, speciellt om det handlar om att utveckla webbapplikationer i något PHP-ramverk. </p>
+<p class="report">Två förbättringsområden: skulle ni kunna berätta mer om felsökande i Scrutinizer (alt. skrota Scrutinizer helt)? Det börjar bli lite tråkigt med alla enkla kortspel, tärningar osv. hade ni eventuellt skapa lite andra utmaningar?</p>
+<p class="report">Hur som helst så är jag nöjd med kursen, jag tycker jag har lärt mig mycket matigt. Jag känner mig redo att testa att bygga en egen fri applikation i Symfony/Laravel till sommaren. Jag ger kursen 8.5/10.</p>
+
+
 </div>
 
 {% endblock %}
