@@ -3,10 +3,40 @@
 {% block title %}About Project{% endblock %}
 
 {% block body %}
-<div class="proj-container center">
-    <h1 class="text-center">HEJ</h1>
-
-
+<div class="proj-container center bg-white font8px">
+    <h1 class="text-center">Databas till projektet</h1>
+    <p class="report">Se nedan för ett ER-diagram på de databastabeller som skapades till det här projektet. SQLite har använts som databas eftersom det är en enkel teknologi som inte kräver en server. Operationerna
+        på databasen kommer vara enkla och därför är SQLite lämpligast.   
+        Två ER-diagram har ritats, ett optimalt (det övre) ifall det fanns kopplingar mellan databaserna och
+        ett som beskriver hur tabellerna är kopplade(det nedre). Bedömningen var att kopplingarna (dvs att ha de Condemned/Saved som foreign keys i IPLogger) skulle ha lett till 
+        ytterligare komplexitet i databasen. Exempelvis så hade det uppmuntrat soft deletes istället för att bevara raden i IPLogger-tabellen när den relevanta Condemned/Saved-entiteten raderades. Den fejkade kopplingen löstes genom att
+        se till så att när det läggs till en rad i Condemned/Saved så läggs en rad i IPLogger med samma namn, destination och IP-adress. När en rad i Condemned/Saved raderas så påverkar inte detta
+        IPLogger-tabellen alls.
+            <img class="database-img" src="{{ asset('img/project/ER.svg') }}">
+        </p>
+        <p class="report">
+        Tre tabeller har skapats:        
+        </p>
+        <ul class="ul-report font8px">
+            <li>Condemned - Name, Time samt ID (primary key) sparas i tabellen. Denna ska innehålla namn på de som fick det mörka slutet i spelet och valde att spara sitt namn.</li>
+            <li>Saved - Name, Time samt ID (primary key) sparas i tabellen. Denna ska innehålla namn på de som fick det lyckliga slutet i spelet och valde att spara sitt namn.</li>
+            <li>IPLogger - Name, Destination, IP (adress) samt ID (primary key) sparas i tabellen. Denna ska logga alla som valde att spara sitt namn i formuläret i slutet på spelet. Destination är antingen helvetet eller Elysium.
+        </ul>
+        <p class="report">
+            Jag bedömde att det var viktigare att göra tester på de klasser som styrde spelet och mina 2 controllers till projektet. När jag väl hade uppnått nästan 100% coverage på dem, så såg jag att
+            Entity-klasserna hade en coverage på >75%. Även Repository hade en viss coverage. Detta behövde inte betyda att de testades, utan att de användes i tester för att säkerställa att mina routes/klasser gick igenom testerna.
+            Min tanke var att inte alls göra några tester på Entity/Repository men jag bestämde mig ändå för att göra några enkla tester med Repository genom att hämta en specifik rad per Repository.
+            Till en början hade jag problem med att få igenom mina databastester i Scrutinizer, efter några timmars felsökning så såg jag att det var för att jag hade lagt min databas-sökväg i .gitignore. När
+            jag väl la till den så att databasen laddades upp till min repo så fungerade testerna utmärkt.
+        </p>
+        <h1 class="text-center">ORM</h1>
+        <p class="report">
+            Implementeringen av ORM har fördelen att den sköter kopplingen till databasen på ett sätt som är väldigt likt övriga ramverket/språket det är skrivet för. Queries mot databaser sker
+            nästan alltid med SQL, ett språk som är effektivt men inte så mångsidigt. Det är mycket mycket enklare att låta API:er eller ORM-implementeringen hantera de komplexa operationerna. Om så önskar så kan
+            man i implementeringen ändå skriva i SQL-statements och exekvera dem mot databasen.  
+        </p>
+        <p class="report">
+        </p>
 
 </div>
 {% endblock %}
