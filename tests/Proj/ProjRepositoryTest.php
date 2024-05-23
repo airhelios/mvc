@@ -30,7 +30,8 @@ class ProjRepositoryTest extends KernelTestCase
         parent::tearDown();
 
         // doing this is recommended to avoid memory leaks
-        $this->entityManager->close();
+        $this->entityManager->/** @scrutinizer ignore-call */
+                            close();
         $this->entityManager = null;
     }
 
