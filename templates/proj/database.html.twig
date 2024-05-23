@@ -32,10 +32,22 @@
         <h1 class="text-center">ORM</h1>
         <p class="report">
             Implementeringen av ORM har fördelen att den sköter kopplingen till databasen på ett sätt som är väldigt likt övriga ramverket/språket det är skrivet för. Queries mot databaser sker
-            nästan alltid med SQL, ett språk som är effektivt men inte så mångsidigt. Det är mycket mycket enklare att låta API:er eller ORM-implementeringen hantera de komplexa operationerna. Om så önskar så kan
-            man i implementeringen ändå skriva i SQL-statements och exekvera dem mot databasen.  
+            nästan alltid med SQL, ett språk som är effektivt men inte så mångsidigt. Det är mycket enklare att låta API:er eller ORM-implementeringen hantera de komplexa operationerna. Om man så önskar så kan
+            man i implementeringen ändå skriva SQL-statements och exekvera dem mot databasen.  
         </p>
         <p class="report">
+            Ramverket som skrivs för att implementera ORM (Doctrine i denna kurs) har även flertalet inbyggda funktioner som förenklar operationerna mot databaserna (lägg till/ta bort/modifiera rader, hitta rader, iterera igenom rader etc.). 
+            Doctrine hjälper även till att skapa Entities, som är PHP-objekt som representerar en rad i en tabell.
+        </p>
+        <p class="report">
+            Nackdelen med ORM är att det sker en del dolda processer som man inte har lika mycket styrning över.
+            Man blir tvungen att lära sig hur ORM-ramverket fungerar (vad är migrationer, varför krävs repositories etc.). Det finns många sätt att implementera en ORM och inte bara enligt repository pattern som Doctrine gör. Lärdomarna från en ORM
+            är kanske inte överförbara till en annan (ex, SQLAlchemy i Python). SQL-kod däremot är ganska universellt och det är inte särskilt svårt (gissar jag) att lära sig att använda PostgreSQL när man väl kan MariaDB.
+        </p>
+
+        <p class="report">
+            Överlag är jag glad över att vi börjar med ORM. Det är så industrin arbetat mot databaser. Jag hade faktiskt velat lära mig mer om de olika design patterns för databaser, sånt intresserar mig. Jag erkänner också
+            att det finns en hel del saker jag inte förstår med Doctrine än och jag är lite mer försiktig till att göra förändringar i mina Entities/tabeller nu än vad jag hade varit ifall vi hade arbetat med SQL direkt mot MariaDB.
         </p>
 
 </div>
